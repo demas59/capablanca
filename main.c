@@ -11,10 +11,11 @@ Grille initialisation(){
 	int i,j;
 	for(i=0;i<10;i++){
 		for(j=0;j<8;j++){
-			Coord coord = malloc(sizeof(struct coord_));
+			grille[i][j]=createPiece();
+			/*Coord coord = malloc(sizeof(struct coord_));
 			coord->x = i;
 			coord->y = j;
-			grille->pions[i][j]->coord = coord;
+			grille->pions[i][j]->coord = coord;*/
 		// 	grille->pions[i][j]->actif = -1;
 		// 	grille->pions[i][j]->type = 'a';
 		}

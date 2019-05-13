@@ -1,7 +1,3 @@
-#include <stdio.h>
-#include <stddef.h>
-#include <stdlib.h>
-
 typedef struct coord_ {
 	int x;
 	int y;
