@@ -7,8 +7,5 @@ int main(void){
 	Grille grille = initialisation();
 	affichage(grille);
 	int echec_et_mat = 0;
-
-	while(echec_et_mat == 0){
-		grille -> tour ++;
-	}
+	proposerDeplacer(grille,* grille -> pions);
 }
