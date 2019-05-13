@@ -23,3 +23,13 @@ Grille initialisation();
 Coord createCoord(int x, int y);
 
 Piece createPiece(int color, int x, int y, char type);
+
+int jouer(Grille grille);
+
+Coord choosePawn(Grille grille);
+
+Coord * proposerDeplacer(Grille grille,Piece piece);
+
+Coord chooseMove(Coord * moves);
+
+void movePawn(Grille grille, Coord depart, Coord fin);
