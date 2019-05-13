@@ -6,17 +6,17 @@
 /*Créé la grille et place toutes les pièces*/
 Grille initialisation(){
 	Grille grille = malloc(sizeof(struct grille_));
-	grille->pions = malloc(sizeof(struct piece_)*10*8);
+	grille->pions = (Piece **)malloc(sizeof(struct piece_)*10*8);
+
 	int i,j;
 	for(i=0;i<10;i++){
 		for(j=0;j<8;j++){
-			grille->pions[i][j].color = -1;
 			Coord coord = malloc(sizeof(struct coord_));
 			coord->x = i;
 			coord->y = j;
-			/*grille->pions[i][j].coord = coord;
-			grille->pions[i][j]->actif = -1;
-			grille->pions[i][j]->type = 'a';*/
+			grille->pions[i][j]->coord = coord;
+		// 	grille->pions[i][j]->actif = -1;
+		// 	grille->pions[i][j]->type = 'a';
 		}
 	}
 	printf("fin\n");
@@ -28,7 +28,6 @@ void affichage(Grille grille){
 	int i,j;
 	for(i=0;i<10;i++){
 		for(j=0;j<8;j++){
-			printf("%c",grille->pions[i][j].type);
 		}
 	}
 }
