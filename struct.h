@@ -15,7 +15,7 @@ typedef struct piece_ {
 } * Piece;
 
 typedef struct grille_ {
-	Piece * pions;
-	Piece mort;
+	Piece pions[10][8];
+	Piece mort[40];
 } * Grille;
 
