@@ -12,6 +12,13 @@ typedef struct piece_ {
 
 typedef struct grille_ {
 	Piece * pions;
-	Piece  mort;
+	Piece mort;
 } * Grille;
 
+void affichage(Grille grille);
+
+Grille initialisation();
+
+Coord createCoord(int x, int y);
+
+Piece createPiece(int color, int x, int y, int type);

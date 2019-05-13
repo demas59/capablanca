@@ -100,7 +100,7 @@ void Echec(Grille grille){
 
 }
 
-int main(){
+int main(void){
 	Grille grille = initialisation();
 	affichage(grille);
 }
