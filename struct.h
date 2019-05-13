@@ -7,11 +7,11 @@ typedef struct piece_ {
 	int color;
 	Coord coord;
 	int actif;
-	int type;
+	char type;
 } * Piece;
 
 typedef struct grille_ {
-	Piece ** pions;
-	Piece * mort;
+	Piece * pions;
+	Piece  mort;
 } * Grille;
 
