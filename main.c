@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "struct.h"
 
-//Créé la grille et place toutes les pièces
+/*Créé la grille et place toutes les pièces*/
 Grille initialisation(){
 	Grille grille = malloc(sizeof(struct grille_));
 	grille->pions = malloc(sizeof(struct piece_)*10*8);
@@ -14,16 +14,16 @@ Grille initialisation(){
 			Coord coord = malloc(sizeof(struct coord_));
 			coord->x = i;
 			coord->y = j;
-			// grille->pions[i][j].coord = coord;
-			// grille->pions[i][j]->actif = -1;
-			// grille->pions[i][j]->type = 'a';
+			/*grille->pions[i][j].coord = coord;
+			grille->pions[i][j]->actif = -1;
+			grille->pions[i][j]->type = 'a';*/
 		}
 	}
 	printf("fin\n");
 	return grille;
 }
 
-//Affiche la grille de jeu
+/*Affiche la grille de jeu*/
 void affichage(Grille grille){
 	int i,j;
 	for(i=0;i<10;i++){
@@ -43,5 +43,5 @@ void Echec(Grille grille){
 
 int main(){
 	Grille grille = initialisation();
-	// affichage(grille);
+	/*affichage(grille);*/
 }
