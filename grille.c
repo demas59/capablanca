@@ -64,6 +64,8 @@ Grille initialisation(){
 	}
 	Grille grille = (Grille) malloc(sizeof(struct grille_));
 	grille -> pions = pieces;
+	grille -> mort = malloc(sizeof(struct piece_)*10*8);
+	grille -> tour = 1;
 	return grille;
 }
 
@@ -71,7 +73,7 @@ Grille initialisation(){
 /*Affiche la grille de jeu*/
 void affichage(Grille grille){
 	system ("clear");
-	printf("\n\t|-1---2---3---4---5---6---7---8---9--10-|\n\t");
+	printf("\n\t|-a---b---c---d---e---f---g---h---i---j-|\n\t");
 	printf("|---------------------------------------|\n\t");
 	int i,j;
 	Piece * plateau = grille -> pions;
@@ -79,9 +81,9 @@ void affichage(Grille grille){
 		for(j=0;j<10;j++){
 			printf("| %c ",(*(plateau+(i*10+j)))->type);
 			if(j == 9){
-				printf("|%d\n\t|---------------------------------------|\n\t", i);
+				printf("|%d\n\t|---------------------------------------|\n\t", i+1);
 			}
 		}
 	}
-	printf("|-1---2---3---4---5---6---7---8---9--10-|\n\t");
+	printf("|-a---b---c---d---e---f---g---h---i---j-|\n\t");
 }

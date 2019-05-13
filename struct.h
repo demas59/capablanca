@@ -12,7 +12,8 @@ typedef struct piece_ {
 
 typedef struct grille_ {
 	Piece * pions;
-	Piece mort;
+	Piece * mort;
+	int tour;
 } * Grille;
 
 void affichage(Grille grille);
