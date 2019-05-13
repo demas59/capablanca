@@ -21,4 +21,4 @@ Grille initialisation();
 
 Coord createCoord(int x, int y);
 
-Piece createPiece(int color, int x, int y, int type);
+Piece createPiece(int color, int x, int y, char type);
