@@ -125,7 +125,7 @@ int getIndice(int i, int j)
 	return i*10+j;
 }
 
-Coord choosePawn(Grille grille)
+Piece choosePawn(Grille grille)
 {
 	char choix[2] = {0};
 	printf("Joueur %d, veuillez choisir une piece a deplacer (ex: a2, b3, d6).\n", ((grille->tour)%2)+1);
@@ -138,9 +138,9 @@ Coord choosePawn(Grille grille)
 	int joueur=(grille->tour)%2+1;
 
 
-	if(joueur==indice)
+	if(joueur==grille->pions[indice]->color)
 	{
-		return createCoord(ligne, colone);
+		return grille->pions[indice];
 	}else
 	{
 		return NULL;
