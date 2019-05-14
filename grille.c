@@ -12,12 +12,12 @@ Grille createGrille()
 
 void setColor(int i,int j,Piece * pieces){
 	if(i == 0 || i == 1){
-				(*(pieces+(i*10+j)))->color=0;
+				(*(pieces+(i*10+j)))->color=1;
 			}else{
 				if(i == 6 || i == 7){
-					(*(pieces+(i*10+j)))->color=1;
+					(*(pieces+(i*10+j)))->color=2;
 				}else{
-					(*(pieces+(i*10+j)))->color=-1;
+					(*(pieces+(i*10+j)))->color=0;
 				}
 	}
 }
@@ -72,7 +72,7 @@ Grille initialisation(){
 
 /*Affiche la grille de jeu*/
 void affichage(Grille grille){
-	system ("clear");
+/*	system("clear");*/
 	printf("\n\t|-a---b---c---d---e---f---g---h---i---j-|\n\t");
 	printf("|---------------------------------------|\n\t");
 	int i,j;

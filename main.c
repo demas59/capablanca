@@ -8,7 +8,8 @@ int main(void){
 	affichage(grille);
 	int echec_et_mat = 0;
 
-	while(echec_et_mat == 0){
+	while(echec_et_mat == 0 && grille -> tour<=3){
 		grille -> tour ++;
+		choosePawn(grille);
 	}
 }
