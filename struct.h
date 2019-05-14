@@ -26,7 +26,7 @@ Piece createPiece(int color, int x, int y, char type);
 
 int jouer(Grille grille);
 
-Coord choosePawn(Grille grille);
+Piece choosePawn(Grille grille);
 
 Coord * proposerDeplacer(Grille grille,Piece piece);
 

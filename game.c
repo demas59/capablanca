@@ -138,9 +138,9 @@ Coord choosePawn(Grille grille)
 	int joueur=(grille->tour)%2+1;
 
 
-	if(joueur==indice)
+	if(joueur==grille->pions[indice]->color)
 	{
-		return createCoord(ligne, colone);
+		return grille->pions[indice];
 	}else
 	{
 		return NULL;

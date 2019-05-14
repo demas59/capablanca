@@ -10,7 +10,7 @@ int main(void){
 
 	while(echec_et_mat == 0 && grille -> tour<=3){
 		grille -> tour ++;
-		choosePawn(grille);
+		printf("%c - ", choosePawn(grille)->type);
 	}
 	proposerDeplacer(grille,(* (grille -> pions)));
 }
