@@ -12,4 +12,5 @@ int main(void){
 		grille -> tour ++;
 		choosePawn(grille);
 	}
+	proposerDeplacer(grille,(* (grille -> pions)));
 }

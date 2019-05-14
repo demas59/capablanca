@@ -85,5 +85,5 @@ void affichage(Grille grille){
 			}
 		}
 	}
-	printf("|-a---b---c---d---e---f---g---h---i---j-|\n\t");
+	printf("|-a---b---c---d---e---f---g---h---i---j-|\n");
 }
