@@ -72,7 +72,7 @@ Grille initialisation(){
 
 /*Affiche la grille de jeu*/
 void affichage(Grille grille){
-	system ("clear");
+/*	system("clear");*/
 	printf("\n\t|-a---b---c---d---e---f---g---h---i---j-|\n\t");
 	printf("|---------------------------------------|\n\t");
 	int i,j;
