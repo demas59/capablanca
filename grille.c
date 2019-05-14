@@ -12,12 +12,12 @@ Grille createGrille()
 
 void setColor(int i,int j,Piece * pieces){
 	if(i == 0 || i == 1){
-				(*(pieces+(i*10+j)))->color=0;
+				(*(pieces+(i*10+j)))->color=1;
 			}else{
 				if(i == 6 || i == 7){
-					(*(pieces+(i*10+j)))->color=1;
+					(*(pieces+(i*10+j)))->color=2;
 				}else{
-					(*(pieces+(i*10+j)))->color=-1;
+					(*(pieces+(i*10+j)))->color=0;
 				}
 	}
 }
