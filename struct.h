@@ -44,3 +44,7 @@ void mouvPion(Grille grille,Piece piece,Coord * coords, int * taille_max, int * 
 void ajoutCoord(Coord * coords,Coord coord,int * taille_max,int * nombre_element);
 
 void placerPiece(Grille grille,Piece piece);
+
+void mouvCavalier(Grille grille,Piece piece,Coord * coords, int * taille_max, int * nombre_element);
+
+void mouvFou(Grille grille,Piece piece,Coord * coords, int * taille_max, int * nombre_element);

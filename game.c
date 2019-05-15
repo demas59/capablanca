@@ -22,6 +22,10 @@ Coord * proposerDeplacer(Grille grille,Piece piece){
 		break;
 		case 'p': mouvPion(grille,piece,deplacement,&taille_max,&nombre_element);
 		break;
+		case 'c': mouvCavalier(grille,piece,deplacement,&taille_max,&nombre_element);
+		break;
+		case 'f': mouvFou(grille,piece,deplacement,&taille_max,&nombre_element);
+		break;
 	}
 
 	parcoursCoord(deplacement,nombre_element);
