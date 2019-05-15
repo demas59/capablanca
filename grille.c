@@ -24,28 +24,29 @@ void setColor(int i,int j,Piece * pieces){
 
 void setType(int i,int j, Piece * pieces){
 	if((j == 0 || j == 9) && (i == 0 || i == 7)){
-		(*(pieces+(i*10+j))) -> type = 't';
+		pieces[getIndice(i,j)] -> type = 't';
 	}
 	if((j == 1 || j == 8) && (i == 0 || i == 7)){
-		(*(pieces+(i*10+j))) -> type = 'c';
+		pieces[getIndice(i,j)] -> type = 'c';
 	}
 	if((j == 2) && (i == 0 || i == 7)){
-		(*(pieces+(i*10+j))) -> type = 'x';
+		pieces[getIndice(i,j)] -> type = 'x';
 	}
 	if((j == 3 || j == 6) && (i == 0 || i == 7)){
-		(*(pieces+(i*10+j))) -> type = 'f';
+		pieces[getIndice(i,j)] -> type = 'f';
 	}
 	if((j == 4) && (i == 0 || i == 7)){
-		(*(pieces+(i*10+j))) -> type = 'q';
+		pieces[getIndice(i,j)] -> type = 'q';
 	}
 	if((j == 5) && (i == 0 || i == 7)){
-		(*(pieces+(i*10+j))) -> type = 'k';
+		pieces[getIndice(i,j)] -> type = 'k';
 	}
 	if((j == 7) && (i == 0 || i == 7)){
-		(*(pieces+(i*10+j))) -> type = 'i';
+		pieces[getIndice(i,j)] -> type = 'i';
 	}
 	if(i == 1 || i == 6){
-		(*(pieces+(i*10+j))) -> type = 'p';
+		pieces[getIndice(i,j)] -> type = 'p';
+		pieces[getIndice(i,j)] -> deplace = 0;
 	}
 }
 
@@ -72,7 +73,7 @@ Grille initialisation(){
 
 /*Affiche la grille de jeu*/
 void affichage(Grille grille){
-/*	system("clear");*/
+	system("clear");
 	printf("\n\t|-a---b---c---d---e---f---g---h---i---j-|\n\t");
 	printf("|---------------------------------------|\n\t");
 	int i,j;

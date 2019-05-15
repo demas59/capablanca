@@ -5,12 +5,19 @@
 
 int main(void){
 	Grille grille = initialisation();
-	affichage(grille);
 	int echec_et_mat = 0;
+	Piece piece;
 
-	while(echec_et_mat == 0 && grille -> tour<=3){
+	Piece pion = createPiece(2,2,0,'p');
+	Piece pion2 = createPiece(1,5,0,'p');
+	placerPiece(grille,pion);
+
+	placerPiece(grille,pion2);
+	affichage(grille);
+
+	while(echec_et_mat == 0 && grille -> tour<=2){
 		grille -> tour ++;
-		printf("%c - ", choosePawn(grille)->type);
+		piece = choosePawn(grille);
+		proposerDeplacer(grille,piece);
 	}
-	proposerDeplacer(grille,(* (grille -> pions)));
 }

@@ -12,3 +12,177 @@ Piece createPiece(int color, int x, int y, char type)
 	p->type=type;
 	return p;
 }
+
+void mouvTour(Grille grille,Piece piece,Coord * coords, int * taille_max, int * nombre_element){
+	int x;
+	int y;
+	int equipe = piece -> color;
+	Piece * plateau = grille -> pions;
+
+	x = piece -> coord -> x;
+	y = piece -> coord -> y;
+
+	for(;x<8;x++){
+		if(!(piece->coord->x == x && piece->coord->y == y)){
+			if(plateau[getIndice(x,y)] -> color != equipe){
+				Coord coord = malloc(sizeof(Coord));
+				coord -> x = x;
+				coord -> y = y;
+				ajoutCoord(coords, coord,taille_max,nombre_element);
+					if(plateau[getIndice(x,y)] -> type != ' '){
+						break;
+					}
+			}else{
+				break;
+			}
+		}
+	}
+
+	x = piece -> coord -> x;
+	y = piece -> coord -> y;
+
+	for(;x>=0;x--){
+		if(!(piece->coord->x == x && piece->coord->y == y)){
+			if(plateau[getIndice(x,y)] -> color != equipe){
+				Coord coord = malloc(sizeof(Coord));
+				coord -> x = x;
+				coord -> y = y;
+				ajoutCoord(coords, coord,taille_max,nombre_element);
+					if(plateau[getIndice(x,y)] -> type != ' '){
+						break;
+					}
+			}else{
+				break;
+			}
+		}
+	}
+
+	x = piece -> coord -> x;
+	y = piece -> coord -> y;
+
+	for(;y<10;y++){
+		if(!(piece->coord->x == x && piece->coord->y == y)){
+			if(plateau[getIndice(x,y)] -> color != equipe){
+				Coord coord = malloc(sizeof(Coord));
+				coord -> x = x;
+				coord -> y = y;
+				ajoutCoord(coords, coord,taille_max,nombre_element);
+					if(plateau[getIndice(x,y)] -> type != ' '){
+						break;
+					}
+			}else{
+				break;
+			}
+		}
+	}
+
+	x = piece -> coord -> x;
+	y = piece -> coord -> y;
+
+	for(;y>=0;y--){
+		if(!(piece->coord->x == x && piece->coord->y == y)){
+			if(plateau[getIndice(x,y)] -> color != equipe){
+				Coord coord = malloc(sizeof(Coord));
+				coord -> x = x;
+				coord -> y = y;
+				ajoutCoord(coords, coord,taille_max,nombre_element);
+					if(plateau[getIndice(x,y)] -> type != ' '){
+						break;
+					}
+			}else{
+				break;
+			}
+		}
+	}
+}
+
+void mouvPion(Grille grille,Piece piece,Coord * coords, int * taille_max, int * nombre_element){
+	int x;
+	int y;
+	int equipe = piece -> color;
+	Piece * plateau = grille -> pions;
+
+	x = piece -> coord -> x;
+	y = piece -> coord -> y;
+
+	int porte = 0;
+
+	if(equipe == 1){
+
+		if(piece -> deplace == 0){
+			porte = x+3;
+		}else{
+			porte = x+2;
+		}
+
+		for(++x;x<porte;x++){
+			if(plateau[getIndice(x,y)] -> color == 0){
+				Coord coord = malloc(sizeof(Coord));
+				coord -> x = x;
+				coord -> y = y;
+				ajoutCoord(coords, coord,taille_max,nombre_element);
+			}else{
+				break;
+			}
+		}
+
+		x = piece -> coord -> x;
+		y = piece -> coord -> y;
+		if((y>0) && (plateau[getIndice(x+1,y-1)] -> color != equipe) && (plateau[getIndice(x+1,y-1)] -> color != 0)){
+			Coord coord = malloc(sizeof(Coord));
+				coord -> x = x+1;
+				coord -> y = y-1;
+				ajoutCoord(coords, coord,taille_max,nombre_element);
+		}
+
+		x = piece -> coord -> x;
+		y = piece -> coord -> y;
+		if((y<9) && (plateau[getIndice(x+1,y+1)] -> color != equipe) && (plateau[getIndice(x+1,y+1)] -> color != 0)){
+			Coord coord = malloc(sizeof(Coord));
+				coord -> x = x+1;
+				coord -> y = y+1;
+				ajoutCoord(coords, coord,taille_max,nombre_element);
+		}
+	}else{
+
+		if(piece -> deplace == 0){
+			porte = x-3;
+		}else{
+			porte = x-2;
+		}
+
+		for(--x;x>porte;x--){
+			if(plateau[getIndice(x,y)] -> color == 0){
+				Coord coord = malloc(sizeof(Coord));
+				coord -> x = x;
+				coord -> y = y;
+				ajoutCoord(coords, coord,taille_max,nombre_element);
+			}else{
+				break;
+			}
+		}
+
+		x = piece -> coord -> x;
+		y = piece -> coord -> y;
+		if((y>0) && (plateau[getIndice(x-1,y-1)] -> color != equipe) && (plateau[getIndice(x-1,y-1)] -> color != 0)){
+			Coord coord = malloc(sizeof(Coord));
+				coord -> x = x-1;
+				coord -> y = y-1;
+				ajoutCoord(coords, coord,taille_max,nombre_element);
+		}
+
+		x = piece -> coord -> x;
+		y = piece -> coord -> y;
+		if((y<9) && (plateau[getIndice(x-1,y+1)] -> color != equipe) && (plateau[getIndice(x-1,y+1)] -> color != 0)){
+			Coord coord = malloc(sizeof(Coord));
+				coord -> x = x-1;
+				coord -> y = y+1;
+				ajoutCoord(coords, coord,taille_max,nombre_element);
+		}
+	}
+}
+
+void placerPiece(Grille grille,Piece piece){
+	grille -> pions[getIndice(piece -> coord -> x,piece-> coord -> y)] = piece;
+}
+
