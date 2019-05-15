@@ -5,30 +5,27 @@
 
 void parcoursCoord(Coord * coords,int nombre_element){
 	int i;
+	printf("Deplacement possibles:\n");
 	for(i = 0; i<nombre_element; i++){
 		Coord coord = *(coords + i);
 		printf("coord: %c%d\n",'a'+coord->y,coord->x + 1 );
 	}
 }
 
-Coord * proposerDeplacer(Grille grille,Piece piece){
-	int taille_max = 20;
-	int nombre_element = 0;
 
-	Coord * deplacement = malloc(sizeof(Coord) * taille_max);
+Coord * proposerDeplacer(Grille grille,Piece piece,int * taille_max,int * nombre_element,Coord * deplacement){
 
 	switch(piece -> type){
-		case 't': mouvTour(grille,piece,deplacement,&taille_max,&nombre_element);
+		case 't': mouvTour(grille,piece,deplacement,taille_max,nombre_element);
 		break;
-		case 'p': mouvPion(grille,piece,deplacement,&taille_max,&nombre_element);
+		case 'p': mouvPion(grille,piece,deplacement,taille_max,nombre_element);
 		break;
-		case 'c': mouvCavalier(grille,piece,deplacement,&taille_max,&nombre_element);
+		case 'c': mouvCavalier(grille,piece,deplacement,taille_max,nombre_element);
 		break;
-		case 'f': mouvFou(grille,piece,deplacement,&taille_max,&nombre_element);
+		case 'f': mouvFou(grille,piece,deplacement,taille_max,nombre_element);
 		break;
 	}
 
-	parcoursCoord(deplacement,nombre_element);
 	return deplacement;
 }
 
