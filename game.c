@@ -24,6 +24,17 @@ Coord * proposerDeplacer(Grille grille,Piece piece,int * taille_max,int * nombre
 		break;
 		case 'f': mouvFou(grille,piece,deplacement,taille_max,nombre_element);
 		break;
+		case 'q': mouvTour(grille,piece,deplacement,taille_max,nombre_element);
+					mouvFou(grille,piece,deplacement,taille_max,nombre_element);		
+		break;
+		case 'x': mouvFou(grille,piece,deplacement,taille_max,nombre_element);
+					mouvCavalier(grille,piece,deplacement,taille_max,nombre_element);		
+		break;
+		case 'i': mouvTour(grille,piece,deplacement,taille_max,nombre_element);
+					mouvCavalier(grille,piece,deplacement,taille_max,nombre_element);		
+		break;
+		case 'k': mouvRoi(grille,piece,deplacement,taille_max,nombre_element);	
+		break;
 	}
 
 	return deplacement;

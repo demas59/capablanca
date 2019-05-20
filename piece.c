@@ -294,14 +294,21 @@ void mouvFou(Grille grille,Piece piece,Coord * coords, int * taille_max, int * n
 	int x = piece -> coord -> x;
 	int y = piece -> coord -> y;
 	int equipe = piece -> color;
-	Piece * plateau = grille -> pions;
+	int adversaire;
 
+	if(equipe == 1){
+		adversaire = 2;
+	}else{
+		adversaire = 1;
+	}
+
+	Piece * plateau = grille -> pions;
 	while((x != 7) && (y != 9) && (plateau[getIndice(x+1,y+1)]->color != equipe)){
 		Coord coord = malloc(sizeof(Coord));
 		coord -> x = x + 1;
 		coord -> y = y + 1;
 		ajoutCoord(coords, coord,taille_max,nombre_element);
-		if(plateau[getIndice(x,y)]->color == 0){
+		if(plateau[getIndice(x,y)]->color == adversaire){
 			break;
 		}
 		x++;
@@ -315,7 +322,7 @@ void mouvFou(Grille grille,Piece piece,Coord * coords, int * taille_max, int * n
 		coord -> x = x - 1;
 		coord -> y = y + 1;
 		ajoutCoord(coords, coord,taille_max,nombre_element);
-		if(plateau[getIndice(x,y)]->color == 0){
+		if(plateau[getIndice(x,y)]->color == adversaire){
 			break;
 		}
 		x--;
@@ -329,7 +336,7 @@ void mouvFou(Grille grille,Piece piece,Coord * coords, int * taille_max, int * n
 		coord -> x = x - 1;
 		coord -> y = y - 1;
 		ajoutCoord(coords, coord,taille_max,nombre_element);
-		if(plateau[getIndice(x,y)]->color == 0){
+		if(plateau[getIndice(x,y)]->color == adversaire){
 			break;
 		}
 		x--;
@@ -343,14 +350,89 @@ void mouvFou(Grille grille,Piece piece,Coord * coords, int * taille_max, int * n
 		coord -> x = x + 1;
 		coord -> y = y - 1;
 		ajoutCoord(coords, coord,taille_max,nombre_element);
-		if(plateau[getIndice(x,y)]->color == 0){
+		if(plateau[getIndice(x,y)]->color == adversaire){
 			break;
 		}
 		x++;
 		y--;
 	}
+}
 
-	printf("HERE\n");
+void mouvRoi(Grille grille,Piece piece,Coord * coords, int * taille_max, int * nombre_element){
+	int x = piece -> coord -> x;
+	int y = piece -> coord -> y;
+	int equipe = piece -> color;
+	Piece * plateau = grille -> pions;
+
+	if(x != 0 && plateau[getIndice(x-1,y)]->color != equipe){
+		Coord coord = malloc(sizeof(Coord));
+		coord -> x = x - 1;
+		coord -> y = y;
+		ajoutCoord(coords, coord,taille_max,nombre_element);
+	}
+
+	x = piece -> coord -> x;
+	y = piece -> coord -> y;
+	if(x != 7 && plateau[getIndice(x+1,y)]->color != equipe){
+		Coord coord = malloc(sizeof(Coord));
+		coord -> x = x + 1;
+		coord -> y = y;
+		ajoutCoord(coords, coord,taille_max,nombre_element);
+	}
+
+	x = piece -> coord -> x;
+	y = piece -> coord -> y;
+	if(y != 0 && plateau[getIndice(x,y-1)]->color != equipe){
+		Coord coord = malloc(sizeof(Coord));
+		coord -> x = x;
+		coord -> y = y - 1;
+		ajoutCoord(coords, coord,taille_max,nombre_element);
+	}
+
+	x = piece -> coord -> x;
+	y = piece -> coord -> y;
+	if(y != 9 && plateau[getIndice(x,y+1)]->color != equipe){
+		Coord coord = malloc(sizeof(Coord));
+		coord -> x = x;
+		coord -> y = y + 1;
+		ajoutCoord(coords, coord,taille_max,nombre_element);
+	}
+
+	x = piece -> coord -> x;
+	y = piece -> coord -> y;
+	if(y != 0 && x != 0 && plateau[getIndice(x-1,y-1)]->color != equipe){
+		Coord coord = malloc(sizeof(Coord));
+		coord -> x = x - 1;
+		coord -> y = y - 1;
+		ajoutCoord(coords, coord,taille_max,nombre_element);
+	}
+
+	x = piece -> coord -> x;
+	y = piece -> coord -> y;
+	if(y != 0 && x != 7 && plateau[getIndice(x+1,y-1)]->color != equipe){
+		Coord coord = malloc(sizeof(Coord));
+		coord -> x = x + 1;
+		coord -> y = y - 1;
+		ajoutCoord(coords, coord,taille_max,nombre_element);
+	}
+
+	x = piece -> coord -> x;
+	y = piece -> coord -> y;
+	if(y != 9 && x != 0 && plateau[getIndice(x-1,y+1)]->color != equipe){
+		Coord coord = malloc(sizeof(Coord));
+		coord -> x = x - 1;
+		coord -> y = y + 1;
+		ajoutCoord(coords, coord,taille_max,nombre_element);
+	}
+
+	x = piece -> coord -> x;
+	y = piece -> coord -> y;
+	if(y != 9 && x != 7 && plateau[getIndice(x+1,y+1)]->color != equipe){
+		Coord coord = malloc(sizeof(Coord));
+		coord -> x = x + 1;
+		coord -> y = y + 1;
+		ajoutCoord(coords, coord,taille_max,nombre_element);
+	}
 }
 
 void placerPiece(Grille grille,Piece piece){

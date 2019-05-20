@@ -18,8 +18,9 @@ int getIndice(int i, int j)
 
 void ajoutCoord(Coord * coords,Coord coord,int * taille_max,int * nombre_element){
 	if(*nombre_element == *taille_max){
+		printf("AGRANDISSEMENT\n");
 		*taille_max += 10;
-		realloc(coords, sizeof(Coord) * (*taille_max));
+		coords = (Coord *)realloc(coords, sizeof(Coord) * (*taille_max));
 	}
 	*(coords + *nombre_element) = coord;
 	(*nombre_element)++;

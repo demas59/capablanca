@@ -50,8 +50,11 @@ void mouvCavalier(Grille grille,Piece piece,Coord * coords, int * taille_max, in
 
 void mouvFou(Grille grille,Piece piece,Coord * coords, int * taille_max, int * nombre_element);
 
+void mouvRoi(Grille grille,Piece piece,Coord * coords, int * taille_max, int * nombre_element);
+
 void parcoursCoord(Coord * coords,int nombre_element);
 
 Coord choixCoord(Coord * coords, int nombre_element);
 
 void deplacerPiece(Grille grille,Coord coordDepart, Coord coordFin);
+
