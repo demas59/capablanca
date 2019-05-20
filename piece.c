@@ -10,10 +10,11 @@ Piece createPiece(int color, int x, int y, char type)
 	p->coord=createCoord(x, y);
 	p->color=color;
 	p->type=type;
+	p->deplacement = createDeplacement();
 	return p;
 }
 
-void mouvTour(Grille grille,Piece piece,Coord * coords, int * taille_max, int * nombre_element){
+void mouvTour(Grille grille,Piece piece){
 	int x;
 	int y;
 	int equipe = piece -> color;
@@ -28,7 +29,7 @@ void mouvTour(Grille grille,Piece piece,Coord * coords, int * taille_max, int * 
 				Coord coord = malloc(sizeof(Coord));
 				coord -> x = x;
 				coord -> y = y;
-				ajoutCoord(coords, coord,taille_max,nombre_element);
+				ajoutCoord(coord,piece);
 					if(plateau[getIndice(x,y)] -> type != ' '){
 						break;
 					}
@@ -47,7 +48,7 @@ void mouvTour(Grille grille,Piece piece,Coord * coords, int * taille_max, int * 
 				Coord coord = malloc(sizeof(Coord));
 				coord -> x = x;
 				coord -> y = y;
-				ajoutCoord(coords, coord,taille_max,nombre_element);
+				ajoutCoord(coord,piece);
 					if(plateau[getIndice(x,y)] -> type != ' '){
 						break;
 					}
@@ -66,7 +67,7 @@ void mouvTour(Grille grille,Piece piece,Coord * coords, int * taille_max, int * 
 				Coord coord = malloc(sizeof(Coord));
 				coord -> x = x;
 				coord -> y = y;
-				ajoutCoord(coords, coord,taille_max,nombre_element);
+				ajoutCoord(coord,piece);
 					if(plateau[getIndice(x,y)] -> type != ' '){
 						break;
 					}
@@ -85,7 +86,7 @@ void mouvTour(Grille grille,Piece piece,Coord * coords, int * taille_max, int * 
 				Coord coord = malloc(sizeof(Coord));
 				coord -> x = x;
 				coord -> y = y;
-				ajoutCoord(coords, coord,taille_max,nombre_element);
+				ajoutCoord(coord,piece);
 					if(plateau[getIndice(x,y)] -> type != ' '){
 						break;
 					}
@@ -96,7 +97,7 @@ void mouvTour(Grille grille,Piece piece,Coord * coords, int * taille_max, int * 
 	}
 }
 
-void mouvPion(Grille grille,Piece piece,Coord * coords, int * taille_max, int * nombre_element){
+void mouvPion(Grille grille,Piece piece){
 	int x;
 	int y;
 	int equipe = piece -> color;
@@ -109,7 +110,7 @@ void mouvPion(Grille grille,Piece piece,Coord * coords, int * taille_max, int * 
 
 	if(equipe == 1){
 
-		if(piece -> deplace == 0){
+		if(piece -> deplacement -> deplace == 0){
 			porte = x+3;
 		}else{
 			porte = x+2;
@@ -120,7 +121,7 @@ void mouvPion(Grille grille,Piece piece,Coord * coords, int * taille_max, int * 
 				Coord coord = malloc(sizeof(Coord));
 				coord -> x = x;
 				coord -> y = y;
-				ajoutCoord(coords, coord,taille_max,nombre_element);
+				ajoutCoord(coord,piece);
 			}else{
 				break;
 			}
@@ -132,7 +133,7 @@ void mouvPion(Grille grille,Piece piece,Coord * coords, int * taille_max, int * 
 			Coord coord = malloc(sizeof(Coord));
 				coord -> x = x+1;
 				coord -> y = y-1;
-				ajoutCoord(coords, coord,taille_max,nombre_element);
+				ajoutCoord(coord,piece);
 		}
 
 		x = piece -> coord -> x;
@@ -141,11 +142,11 @@ void mouvPion(Grille grille,Piece piece,Coord * coords, int * taille_max, int * 
 			Coord coord = malloc(sizeof(Coord));
 				coord -> x = x+1;
 				coord -> y = y+1;
-				ajoutCoord(coords, coord,taille_max,nombre_element);
+				ajoutCoord(coord,piece);
 		}
 	}else{
 
-		if(piece -> deplace == 0){
+		if(piece -> deplacement -> deplace == 0){
 			porte = x-3;
 		}else{
 			porte = x-2;
@@ -156,7 +157,7 @@ void mouvPion(Grille grille,Piece piece,Coord * coords, int * taille_max, int * 
 				Coord coord = malloc(sizeof(Coord));
 				coord -> x = x;
 				coord -> y = y;
-				ajoutCoord(coords, coord,taille_max,nombre_element);
+				ajoutCoord(coord,piece);
 			}else{
 				break;
 			}
@@ -168,7 +169,7 @@ void mouvPion(Grille grille,Piece piece,Coord * coords, int * taille_max, int * 
 			Coord coord = malloc(sizeof(Coord));
 				coord -> x = x-1;
 				coord -> y = y-1;
-				ajoutCoord(coords, coord,taille_max,nombre_element);
+				ajoutCoord(coord,piece);
 		}
 
 		x = piece -> coord -> x;
@@ -177,12 +178,12 @@ void mouvPion(Grille grille,Piece piece,Coord * coords, int * taille_max, int * 
 			Coord coord = malloc(sizeof(Coord));
 				coord -> x = x-1;
 				coord -> y = y+1;
-				ajoutCoord(coords, coord,taille_max,nombre_element);
+				ajoutCoord(coord,piece);
 		}
 	}
 }
 
-void mouvCavalier(Grille grille,Piece piece,Coord * coords, int * taille_max, int * nombre_element){
+void mouvCavalier(Grille grille,Piece piece){
 	int x = piece -> coord -> x;
 	int y = piece -> coord -> y;
 	int equipe = piece -> color;
@@ -197,7 +198,7 @@ void mouvCavalier(Grille grille,Piece piece,Coord * coords, int * taille_max, in
 				Coord coord = malloc(sizeof(Coord));
 				coord -> x = x - 2;
 				coord -> y = y - 1;
-				ajoutCoord(coords, coord,taille_max,nombre_element);
+				ajoutCoord(coord,piece);
 			}
 		}
 		if(y<9){
@@ -208,7 +209,7 @@ void mouvCavalier(Grille grille,Piece piece,Coord * coords, int * taille_max, in
 				Coord coord = malloc(sizeof(Coord));
 				coord -> x = x - 2;
 				coord -> y = y + 1;
-				ajoutCoord(coords, coord,taille_max,nombre_element);
+				ajoutCoord(coord,piece);
 			}
 		}
 	}
@@ -222,7 +223,7 @@ void mouvCavalier(Grille grille,Piece piece,Coord * coords, int * taille_max, in
 				Coord coord = malloc(sizeof(Coord));
 				coord -> x = x + 2;
 				coord -> y = y - 1;
-				ajoutCoord(coords, coord,taille_max,nombre_element);
+				ajoutCoord(coord,piece);
 			}
 		}
 		if(y<9){
@@ -233,7 +234,7 @@ void mouvCavalier(Grille grille,Piece piece,Coord * coords, int * taille_max, in
 				Coord coord = malloc(sizeof(Coord));
 				coord -> x = x + 2;
 				coord -> y = y + 1;
-				ajoutCoord(coords, coord,taille_max,nombre_element);
+				ajoutCoord(coord,piece);
 			}
 		}
 	}
@@ -247,7 +248,7 @@ void mouvCavalier(Grille grille,Piece piece,Coord * coords, int * taille_max, in
 				Coord coord = malloc(sizeof(Coord));
 				coord -> x = x - 1;
 				coord -> y = y - 2;
-				ajoutCoord(coords, coord,taille_max,nombre_element);
+				ajoutCoord(coord,piece);
 			}
 		}
 		if(x<7){
@@ -258,7 +259,7 @@ void mouvCavalier(Grille grille,Piece piece,Coord * coords, int * taille_max, in
 				Coord coord = malloc(sizeof(Coord));
 				coord -> x = x + 1;
 				coord -> y = y -2;
-				ajoutCoord(coords, coord,taille_max,nombre_element);
+				ajoutCoord(coord,piece);
 			}
 		}
 	}
@@ -272,7 +273,7 @@ void mouvCavalier(Grille grille,Piece piece,Coord * coords, int * taille_max, in
 				Coord coord = malloc(sizeof(Coord));
 				coord -> x = x - 1;
 				coord -> y = y + 2;
-				ajoutCoord(coords, coord,taille_max,nombre_element);
+				ajoutCoord(coord,piece);
 			}
 		}
 		if(x<7){
@@ -283,14 +284,14 @@ void mouvCavalier(Grille grille,Piece piece,Coord * coords, int * taille_max, in
 				Coord coord = malloc(sizeof(Coord));
 				coord -> x = x + 1;
 				coord -> y = y + 2;
-				ajoutCoord(coords, coord,taille_max,nombre_element);
+				ajoutCoord(coord,piece);
 			}
 		}
 	}
 }
 
 
-void mouvFou(Grille grille,Piece piece,Coord * coords, int * taille_max, int * nombre_element){
+void mouvFou(Grille grille,Piece piece){
 	int x = piece -> coord -> x;
 	int y = piece -> coord -> y;
 	int equipe = piece -> color;
@@ -307,7 +308,7 @@ void mouvFou(Grille grille,Piece piece,Coord * coords, int * taille_max, int * n
 		Coord coord = malloc(sizeof(Coord));
 		coord -> x = x + 1;
 		coord -> y = y + 1;
-		ajoutCoord(coords, coord,taille_max,nombre_element);
+		ajoutCoord(coord,piece);
 		if(plateau[getIndice(x,y)]->color == adversaire){
 			break;
 		}
@@ -321,7 +322,7 @@ void mouvFou(Grille grille,Piece piece,Coord * coords, int * taille_max, int * n
 		Coord coord = malloc(sizeof(Coord));
 		coord -> x = x - 1;
 		coord -> y = y + 1;
-		ajoutCoord(coords, coord,taille_max,nombre_element);
+		ajoutCoord(coord,piece);
 		if(plateau[getIndice(x,y)]->color == adversaire){
 			break;
 		}
@@ -335,7 +336,7 @@ void mouvFou(Grille grille,Piece piece,Coord * coords, int * taille_max, int * n
 		Coord coord = malloc(sizeof(Coord));
 		coord -> x = x - 1;
 		coord -> y = y - 1;
-		ajoutCoord(coords, coord,taille_max,nombre_element);
+		ajoutCoord(coord,piece);
 		if(plateau[getIndice(x,y)]->color == adversaire){
 			break;
 		}
@@ -349,7 +350,7 @@ void mouvFou(Grille grille,Piece piece,Coord * coords, int * taille_max, int * n
 		Coord coord = malloc(sizeof(Coord));
 		coord -> x = x + 1;
 		coord -> y = y - 1;
-		ajoutCoord(coords, coord,taille_max,nombre_element);
+		ajoutCoord(coord,piece);
 		if(plateau[getIndice(x,y)]->color == adversaire){
 			break;
 		}
@@ -358,7 +359,7 @@ void mouvFou(Grille grille,Piece piece,Coord * coords, int * taille_max, int * n
 	}
 }
 
-void mouvRoi(Grille grille,Piece piece,Coord * coords, int * taille_max, int * nombre_element){
+void mouvRoi(Grille grille,Piece piece){
 	int x = piece -> coord -> x;
 	int y = piece -> coord -> y;
 	int equipe = piece -> color;
@@ -368,7 +369,7 @@ void mouvRoi(Grille grille,Piece piece,Coord * coords, int * taille_max, int * n
 		Coord coord = malloc(sizeof(Coord));
 		coord -> x = x - 1;
 		coord -> y = y;
-		ajoutCoord(coords, coord,taille_max,nombre_element);
+		ajoutCoord(coord,piece);
 	}
 
 	x = piece -> coord -> x;
@@ -377,7 +378,7 @@ void mouvRoi(Grille grille,Piece piece,Coord * coords, int * taille_max, int * n
 		Coord coord = malloc(sizeof(Coord));
 		coord -> x = x + 1;
 		coord -> y = y;
-		ajoutCoord(coords, coord,taille_max,nombre_element);
+		ajoutCoord(coord,piece);
 	}
 
 	x = piece -> coord -> x;
@@ -386,7 +387,7 @@ void mouvRoi(Grille grille,Piece piece,Coord * coords, int * taille_max, int * n
 		Coord coord = malloc(sizeof(Coord));
 		coord -> x = x;
 		coord -> y = y - 1;
-		ajoutCoord(coords, coord,taille_max,nombre_element);
+		ajoutCoord(coord,piece);
 	}
 
 	x = piece -> coord -> x;
@@ -395,7 +396,7 @@ void mouvRoi(Grille grille,Piece piece,Coord * coords, int * taille_max, int * n
 		Coord coord = malloc(sizeof(Coord));
 		coord -> x = x;
 		coord -> y = y + 1;
-		ajoutCoord(coords, coord,taille_max,nombre_element);
+		ajoutCoord(coord,piece);
 	}
 
 	x = piece -> coord -> x;
@@ -404,7 +405,7 @@ void mouvRoi(Grille grille,Piece piece,Coord * coords, int * taille_max, int * n
 		Coord coord = malloc(sizeof(Coord));
 		coord -> x = x - 1;
 		coord -> y = y - 1;
-		ajoutCoord(coords, coord,taille_max,nombre_element);
+		ajoutCoord(coord,piece);
 	}
 
 	x = piece -> coord -> x;
@@ -413,7 +414,7 @@ void mouvRoi(Grille grille,Piece piece,Coord * coords, int * taille_max, int * n
 		Coord coord = malloc(sizeof(Coord));
 		coord -> x = x + 1;
 		coord -> y = y - 1;
-		ajoutCoord(coords, coord,taille_max,nombre_element);
+		ajoutCoord(coord,piece);
 	}
 
 	x = piece -> coord -> x;
@@ -422,7 +423,7 @@ void mouvRoi(Grille grille,Piece piece,Coord * coords, int * taille_max, int * n
 		Coord coord = malloc(sizeof(Coord));
 		coord -> x = x - 1;
 		coord -> y = y + 1;
-		ajoutCoord(coords, coord,taille_max,nombre_element);
+		ajoutCoord(coord,piece);
 	}
 
 	x = piece -> coord -> x;
@@ -431,7 +432,7 @@ void mouvRoi(Grille grille,Piece piece,Coord * coords, int * taille_max, int * n
 		Coord coord = malloc(sizeof(Coord));
 		coord -> x = x + 1;
 		coord -> y = y + 1;
-		ajoutCoord(coords, coord,taille_max,nombre_element);
+		ajoutCoord(coord,piece);
 	}
 }
 

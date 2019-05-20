@@ -58,7 +58,7 @@ Grille initialisation(){
 
 	for(i=0;i<8;i++){
 		for(j=0;j<10;j++){
-			(*(pieces+(i*10+j))) = createPiece(0,i,j,' ');
+			pieces[getIndice(i,j)] = createPiece(0,i,j,' ');
 			setColor(i,j,pieces);
 			setType(i,j,pieces);
 		}

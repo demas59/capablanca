@@ -13,31 +13,29 @@ void parcoursCoord(Coord * coords,int nombre_element){
 }
 
 
-Coord * proposerDeplacer(Grille grille,Piece piece,int * taille_max,int * nombre_element,Coord * deplacement){
+void proposerDeplacer(Grille grille,Piece piece){
 
 	switch(piece -> type){
-		case 't': mouvTour(grille,piece,deplacement,taille_max,nombre_element);
+		case 't': mouvTour(grille,piece);
 		break;
-		case 'p': mouvPion(grille,piece,deplacement,taille_max,nombre_element);
+		case 'p': mouvPion(grille,piece);
 		break;
-		case 'c': mouvCavalier(grille,piece,deplacement,taille_max,nombre_element);
+		case 'c': mouvCavalier(grille,piece);
 		break;
-		case 'f': mouvFou(grille,piece,deplacement,taille_max,nombre_element);
+		case 'f': mouvFou(grille,piece);
 		break;
-		case 'q': mouvTour(grille,piece,deplacement,taille_max,nombre_element);
-					mouvFou(grille,piece,deplacement,taille_max,nombre_element);		
+		case 'q': mouvTour(grille,piece);
+					mouvFou(grille,piece);		
 		break;
-		case 'x': mouvFou(grille,piece,deplacement,taille_max,nombre_element);
-					mouvCavalier(grille,piece,deplacement,taille_max,nombre_element);		
+		case 'x': mouvFou(grille,piece);
+					mouvCavalier(grille,piece);		
 		break;
-		case 'i': mouvTour(grille,piece,deplacement,taille_max,nombre_element);
-					mouvCavalier(grille,piece,deplacement,taille_max,nombre_element);		
+		case 'i': mouvTour(grille,piece);
+					mouvCavalier(grille,piece);		
 		break;
-		case 'k': mouvRoi(grille,piece,deplacement,taille_max,nombre_element);	
+		case 'k': mouvRoi(grille,piece);	
 		break;
 	}
-
-	return deplacement;
 }
 
 Piece choosePawn(Grille grille)
@@ -59,4 +57,50 @@ Piece choosePawn(Grille grille)
 	{
 		return NULL;
 	}
+}
+
+Piece trouverRoi(Grille grille){
+	int equipe = grille -> tour % 2 + 1;
+	int adversaire;
+
+	if(equipe == 1){
+		adversaire = 2;
+	}else{
+		adversaire = 1;
+	}
+
+	int i,j;
+	for(i = 0 ; i < 8 ; i++){
+		for(j = 0 ; j < 10 ; j++){
+			if(grille -> pions[getIndice(i,j)] -> color == adversaire && grille -> pions[getIndice(i,j)] -> type == 'k'){
+				return grille -> pions[getIndice(i,j)];
+			}
+		}
+	}
+
+	return NULL;
+}
+
+
+
+
+int echec(Grille grille){
+	int equipe = grille -> tour % 2 + 1;
+	Piece roi = trouverRoi(grille);
+
+	int i,j;
+	for(i = 0 ; i < 8 ; i++){
+		for(j = 0 ; j < 10 ; j++){
+			if(grille -> pions[getIndice(i,j)] -> color == equipe){
+				int k;
+				for(k=0 ; k<grille -> pions[getIndice(i,j)] -> deplacement -> nombre_element; k++){
+					if(grille -> pions[getIndice(i,j)] -> deplacement -> mouvements[k] -> x == roi -> coord -> x
+						&& grille -> pions[getIndice(i,j)] -> deplacement -> mouvements[k] -> y == roi -> coord -> y) {
+						return 1;
+					}
+				}
+			}
+		}
+	}
+	return 0;
 }

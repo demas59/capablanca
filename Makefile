@@ -1,5 +1,5 @@
-main: main.o grille.o piece.o coord.o game.o
-	gcc -o capa.exe main.o grille.o piece.o coord.o game.o -Wall -g;
+main: main.o grille.o piece.o coord.o game.o deplacement.o
+	gcc -o capa.exe main.o grille.o piece.o coord.o game.o deplacement.o -Wall -g;
 	#rm *.o;
 
 
@@ -14,6 +14,9 @@ grille.o: grille.c
 
 coord.o: coord.c
 	gcc -o coord.o -c coord.c -Wall -g
+
+deplacement.o: deplacement.c
+	gcc -o deplacement.o -c deplacement.c -Wall -g
 
 main.o: main.c struct.h
 	gcc -o main.o -c main.c -Wall -g
