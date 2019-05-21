@@ -30,3 +30,16 @@ void setDeplacement(Grille grille){
 		}
 	}
 }
+
+Deplacement copyDeplacement(Deplacement origine){
+	Deplacement copy = (Deplacement)malloc(sizeof(struct deplacement_));
+	copy -> deplace = origine -> deplace;
+	copy -> taille_max = origine -> taille_max;
+	copy -> nombre_element = origine -> nombre_element;
+	copy -> mouvements = (Coord *)malloc(sizeof(struct  coord_) * copy->nombre_element);
+	int i;
+	for(i = 0; i < copy->nombre_element ; i++){
+		copy->mouvements[i] = createCoord(origine -> mouvements[i] -> x, origine -> mouvements[i] -> y);
+	}
+	return copy;
+}

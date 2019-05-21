@@ -83,19 +83,36 @@ Piece trouverRoi(Grille grille){
 
 
 
-
-int echec(Grille grille){
-	int equipe = grille -> tour % 2 + 1;
+int echecMat(Grille grille, int equipe){
 	Piece roi = trouverRoi(grille);
+	int k;
+	int value = echec(roi -> coord,grille,equipe);
+
+	if( value == 0){
+		return 0;
+	}
+
+	for(k=0 ; k < roi -> deplacement -> nombre_element ; k++){
+		value = echec(roi -> deplacement -> mouvements[k],grille,equipe);
+		if(value == 0){
+			return 0;
+		}
+	}
+
+	return 1;
+}
+
+int echec(Coord coord,Grille grille,int equipe){
 
 	int i,j;
 	for(i = 0 ; i < 8 ; i++){
 		for(j = 0 ; j < 10 ; j++){
-			if(grille -> pions[getIndice(i,j)] -> color == equipe){
+			Piece pion = grille -> pions[getIndice(i,j)];
+			if(pion -> color == equipe){
 				int k;
-				for(k=0 ; k<grille -> pions[getIndice(i,j)] -> deplacement -> nombre_element; k++){
-					if(grille -> pions[getIndice(i,j)] -> deplacement -> mouvements[k] -> x == roi -> coord -> x
-						&& grille -> pions[getIndice(i,j)] -> deplacement -> mouvements[k] -> y == roi -> coord -> y) {
+				for(k = 0; k < pion -> deplacement -> nombre_element; k++){
+					Coord coordPossible = pion -> deplacement -> mouvements[k];
+					if(coordPossible -> x == coord -> x && coordPossible -> y == coord -> y){
 						return 1;
 					}
 				}

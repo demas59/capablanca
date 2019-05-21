@@ -13,7 +13,6 @@ typedef struct deplacement_ {
 typedef struct piece_ {
 	int color;
 	Coord coord;
-	int actif;
 	char type;
 	Deplacement deplacement;
 } * Piece;
@@ -71,4 +70,13 @@ void clearDeplacement(Grille grille);
 
 void setDeplacement(Grille grille);
 
-int echec(Grille grille);
+int echecMat(Grille grille, int equipe);
+
+int echec(Coord coord,Grille grille,int equipe);
+
+Deplacement copyDeplacement(Deplacement origine);
+
+Piece copyPiece(Piece piece);
+
+Grille copyGrille(Grille origine);
+

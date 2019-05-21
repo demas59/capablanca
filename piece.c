@@ -6,7 +6,6 @@
 Piece createPiece(int color, int x, int y, char type)
 {
 	Piece p=(Piece)malloc(sizeof(struct piece_));
-	p->actif=-1;
 	p->coord=createCoord(x, y);
 	p->color=color;
 	p->type=type;
@@ -438,5 +437,11 @@ void mouvRoi(Grille grille,Piece piece){
 
 void placerPiece(Grille grille,Piece piece){
 	grille -> pions[getIndice(piece -> coord -> x,piece-> coord -> y)] = piece;
+}
+
+Piece copyPiece(Piece origine){
+	Piece copy = createPiece(origine -> color,origine -> coord -> x,origine -> coord -> y, origine -> type);
+	copy -> deplacement = copyDeplacement(origine -> deplacement);
+	return copy;
 }
 

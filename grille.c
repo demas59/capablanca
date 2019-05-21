@@ -74,7 +74,7 @@ Grille initialisation(){
 
 /*Affiche la grille de jeu*/
 void affichage(Grille grille){
-	system("clear");
+	// system("clear");
 	printf("\n\t|-a---b---c---d---e---f---g---h---i---j-|\n\t");
 	printf("|---------------------------------------|\n\t");
 	int i,j;
@@ -128,4 +128,13 @@ void deplacerPiece(Grille grille,Coord coordDepart, Coord coordFin ){
 
 	grille -> pions[getIndice(coordDepart -> x,coordDepart -> y)] = createPiece(0,coordDepart -> x,coordDepart -> y,' ');
 	grille -> pions[getIndice(coordFin  -> x,coordFin -> y)] = depart;
+}
+
+Grille copyGrille(Grille origine){
+	Grille copy = createGrille();
+	int i;
+	for(i = 0; i< 80;i++){
+		copy -> pions[i] = copyPiece(origine -> pions[i]);
+	}
+	return copy;
 }

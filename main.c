@@ -19,12 +19,10 @@ int main(void){
 	// placerPiece(grille,fou);
 	affichage(grille);
 
-	Coord * deplacements;
-
+	clearDeplacement(grille);
+	setDeplacement(grille);
 	// while(echec_et_mat == 0 && grille -> tour<=2){
 	while(echec_et_mat == 0){
-		clearDeplacement(grille);
-		setDeplacement(grille);
 		grille -> tour ++;
 		piece = choosePawn(grille);
 		
@@ -32,6 +30,8 @@ int main(void){
 		Coord position_arrivee = choixCoord(piece->deplacement->mouvements,piece->deplacement->nombre_element);
 		deplacerPiece(grille,piece -> coord,position_arrivee  );
 		affichage(grille);
-		echec_et_mat = echec(grille);
+		clearDeplacement(grille);
+		setDeplacement(grille);
+		echec_et_mat = echecMat(grille,(grille->tour % 2 + 1));
 	}
 }
