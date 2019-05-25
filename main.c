@@ -24,6 +24,7 @@ int main(void){
 	// while(echec_et_mat == 0 && grille -> tour<=2){
 	while(echec_et_mat == 0){
 		grille -> tour ++;
+		IA_jouer(grille);
 		piece = choosePawn(grille);
 		
 

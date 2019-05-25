@@ -80,3 +80,5 @@ Piece copyPiece(Piece piece);
 
 Grille copyGrille(Grille origine);
 
+int IA_jouer(Grille grille);
+
