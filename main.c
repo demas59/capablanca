@@ -28,11 +28,11 @@ int main(void){
 		piece = choosePawn(grille);
 		
 
-		Coord position_arrivee = choixCoord(piece->deplacement->mouvements,piece->deplacement->nombre_element);
+		/*Coord position_arrivee = choixCoord(piece->deplacement->mouvements,piece->deplacement->nombre_element);
 		deplacerPiece(grille,piece -> coord,position_arrivee  );
 		affichage(grille);
 		clearDeplacement(grille);
 		setDeplacement(grille);
-		echec_et_mat = echecMat(grille,(grille->tour % 2 + 1));
+		echec_et_mat = echecMat(grille,(grille->tour % 2 + 1));*/
 	}
 }

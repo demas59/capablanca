@@ -7,6 +7,7 @@ Grille createGrille()
 {
 	Grille g=(Grille)malloc(sizeof(struct grille_));
 	g->pions=malloc(sizeof(struct piece_)*80);
+	g->mort=malloc(sizeof(struct piece_)*10*4);
 	return g;
 }
 
@@ -65,7 +66,7 @@ Grille initialisation(){
 	}
 	Grille grille = (Grille) malloc(sizeof(struct grille_));
 	grille -> pions = pieces;
-	grille -> mort = malloc(sizeof(struct piece_)*10*4);
+	//grille -> mort = malloc(sizeof(struct piece_)*10*4);
 	grille -> nbMort = 0;
 	grille -> tour = 1;
 	return grille;
@@ -79,6 +80,7 @@ void affichage(Grille grille){
 	printf("|---------------------------------------|\n\t");
 	int i,j;
 	Piece * plateau = grille -> pions;
+	
 	for(i=0;i<8;i++){
 		for(j=0;j<10;j++){
 			printf("|");
@@ -88,6 +90,7 @@ void affichage(Grille grille){
 			if(plateau[getIndice(i,j)]->color == 2){
 				printf("\x1B[34m");
 			}*/
+	
 			printf(" %c ",plateau[getIndice(i,j)]->type);
 			//printf("\x1B[0m");
 			if(j == 9){

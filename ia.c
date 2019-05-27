@@ -42,13 +42,15 @@ int get_importance_piece(Piece p);
 Move create_move(int ia, int ib, int value_piece, int points);
 void calc_moves(Grille g, int indice, int joueur, Move * moves, int * nbMoves, int * taille_max);
 int calc_max_victim(Grille grille, int joueur_actu);
+Coord coord_from_indice(int indice);
 
 
 int IA_jouer(Grille grille)
 {
-	Move * moves=(Move *)malloc(sizeof(struct Move_)*10);
+	printf("AI thinking...\n");
+	int taille_max=200;
+	Move * moves=(Move *)malloc(sizeof(struct Move_)*taille_max);
 	int nbMoves=0;
-	int taille_max=0;
 
 	int joueur_actu=grille->tour % 2 + 1;
 	int max_victime=calc_max_victim(grille, joueur_actu);
@@ -56,27 +58,83 @@ int IA_jouer(Grille grille)
 
 	if(max_victime==10)//echec(grille))
 	{
-		printf('ECHEC!!!!!!');
+		printf("ECHEC!!!!!!");
 		//jouerRoi
 	}else
 	{
 		int i;
+		int tmp_max_victim;
 		for(i=0; i<80; i++)
 		{
 			if(grille->pions[i]->color==joueur_actu)
 			{
+				//printf("%d ", i);
 				calc_moves(grille, i, joueur_actu, moves, &nbMoves, &taille_max);
 			}
 		}
-		Grille tmp=
+		Grille grille_tmp=copyGrille(grille);
+		Piece p;
+		for(i=0; i<nbMoves; i++)
+		{
+			p=grille_tmp->pions[moves[i]->indiceB];
+			deplacerPiece(grille_tmp, coord_from_indice(moves[i]->indiceA), coord_from_indice(moves[i]->indiceB));
+			tmp_max_victim=calc_max_victim(grille_tmp, joueur_actu);
+
+			//affichage(grille_tmp);
+
+			deplacerPiece(grille_tmp, coord_from_indice(moves[i]->indiceB), coord_from_indice(moves[i]->indiceA));
+			grille_tmp->pions[moves[i]->indiceB]=p;
+			moves[i]->points += max_victime - tmp_max_victim;
+		}
+		free(grille_tmp);
 	}
-	int i;
+
+	/*int i;
 	for(i=0; i<nbMoves; i++)
 	{
-		printf("%d - %d (%d): %d\n", moves[i]->indiceA, moves[i]->indiceB, moves[i]->value_piece, moves[i]->points);
+		printf("%d %d (%d): %d\n", moves[i]->indiceA, moves[i]->indiceB, moves[i]->value_piece, moves[i]->points);
+	}*/
+
+
+ 	Move move_elu;
+
+	int i;
+	int noteActu=-100;
+	for(i=0; i<nbMoves; i++)
+	{
+		//printf("%d - %d (%d): %d\n", moves[i]->indiceA, moves[i]->indiceB, moves[i]->value_piece, moves[i]->points);
+		if(moves[i]->points > noteActu)
+		{
+			noteActu=moves[i]->points;
+			move_elu=moves[i];
+		}else if(moves[i]->points==noteActu)
+		{
+			int	d= (int)rand()/(RAND_MAX+1.0)*2; 
+			if(d)
+			{
+				move_elu=moves[i];
+			}
+		}
 	}
+	//printf("----- %d - %d (%d): %d\n", move_elu->indiceA, move_elu->indiceB, move_elu->value_piece, move_elu->points);
+	//printf("----- %d - %c\n", grille->pions[move_elu->indiceB]->color, grille->pions[move_elu->indiceB]->type);
+
+	printf("----- %d - %d ; %d %d\n", coord_from_indice(move_elu->indiceA)->x, coord_from_indice(move_elu->indiceA)->y, coord_from_indice(move_elu->indiceB)->x, coord_from_indice(move_elu->indiceA)->y);
+	deplacerPiece(grille, coord_from_indice(move_elu->indiceA), coord_from_indice(move_elu->indiceB));
+
 	free(moves);
+	
+
+
+
 	return 1;
+}
+
+Coord coord_from_indice(int indice)
+{
+	int x=(int)indice/10;
+	int y=indice%10;
+	return createCoord(x, y);
 }
 
 int calc_max_victim(Grille grille, int joueur_actu)
@@ -118,7 +176,6 @@ void calc_moves(Grille g, int indice, int joueur, Move * moves, int * nbMoves, i
 		{
 			pts=1;
 		}
-
 		ajout_move(moves, nbMoves, taille_max, create_move(ia, ib, value_piece, pts));
 	}
 }
@@ -136,7 +193,6 @@ Move create_move(int ia, int ib, int value_piece, int points)
 int get_importance_piece(Piece p)
 {
 	char c=p -> type;
-	//printf("%c", c);
 	switch (c)
 	{
 		case 'p': return 1;//pion
@@ -153,10 +209,21 @@ int get_importance_piece(Piece p)
 
 void ajout_move(Move * moves, int * nbr_elements, int * taille_max, Move m)
 {
-	if(*nbr_elements==*taille_max && *nbr_elements!=0)
+	Move * tmp;
+	if(*nbr_elements+2==*taille_max && *nbr_elements!=0)
 	{
-		moves=(Move *)realloc(moves, (*taille_max)+10);
-		*taille_max=(*taille_max)+10;
+		*taille_max=(*taille_max)+200;
+
+		size_t size = (*taille_max) * sizeof(struct Move_);
+		
+		tmp=(Move *)realloc(moves, size);
+
+		if (tmp == NULL){
+			printf("Error memory ia.c\n");
+		}	
+		else {
+			moves =tmp;
+		}
 	}
 	moves[*nbr_elements]=m;
 	(*nbr_elements)++;
