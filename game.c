@@ -59,20 +59,13 @@ Piece choosePawn(Grille grille)
 	}
 }
 
-Piece trouverRoi(Grille grille){
-	int equipe = grille -> tour % 2 + 1;
-	int adversaire;
-
-	if(equipe == 1){
-		adversaire = 2;
-	}else{
-		adversaire = 1;
-	}
+/*Trouve le roi de l'équipe selectionnée*/
+Piece trouverRoi(Grille grille,int equipe){
 
 	int i,j;
 	for(i = 0 ; i < 8 ; i++){
 		for(j = 0 ; j < 10 ; j++){
-			if(grille -> pions[getIndice(i,j)] -> color == adversaire && grille -> pions[getIndice(i,j)] -> type == 'k'){
+			if(grille -> pions[getIndice(i,j)] -> color == equipe && grille -> pions[getIndice(i,j)] -> type == 'k'){
 				return grille -> pions[getIndice(i,j)];
 			}
 		}
@@ -81,19 +74,37 @@ Piece trouverRoi(Grille grille){
 	return NULL;
 }
 
-
+int roiPeutEtrePris(Piece piece,Coord coordArrive,Grille grille,int equipe){
+	Grille copy = copyGrille(grille);
+	Piece roi = trouverRoi(copy,equipe);
+	printf("coord piece: %d,%d\n",piece->coord->x,piece->coord->y);
+	printf("coord arrivee: %d,%d\n",coordArrive->x,coordArrive->y);
+	printf("case cible: %c\n",copy->pions[getIndice(coordArrive->x,coordArrive->y)]->type);
+	clearDeplacement(copy);
+	deplacerPiece(copy,piece -> coord,coordArrive);
+	setDeplacement(copy);
+	printf("deplacement fait\n");
+	if(echec(roi->coord,copy,equipe%2+1)){
+		free(copy);
+		return 1;
+	}
+	free(copy);
+	return 0;
+}
 
 int echecMat(Grille grille, int equipe){
-	Piece roi = trouverRoi(grille);
+	Piece roi = trouverRoi(grille,equipe%2+1);
 	int k;
-	int value = echec(roi -> coord,grille,equipe);
 
+	int value = echec(roi -> coord,grille,equipe);
 	if( value == 0){
 		return 0;
 	}
 
 	for(k=0 ; k < roi -> deplacement -> nombre_element ; k++){
-		value = echec(roi -> deplacement -> mouvements[k],grille,equipe);
+		Grille copy = copyGrille(grille);
+		deplacerPiece(copy,roi -> coord, roi -> deplacement -> mouvements[k]);
+		value = echec(roi -> deplacement -> mouvements[k],copy,equipe);
 		if(value == 0){
 			return 0;
 		}
@@ -103,7 +114,6 @@ int echecMat(Grille grille, int equipe){
 }
 
 int echec(Coord coord,Grille grille,int equipe){
-
 	int i,j;
 	for(i = 0 ; i < 8 ; i++){
 		for(j = 0 ; j < 10 ; j++){

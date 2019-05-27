@@ -114,10 +114,11 @@ Coord choixCoord(Coord * coords, int nombre_element){
 	int i;
 	for(i=0;i<nombre_element;i++){
 		if(coords[i]->x == ligne && coords[i]->y == colone){
+			free(choix);
 			return coords[i];
 		}
 	}
-
+	free(choix);
 	return NULL;
 }
 
