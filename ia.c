@@ -111,14 +111,14 @@ int IA_jouer(Grille grille)
 
 	if(move_elu==NULL)
 	{
-		return 0;
+		return 1;
 	}
 	
 	deplacerPiece(grille, coord_from_indice(move_elu->indiceA), coord_from_indice(move_elu->indiceB));
 
 	free(moves);
 
-	return 1;
+	return 0;
 }
 
 Coord coord_from_indice(int indice)
