@@ -66,7 +66,7 @@ Grille initialisation(){
 	}
 	Grille grille = (Grille) malloc(sizeof(struct grille_));
 	grille -> pions = pieces;
-	//grille -> mort = malloc(sizeof(struct piece_)*10*4);
+	grille -> mort = malloc(sizeof(struct piece_)*10*4);
 	grille -> nbMort = 0;
 	grille -> tour = 1;
 	return grille;

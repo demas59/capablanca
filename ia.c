@@ -89,10 +89,10 @@ int IA_jouer(Grille grille)
 		free(grille_tmp);
 	}
 
-	/*int i;
+/*	int i;
 	for(i=0; i<nbMoves; i++)
 	{
-		printf("%d %d (%d): %d\n", moves[i]->indiceA, moves[i]->indiceB, moves[i]->value_piece, moves[i]->points);
+		printf("%d -> %d %d (%d): %d\n", i, moves[i]->indiceA, moves[i]->indiceB, moves[i]->value_piece, moves[i]->points);
 	}*/
 
 
@@ -116,16 +116,13 @@ int IA_jouer(Grille grille)
 			}
 		}
 	}
-	//printf("----- %d - %d (%d): %d\n", move_elu->indiceA, move_elu->indiceB, move_elu->value_piece, move_elu->points);
-	//printf("----- %d - %c\n", grille->pions[move_elu->indiceB]->color, grille->pions[move_elu->indiceB]->type);
-
-	printf("----- %d - %d ; %d %d\n", coord_from_indice(move_elu->indiceA)->x, coord_from_indice(move_elu->indiceA)->y, coord_from_indice(move_elu->indiceB)->x, coord_from_indice(move_elu->indiceA)->y);
+	
 	deplacerPiece(grille, coord_from_indice(move_elu->indiceA), coord_from_indice(move_elu->indiceB));
 
 	free(moves);
 	
 
-
+//	affichage(grille);
 
 	return 1;
 }
