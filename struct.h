@@ -82,3 +82,7 @@ Grille copyGrille(Grille origine);
 
 int IA_jouer(Grille grille);
 
+Piece trouverRoi(Grille grille,int equipe);
+
+int roiPeutEtrePris(Piece piece,Coord coordArrive,Grille grille,int equipe);
+

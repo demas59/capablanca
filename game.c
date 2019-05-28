@@ -59,20 +59,13 @@ Piece choosePawn(Grille grille)
 	}
 }
 
-Piece trouverRoi(Grille grille){
-	int equipe = grille -> tour % 2 + 1;
-	int adversaire;
-
-	if(equipe == 1){
-		adversaire = 2;
-	}else{
-		adversaire = 1;
-	}
+/*Trouve le roi de l'équipe selectionnée*/
+Piece trouverRoi(Grille grille,int equipe){
 
 	int i,j;
 	for(i = 0 ; i < 8 ; i++){
 		for(j = 0 ; j < 10 ; j++){
-			if(grille -> pions[getIndice(i,j)] -> color == adversaire && grille -> pions[getIndice(i,j)] -> type == 'k'){
+			if(grille -> pions[getIndice(i,j)] -> color == equipe && grille -> pions[getIndice(i,j)] -> type == 'k'){
 				return grille -> pions[getIndice(i,j)];
 			}
 		}
@@ -97,7 +90,7 @@ int roiPeutEtrePris(Piece piece,Coord coordArrive,Grille grille,int equipe){
 
 
 int echecMat(Grille grille, int equipe){
-	Piece roi = trouverRoi(grille);
+	Piece roi = trouverRoi(grille,equipe % 2 + 1);
 	int k;
 	int value = echec(roi -> coord,grille,equipe);
 
