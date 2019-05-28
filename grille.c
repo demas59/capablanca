@@ -84,13 +84,12 @@ void affichage(Grille grille){
 	for(i=0;i<8;i++){
 		for(j=0;j<10;j++){
 			printf("|");
-			/*if(plateau[getIndice(i,j)]->color == 1){
-				printf("\x1B[31m");
+			if(plateau[getIndice(i,j)]->color == 1){
+				//printf("\x1B[31m");
 			}
 			if(plateau[getIndice(i,j)]->color == 2){
-				printf("\x1B[34m");
-			}*/
-	
+				//printf("\x1B[34m");
+			}
 			printf(" %c ",plateau[getIndice(i,j)]->type);
 			//printf("\x1B[0m");
 			if(j == 9){
