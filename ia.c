@@ -79,7 +79,7 @@ int IA_jouer(Grille grille)
 		deplacerPiece(grille_tmp, coord_from_indice(moves[i]->indiceB), coord_from_indice(moves[i]->indiceA));
 		grille_tmp->pions[moves[i]->indiceB]=p;
 		
-		if(max==10)
+		if(tmp_max_victim==10)
 		{
 			moves[i]->points = -100;
 		}else
@@ -92,7 +92,6 @@ int IA_jouer(Grille grille)
 
  	Move move_elu=NULL;
 
-	int i;
 	int noteActu=-50;
 	for(i=0; i<nbMoves; i++)
 	{
