@@ -84,26 +84,24 @@ int IA_jouer(Grille grille)
 
 			deplacerPiece(grille_tmp, coord_from_indice(moves[i]->indiceB), coord_from_indice(moves[i]->indiceA));
 			grille_tmp->pions[moves[i]->indiceB]=p;
-			moves[i]->points += max_victime - tmp_max_victim;
+			if(max==10)
+			{
+				moves[i]->points = -100;
+			}else
+			{
+				moves[i]->points += max_victime - tmp_max_victim;
+			}
 		}
 		free(grille_tmp);
 	}
 
-/*	int i;
-	for(i=0; i<nbMoves; i++)
-	{
-		printf("%d -> %d %d (%d): %d\n", i, moves[i]->indiceA, moves[i]->indiceB, moves[i]->value_piece, moves[i]->points);
-	}*/
-
-
- 	Move move_elu;
+ 	Move move_elu=NULL;
 
 	int i;
-	int noteActu=-100;
+	int noteActu=-50;
 	for(i=0; i<nbMoves; i++)
 	{
-		//printf("%d - %d (%d): %d\n", moves[i]->indiceA, moves[i]->indiceB, moves[i]->value_piece, moves[i]->points);
-		if(moves[i]->points > noteActu)
+		if(moves[i]->points > noteActu && moves[i]->points>-50)
 		{
 			noteActu=moves[i]->points;
 			move_elu=moves[i];
@@ -116,13 +114,16 @@ int IA_jouer(Grille grille)
 			}
 		}
 	}
+
+	if(move_elu==NULL)
+	{
+		return 0;
+	}
 	
 	deplacerPiece(grille, coord_from_indice(move_elu->indiceA), coord_from_indice(move_elu->indiceB));
 
 	free(moves);
 	
-
-//	affichage(grille);
 
 	return 1;
 }
