@@ -48,6 +48,7 @@ Coord coord_from_indice(int indice);
 int IA_jouer(Grille grille)
 {
 	printf("AI thinking...\n");
+
 	int taille_max=200;
 	Move * moves=(Move *)malloc(sizeof(struct Move_)*taille_max);
 	int nbMoves=0;
@@ -56,44 +57,38 @@ int IA_jouer(Grille grille)
 	int max_victime=calc_max_victim(grille, joueur_actu);
 
 
-	if(max_victime==10)//echec(grille))
+	int i;
+	int tmp_max_victim;
+	for(i=0; i<80; i++)
 	{
-		printf("ECHEC!!!!!!");
-		//jouerRoi
-	}else
-	{
-		int i;
-		int tmp_max_victim;
-		for(i=0; i<80; i++)
+		if(grille->pions[i]->color==joueur_actu)
 		{
-			if(grille->pions[i]->color==joueur_actu)
-			{
-				//printf("%d ", i);
-				calc_moves(grille, i, joueur_actu, moves, &nbMoves, &taille_max);
-			}
+			calc_moves(grille, i, joueur_actu, moves, &nbMoves, &taille_max);
 		}
-		Grille grille_tmp=copyGrille(grille);
-		Piece p;
-		for(i=0; i<nbMoves; i++)
-		{
-			p=grille_tmp->pions[moves[i]->indiceB];
-			deplacerPiece(grille_tmp, coord_from_indice(moves[i]->indiceA), coord_from_indice(moves[i]->indiceB));
-			tmp_max_victim=calc_max_victim(grille_tmp, joueur_actu);
-
-			//affichage(grille_tmp);
-
-			deplacerPiece(grille_tmp, coord_from_indice(moves[i]->indiceB), coord_from_indice(moves[i]->indiceA));
-			grille_tmp->pions[moves[i]->indiceB]=p;
-			if(max==10)
-			{
-				moves[i]->points = -100;
-			}else
-			{
-				moves[i]->points += max_victime - tmp_max_victim;
-			}
-		}
-		free(grille_tmp);
 	}
+	
+	Grille grille_tmp=copyGrille(grille);
+	Piece p;
+	for(i=0; i<nbMoves; i++)
+	{
+		p=grille_tmp->pions[moves[i]->indiceB];
+		deplacerPiece(grille_tmp, coord_from_indice(moves[i]->indiceA), coord_from_indice(moves[i]->indiceB));
+		
+		tmp_max_victim=calc_max_victim(grille_tmp, joueur_actu);
+
+		deplacerPiece(grille_tmp, coord_from_indice(moves[i]->indiceB), coord_from_indice(moves[i]->indiceA));
+		grille_tmp->pions[moves[i]->indiceB]=p;
+		
+		if(max==10)
+		{
+			moves[i]->points = -100;
+		}else
+		{
+			moves[i]->points += max_victime - tmp_max_victim;
+		}
+	}
+	free(grille_tmp);
+
 
  	Move move_elu=NULL;
 
@@ -123,7 +118,6 @@ int IA_jouer(Grille grille)
 	deplacerPiece(grille, coord_from_indice(move_elu->indiceA), coord_from_indice(move_elu->indiceB));
 
 	free(moves);
-	
 
 	return 1;
 }
