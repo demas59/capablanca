@@ -81,6 +81,19 @@ Piece trouverRoi(Grille grille){
 	return NULL;
 }
 
+int roiPeutEtrePris(Piece piece,Coord coordArrive,Grille grille,int equipe){
+	Grille copy = copyGrille(grille);
+	Piece roi = trouverRoi(copy,equipe);
+	clearDeplacement(copy);
+	deplacerPiece(copy,piece -> coord,coordArrive);
+	setDeplacement(copy);
+	if(echec(roi->coord,copy,equipe%2+1)){
+		free(copy);
+		return 1;
+	}
+	free(copy);
+	return 0;
+}
 
 
 int echecMat(Grille grille, int equipe){
