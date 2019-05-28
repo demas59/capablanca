@@ -77,13 +77,9 @@ Piece trouverRoi(Grille grille,int equipe){
 int roiPeutEtrePris(Piece piece,Coord coordArrive,Grille grille,int equipe){
 	Grille copy = copyGrille(grille);
 	Piece roi = trouverRoi(copy,equipe);
-	printf("coord piece: %d,%d\n",piece->coord->x,piece->coord->y);
-	printf("coord arrivee: %d,%d\n",coordArrive->x,coordArrive->y);
-	printf("case cible: %c\n",copy->pions[getIndice(coordArrive->x,coordArrive->y)]->type);
 	clearDeplacement(copy);
 	deplacerPiece(copy,piece -> coord,coordArrive);
 	setDeplacement(copy);
-	printf("deplacement fait\n");
 	if(echec(roi->coord,copy,equipe%2+1)){
 		free(copy);
 		return 1;
