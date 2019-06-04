@@ -55,7 +55,7 @@ int IA_jouer(Grille grille)
 
 	int joueur_actu=grille->tour % 2 + 1;
 	int max_victime=calc_max_victim(grille, joueur_actu);
-
+	printf("max en danger: %d\n", max_victime);
 
 	int i;
 	int tmp_max_victim;
@@ -75,6 +75,8 @@ int IA_jouer(Grille grille)
 		deplacerPiece(grille_tmp, coord_from_indice(moves[i]->indiceA), coord_from_indice(moves[i]->indiceB));
 		
 		tmp_max_victim=calc_max_victim(grille_tmp, joueur_actu);
+		printf("%d -> %d = %d (%d), max victime:%d\n", moves[i]->indiceA, moves[i]->indiceB, moves[i]->points, moves[i]->value_piece, tmp_max_victim);
+
 
 		deplacerPiece(grille_tmp, coord_from_indice(moves[i]->indiceB), coord_from_indice(moves[i]->indiceA));
 		grille_tmp->pions[moves[i]->indiceB]=p;
@@ -88,6 +90,10 @@ int IA_jouer(Grille grille)
 		}
 	}
 	free(grille_tmp);
+
+/*	for(i=0; i<nbMoves; i++)
+	{
+	}*/
 
 
  	Move move_elu=NULL;
@@ -141,6 +147,7 @@ int calc_max_victim(Grille grille, int joueur_actu)
 			for(cpt=0; cpt<grille->pions[i]->deplacement->nombre_element; cpt++)
 			{
 				int indice=getIndice(grille->pions[i]->deplacement->mouvements[cpt]->x,grille->pions[i]->deplacement->mouvements[cpt]->y);
+				printf("indicea: %d, indiceB: %d\n", i, indice);
 				if(grille->pions[indice]->color==joueur_actu && get_importance_piece(grille->pions[indice])>max)
 				{
 					max=get_importance_piece(grille->pions[indice]);
