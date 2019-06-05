@@ -12,14 +12,18 @@ Grille createGrille()
 }
 
 void setColor(int i,int j,Piece * pieces){
-	if(i == 0 ){
-				(*(pieces+(i*10+j)))->color=1;
-			}else{
-				if( i == 7){
-					(*(pieces+(i*10+j)))->color=2;
-				}else{
-					(*(pieces+(i*10+j)))->color=0;
-				}
+	if(i == 0 || i == 1){
+
+		pieces[getIndice(i,j)]->color=1;
+
+	}else if( i == 7 || i == 6){
+
+		pieces[getIndice(i,j)]->color=2;
+
+	}else{
+
+		pieces[getIndice(i,j)]->color=0;
+
 	}
 }
 
@@ -45,10 +49,9 @@ void setType(int i,int j, Piece * pieces){
 	if((j == 7) && (i == 0 || i == 7)){
 		pieces[getIndice(i,j)] -> type = 'i';
 	}
-	// if(i == 1 || i == 6){
-	// 	pieces[getIndice(i,j)] -> type = 'p';
-	// 	pieces[getIndice(i,j)] -> deplace = 0;
-	// }
+	if(i == 1 || i == 6){
+		pieces[getIndice(i,j)] -> type = 'p';
+	}
 }
 
 

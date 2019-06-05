@@ -21,6 +21,7 @@ int main(void){
 	// placerPiece(grille,fou);
 	affichage(grille);
 
+	initDeplacement(grille);
 	clearDeplacement(grille);
 	setDeplacement(grille);
 
@@ -30,26 +31,32 @@ int main(void){
 		int adversaire = joueur % 2 + 1;
 		int seraEnEchec = -1;
 
-		if(1){//joueur == 1){
+		if(0){//joueur == 1){
 			int seraEnEchec = -1;
 			if(estEnEchec == 1){
 				printf("ATTENTION JOUEUR %d VOTRE ROI EST EN ECHEC\n",joueur);
 			}
 
-		piece = choosePawn(grille);
-		Coord position_arrivee = malloc(sizeof(struct coord_));
+			piece = choosePawn(grille);
+			Coord position_arrivee = malloc(sizeof(struct coord_));
 
-			do{
-				position_arrivee = choixCoord(piece->deplacement->mouvements,piece->deplacement->nombre_element);
-				//seraEnEchec = roiPeutEtrePris(piece,position_arrivee,grille,joueur);
-				if(seraEnEchec == 1){
-					printf("IMPOSSIBLE CELA VOUS METTEREZ EN ECHEC CHOISISSEZ UNE AUTRE POSITION\n");	
-				}
-			}while(seraEnEchec == 1);
-			
+				do{
+					position_arrivee = choixCoord(piece->deplacement->mouvements,piece->deplacement->nombre_element);
+					//seraEnEchec = roiPeutEtrePris(piece,position_arrivee,grille,joueur);
+					if(seraEnEchec == 1){
+						printf("IMPOSSIBLE CELA VOUS METTEREZ EN ECHEC CHOISISSEZ UNE AUTRE POSITION\n");	
+					}
+				}while(seraEnEchec == 1);
+				
 
-		deplacerPiece(grille,piece -> coord,position_arrivee);
-		//free(position_arrivee);
+			deplacerPiece(grille,piece -> coord,position_arrivee);
+			//free(position_arrivee);
+		}else
+		{
+			echec_et_mat=IA_jouer(grille);
+			myflush ( stdin );
+			mypause();
+		}
 		affichage(grille);
 		clearDeplacement(grille);
 		setDeplacement(grille);
@@ -60,4 +67,5 @@ int main(void){
 	}
 
 	printf("LE JOUEUR %d A PERDU\n", joueur % 2 + 1);
+	return 1;
 }	

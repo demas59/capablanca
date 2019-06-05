@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stddef.h>
 #include <stdlib.h>
+
 #include "struct.h"
+
 
 /*
 à chaque tour:
@@ -47,7 +49,7 @@ Coord coord_from_indice(int indice);
 
 int IA_jouer(Grille grille)
 {
-	printf("AI thinking...\n");
+	//printf("AI thinking...\n");
 
 	int taille_max=200;
 	Move * moves=(Move *)malloc(sizeof(struct Move_)*taille_max);
@@ -55,10 +57,10 @@ int IA_jouer(Grille grille)
 
 	int joueur_actu=grille->tour % 2 + 1;
 	int max_victime=calc_max_victim(grille, joueur_actu);
-	printf("max en danger: %d\n", max_victime);
+	//printf("max en danger: %d\n", max_victime);
 
 	int i;
-	int tmp_max_victim;
+	int tmp_max_victim=0;
 	for(i=0; i<80; i++)
 	{
 		if(grille->pions[i]->color==joueur_actu)
@@ -71,16 +73,19 @@ int IA_jouer(Grille grille)
 	Piece p;
 	for(i=0; i<nbMoves; i++)
 	{
+		//printf("%d -> %d = %d (%d), max victime:%d, prec: %d\n", moves[i]->indiceA, moves[i]->indiceB, moves[i]->points, moves[i]->value_piece, tmp_max_victim, max_victime);
+		//printf("c%d", i);
 		p=grille_tmp->pions[moves[i]->indiceB];
 		deplacerPiece(grille_tmp, coord_from_indice(moves[i]->indiceA), coord_from_indice(moves[i]->indiceB));
 		
+		clearDeplacement(grille_tmp);
+		setDeplacement(grille_tmp);
 		tmp_max_victim=calc_max_victim(grille_tmp, joueur_actu);
-		printf("%d -> %d = %d (%d), max victime:%d\n", moves[i]->indiceA, moves[i]->indiceB, moves[i]->points, moves[i]->value_piece, tmp_max_victim);
 
 
 		deplacerPiece(grille_tmp, coord_from_indice(moves[i]->indiceB), coord_from_indice(moves[i]->indiceA));
 		grille_tmp->pions[moves[i]->indiceB]=p;
-		
+
 		if(tmp_max_victim==10)
 		{
 			moves[i]->points = -100;
@@ -91,9 +96,6 @@ int IA_jouer(Grille grille)
 	}
 	free(grille_tmp);
 
-/*	for(i=0; i<nbMoves; i++)
-	{
-	}*/
 
 
  	Move move_elu=NULL;
@@ -147,7 +149,9 @@ int calc_max_victim(Grille grille, int joueur_actu)
 			for(cpt=0; cpt<grille->pions[i]->deplacement->nombre_element; cpt++)
 			{
 				int indice=getIndice(grille->pions[i]->deplacement->mouvements[cpt]->x,grille->pions[i]->deplacement->mouvements[cpt]->y);
-				printf("indicea: %d, indiceB: %d\n", i, indice);
+
+				//printf("indicea: %d, indiceB: %d\n", i, indice);
+
 				if(grille->pions[indice]->color==joueur_actu && get_importance_piece(grille->pions[indice])>max)
 				{
 					max=get_importance_piece(grille->pions[indice]);
@@ -172,8 +176,9 @@ void calc_moves(Grille g, int indice, int joueur, Move * moves, int * nbMoves, i
 			pts=get_importance_piece(g->pions[ib]);
 		}else if(g->pions[ib]->color == 0)
 		{
-			pts=1;
+			pts=0;
 		}
+
 		ajout_move(moves, nbMoves, taille_max, create_move(ia, ib, value_piece, pts));
 	}
 }
@@ -227,9 +232,20 @@ void ajout_move(Move * moves, int * nbr_elements, int * taille_max, Move m)
 	(*nbr_elements)++;
 }
 
+void myflush ( FILE *in )
+{
+  int ch;
 
+  do
+    ch = fgetc ( in ); 
+  while ( ch != EOF && ch != '\n' ); 
 
+  clearerr ( in );
+}
 
-
-
-
+void mypause ( void )
+{ 
+  printf ( "Press [Enter] to continue . . ." );
+  fflush ( stdout );
+  getchar();
+} 
