@@ -1,25 +1,33 @@
-main: main.o grille.o piece.o coord.o game.o deplacement.o ia.o
-	gcc -o capa.exe main.o grille.o piece.o coord.o game.o deplacement.o ia.o -Wall -g;
-	#rm *.o;
+CC=gcc
+CFLAGS=-W --ansi --std=c99 --pedantic
+LDFLAGS=`sdl-config --cflags --libs` -lSDL_image
+EXEC=main
 
+all: $(EXEC)
 
-game.o: game.c
-	gcc -o game.o -c game.c -Wall -g
+main: main.o ../coord.o ../deplacement.o ../game.o ../grille.o ../piece.o
+	$(CC) -o main main.o ../coord.o ../deplacement.o ../game.o ../grille.o ../piece.o $(CFLAGS)  $(LDFLAGS)
 
-piece.o: piece.c
-	gcc -o piece.o -c piece.c -Wall -g
+coord : ../coord.c
+	$(CC) -o ../coord.o -c ../coord.c $(CFLAGS) $(LDFLAGS)
 
-grille.o: grille.c
-	gcc -o grille.o -c grille.c -Wall -g
+deplacement : ../deplacement.c
+	$(CC) -o ../deplacement.o -c ../deplacement.c $(CFLAGS) $(LDFLAGS)
 
-coord.o: coord.c
-	gcc -o coord.o -c coord.c -Wall -g
+game : ../game.c
+	$(CC) -o ../game.o -c ../game.c $(CLFAGS) $(LDFLAGS)
 
-deplacement.o: deplacement.c
-	gcc -o deplacement.o -c deplacement.c -Wall -g
+grille : ../grille.c
+	$(CC) -o ../grille.o -c ../grille.c $(CLFAGS) $(LDFLAGS)
 
-ia.o: ia.c
-	gcc -o ia.o -c ia.c -Wall -g
+piece : ../piece.c
+	$(CC) -o ../piece.o -c ../piece.c $(CFLAGS) $(LDFLAGS)
 
-main.o: main.c struct.h
-	gcc -o main.o -c main.c -Wall -g
+chess : main.c
+	$(CC) -o main.o -c main.c $(CFLAGS) $(LDFLAGS)
+
+#main.o: Chess/main.c  struct.h
+#	$(CC) -o main.o -c Chess/main.c $(CFLAGS) $(LDFLAGS)
+
+clean:
+	rm -rf *.o main
