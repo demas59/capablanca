@@ -187,7 +187,6 @@ void mouvCavalier(Grille grille,Piece piece){
 	int y = piece -> coord -> y;
 	int equipe = piece -> color;
 	Piece * plateau = grille -> pions;
-
 	if(x > 1){
 		if(y>0){
 			if(plateau[getIndice(x-2,y-1)] -> color != equipe){
@@ -263,7 +262,7 @@ void mouvCavalier(Grille grille,Piece piece){
 		}
 	}
 
-	if(y < 9){
+	if(y < 8){
 		if(x>0){
 			if(plateau[getIndice(x-1,y+2)] -> color != equipe){
 				x = piece -> coord -> x;

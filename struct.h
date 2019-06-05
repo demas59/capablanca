@@ -66,6 +66,8 @@ Coord choixCoord(Coord * coords, int nombre_element);
 
 void deplacerPiece(Grille grille,Coord coordDepart, Coord coordFin);
 
+void initDeplacement(Grille grille);
+
 void clearDeplacement(Grille grille);
 
 void setDeplacement(Grille grille);
@@ -86,3 +88,6 @@ Piece trouverRoi(Grille grille,int equipe);
 
 int roiPeutEtrePris(Piece piece,Coord coordArrive,Grille grille,int equipe);
 
+void mypause(void);
+
+void myflush(FILE *in);
