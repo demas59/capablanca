@@ -123,16 +123,33 @@ Coord choixCoord(Coord * coords, int nombre_element){
 	return NULL;
 }
 
+void promotion(Piece piece){
+	char promo;
+	printf("Choisissez en quoi promouvoir votre pion reine(q),fou(f),tour(t),cavalier(c):\n");
+	scanf("%c",&promo);
+	piece -> type = promo;
+}
+
 void deplacerPiece(Grille grille,Coord coordDepart, Coord coordFin ){
 	Piece fin = grille -> pions[getIndice(coordFin  -> x,coordFin  -> y)];
 	if(fin -> color != 0){
 		grille -> mort[grille -> nbMort++] = fin;
 	}
 	Piece depart = grille -> pions[getIndice(coordDepart -> x,coordDepart -> y)];
+	depart -> deplacement -> deplace = 1;
 	depart -> coord = coordFin;
 
 	grille -> pions[getIndice(coordDepart -> x,coordDepart -> y)] = createPiece(0,coordDepart -> x,coordDepart -> y,' ');
 	grille -> pions[getIndice(coordFin  -> x,coordFin -> y)] = depart;
+
+	if(depart -> type == 'p'){
+		if(depart -> color == 1 && depart -> coord -> x == 7){
+			promotion(depart);
+		}
+		if(depart -> color == 2 && depart -> coord -> x == 0){
+			promotion(depart);
+		}
+	}
 }
 
 Grille copyGrille(Grille origine){
