@@ -6,13 +6,13 @@
 #include "../struct.h"
 #include "graphique.h"
 
-void changeCouleurFond(Piece piece){
+void changeCouleurFond(Piece piece,SDL_Surface * ecran ){
     SDL_Surface * rectangle = NULL;
     rectangle = SDL_CreateRGBSurface(SDL_HWSURFACE, CASE_LONG, CASE_LARG, 32, 0, 0, 0, 0);
     SDL_Rect position;
     position.x = piece -> coord -> x * CASE_LONG;
     position.y = piece -> coord -> y * CASE_LARG;
-    SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format,  17, 206, 112)); 
+    SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format,  17, 206, 112));
     SDL_BlitSurface(rectangle, NULL, ecran, &position);
 }
 
@@ -26,19 +26,19 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
         case 'k' :
             {
                 if(piece -> color == 2){
-                SDL_Rect positionRoiN; 
+                SDL_Rect positionRoiN;
                 positionRoiN.x = CASE_LARG * l + X_MARGIN;
                 positionRoiN.y = CASE_LONG * m + Y_MARGIN;
                 SDL_Surface *roiN = NULL;
                 roiN = IMG_Load("Image/black_king.png");
-                changeCouleurFond(piece);
+                changeCouleurFond(piece,ecran);
                 SDL_BlitSurface(roiN, NULL, ecran, &positionRoiN);
                 }
                 else if(piece -> color == 1){
                 SDL_Rect positionRoiB;
-                 positionRoiB.x = CASE_LARG * l + X_MARGIN; 
-                 positionRoiB.y = CASE_LONG * m + Y_MARGIN; 
-                 SDL_Surface *roiB = NULL; roiB = IMG_Load("Image/white_king.png"); 
+                 positionRoiB.x = CASE_LARG * l + X_MARGIN;
+                 positionRoiB.y = CASE_LONG * m + Y_MARGIN;
+                 SDL_Surface *roiB = NULL; roiB = IMG_Load("Image/white_king.png");
                  SDL_BlitSurface(roiB, NULL, ecran, &positionRoiB);
                 }
             }break;
