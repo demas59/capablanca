@@ -5,4 +5,4 @@
 
 void affichageGraphique(Grille plateau, SDL_Surface * ecran);
 
-void selectPiece(Grille plateau);
+Piece selectPiece(Grille plateau,Piece precedent);

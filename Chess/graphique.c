@@ -13,13 +13,13 @@ void changeCouleurFond(Piece piece,SDL_Surface * ecran ){
     position.x = piece -> coord -> y * CASE_LARG;
     position.y = piece -> coord -> x * CASE_LONG;
 
-		printf("TYPE: %c\n",piece->type );
-		printf("SELECT: %d\n",piece->select );
+    if(piece -> coord -> y == 0 && piece -> coord -> x == 3){
+      printf("peice select: %d\n",piece -> select );
+    }
 
 		if(piece -> select == 1){
 			SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format,  50, 200, 50));
 			SDL_BlitSurface(rectangle, NULL, ecran, &position);
-			printf("GREEN\n" );
 		}
 		if(piece -> select == 2){
 			SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format,  255,0,0));
@@ -61,32 +61,32 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
         case 'q' :
             {
                 if(piece -> color == 2){
-                SDL_Rect positionReineN ; 
-                positionReineN.x = CASE_LARG * l + X_MARGIN; 
-                positionReineN.y = CASE_LONG * m + Y_MARGIN; 
-                SDL_Surface *reineN = NULL; 
-                reineN = IMG_Load("Image/black_queen.png"); 
+                SDL_Rect positionReineN ;
+                positionReineN.x = CASE_LARG * l + X_MARGIN;
+                positionReineN.y = CASE_LONG * m + Y_MARGIN;
+                SDL_Surface *reineN = NULL;
+                reineN = IMG_Load("Image/black_queen.png");
                 changeCouleurFond(piece,ecran);
                 SDL_BlitSurface(reineN, NULL, ecran, &positionReineN);
                 }
                 else if(piece -> color == 1){
-                SDL_Rect positionReineB; 
-                positionReineB.x = CASE_LARG * l + X_MARGIN; 
-                positionReineB.y = CASE_LONG * m + Y_MARGIN; 
-                SDL_Surface *reineB = NULL; 
+                SDL_Rect positionReineB;
+                positionReineB.x = CASE_LARG * l + X_MARGIN;
+                positionReineB.y = CASE_LONG * m + Y_MARGIN;
+                SDL_Surface *reineB = NULL;
                 reineB = IMG_Load("Image/white_queen.png");
-                changeCouleurFond(piece,ecran); 
+                changeCouleurFond(piece,ecran);
                 SDL_BlitSurface(reineB, NULL, ecran, &positionReineB);
                 }
             }break;
         case 'c' :
             {
                 if(piece -> color == 2){
-                SDL_Rect positionCavalierN ; 
-                positionCavalierN.x = CASE_LARG * l + X_MARGIN; 
+                SDL_Rect positionCavalierN ;
+                positionCavalierN.x = CASE_LARG * l + X_MARGIN;
                 positionCavalierN.y = CASE_LONG * m + Y_MARGIN;
-                SDL_Surface *cavalierN = NULL ; 
-                cavalierN = IMG_Load("Image/black_knight.png"); 
+                SDL_Surface *cavalierN = NULL ;
+                cavalierN = IMG_Load("Image/black_knight.png");
                 changeCouleurFond(piece,ecran);
                 SDL_BlitSurface(cavalierN, NULL, ecran, &positionCavalierN);
                 }
@@ -97,36 +97,36 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
         case 'f' :
             {
                 if(piece -> color == 2){
-                SDL_Rect positionFouN ; 
-                positionFouN.x = CASE_LARG * l + X_MARGIN; 
-                positionFouN.y = CASE_LONG * m + Y_MARGIN; 
+                SDL_Rect positionFouN ;
+                positionFouN.x = CASE_LARG * l + X_MARGIN;
+                positionFouN.y = CASE_LONG * m + Y_MARGIN;
                 SDL_Surface *fouN = NULL ; fouN = IMG_Load("Image/black_bishop.png");
-                changeCouleurFond(piece,ecran); 
+                changeCouleurFond(piece,ecran);
                 SDL_BlitSurface(fouN, NULL, ecran, &positionFouN);
                 }
                 else if(piece -> color == 1){
                 SDL_Rect positionFouB;
-                positionFouB.x = CASE_LARG * l + X_MARGIN; 
-                positionFouB.y = CASE_LONG * m + Y_MARGIN; 
+                positionFouB.x = CASE_LARG * l + X_MARGIN;
+                positionFouB.y = CASE_LONG * m + Y_MARGIN;
                 SDL_Surface *fouB = NULL; fouB = IMG_Load("Image/white_bishop.png");
-                changeCouleurFond(piece,ecran); 
+                changeCouleurFond(piece,ecran);
                 SDL_BlitSurface(fouB, NULL, ecran, &positionFouB);
                 }
             }break;
         case 't' :
             {
                 if(piece -> color == 2){
-                SDL_Rect positionTourN ; 
+                SDL_Rect positionTourN ;
                 positionTourN.x = CASE_LARG * l + X_MARGIN;
-                positionTourN.y = CASE_LONG * m + Y_MARGIN; 
-                SDL_Surface *tourN = NULL ; tourN = IMG_Load("Image/black_rook.png"); 
+                positionTourN.y = CASE_LONG * m + Y_MARGIN;
+                SDL_Surface *tourN = NULL ; tourN = IMG_Load("Image/black_rook.png");
                 changeCouleurFond(piece,ecran);
                 SDL_BlitSurface(tourN, NULL, ecran, &positionTourN);
                 }
                 else if(piece -> color == 1){
-                SDL_Rect positionTourB; positionTourB.x = CASE_LARG * l + X_MARGIN; 
-                positionTourB.y = CASE_LONG * m + Y_MARGIN; SDL_Surface *tourB = NULL; 
-                tourB = IMG_Load("Image/white_rook.png"); 
+                SDL_Rect positionTourB; positionTourB.x = CASE_LARG * l + X_MARGIN;
+                positionTourB.y = CASE_LONG * m + Y_MARGIN; SDL_Surface *tourB = NULL;
+                tourB = IMG_Load("Image/white_rook.png");
                 changeCouleurFond(piece,ecran);
                 SDL_BlitSurface(tourB, NULL, ecran, &positionTourB);
                 }
@@ -134,17 +134,17 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
         case 'p' :
         {
             if(piece -> color == 2){
-                SDL_Rect positionPionN ; 
-                positionPionN.x = CASE_LARG * l + X_MARGIN; 
-                positionPionN.y = CASE_LONG * m + Y_MARGIN; 
-                SDL_Surface *pionN = NULL ; pionN = IMG_Load("Image/black_pawn.png"); 
+                SDL_Rect positionPionN ;
+                positionPionN.x = CASE_LARG * l + X_MARGIN;
+                positionPionN.y = CASE_LONG * m + Y_MARGIN;
+                SDL_Surface *pionN = NULL ; pionN = IMG_Load("Image/black_pawn.png");
                 changeCouleurFond(piece,ecran);
                 SDL_BlitSurface(pionN, NULL, ecran, &positionPionN);
                 }
                 else if(piece -> color == 1){
-                SDL_Rect positionPionB; positionPionB.x = CASE_LARG * l + X_MARGIN; 
-                positionPionB.y = CASE_LONG * m + Y_MARGIN; SDL_Surface *pionB = NULL; 
-                pionB = IMG_Load("Image/white_pawn.png"); 
+                SDL_Rect positionPionB; positionPionB.x = CASE_LARG * l + X_MARGIN;
+                positionPionB.y = CASE_LONG * m + Y_MARGIN; SDL_Surface *pionB = NULL;
+                pionB = IMG_Load("Image/white_pawn.png");
                 changeCouleurFond(piece,ecran);
                 SDL_BlitSurface(pionB, NULL, ecran, &positionPionB);
                 }
@@ -152,20 +152,20 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
         case 'i' :
             {
                 if(piece -> color == 2){
-                SDL_Rect positionImperatriceN ; 
-                positionImperatriceN.x = CASE_LARG * l + X_MARGIN; 
-                positionImperatriceN.y = CASE_LONG * m + Y_MARGIN; 
+                SDL_Rect positionImperatriceN ;
+                positionImperatriceN.x = CASE_LARG * l + X_MARGIN;
+                positionImperatriceN.y = CASE_LONG * m + Y_MARGIN;
                 SDL_Surface *imperatriceN = NULL ;
                 imperatriceN = IMG_Load("Image/black_imperatrice.png");
                 changeCouleurFond(piece,ecran);
                 SDL_BlitSurface(imperatriceN, NULL, ecran, &positionImperatriceN);
                 }
                 else if(piece -> color == 1){
-                SDL_Rect positionImperatriceB; 
-                positionImperatriceB.x = CASE_LARG * l + X_MARGIN; 
-                positionImperatriceB.y = CASE_LONG * m + Y_MARGIN; 
-                SDL_Surface *imperatriceB = NULL; 
-                imperatriceB = IMG_Load("Image/white_imperatrice.png"); 
+                SDL_Rect positionImperatriceB;
+                positionImperatriceB.x = CASE_LARG * l + X_MARGIN;
+                positionImperatriceB.y = CASE_LONG * m + Y_MARGIN;
+                SDL_Surface *imperatriceB = NULL;
+                imperatriceB = IMG_Load("Image/white_imperatrice.png");
                 changeCouleurFond(piece,ecran);
                 SDL_BlitSurface(imperatriceB, NULL, ecran, &positionImperatriceB);
                 }
@@ -174,23 +174,25 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
             {
                 if(piece -> color == 2){
                 SDL_Rect positionPrincesseN ;
-                 positionPrincesseN.x = CASE_LARG * l + X_MARGIN; 
-                 positionPrincesseN.y = CASE_LONG * m + Y_MARGIN; 
-                 SDL_Surface *princesseN = NULL ; 
-                 princesseN = IMG_Load("Image/black_princesse.png"); 
+                 positionPrincesseN.x = CASE_LARG * l + X_MARGIN;
+                 positionPrincesseN.y = CASE_LONG * m + Y_MARGIN;
+                 SDL_Surface *princesseN = NULL ;
+                 princesseN = IMG_Load("Image/black_princesse.png");
                 changeCouleurFond(piece,ecran);
                  SDL_BlitSurface(princesseN, NULL, ecran, &positionPrincesseN);
                 }
                 else if(piece -> color == 1){
-                SDL_Rect positionPrincesseB; 
-                positionPrincesseB.x = CASE_LARG * l + X_MARGIN; 
-                positionPrincesseB.y = CASE_LONG * m + Y_MARGIN; 
-                SDL_Surface *princesseB = NULL; 
+                SDL_Rect positionPrincesseB;
+                positionPrincesseB.x = CASE_LARG * l + X_MARGIN;
+                positionPrincesseB.y = CASE_LONG * m + Y_MARGIN;
+                SDL_Surface *princesseB = NULL;
                 princesseB = IMG_Load("Image/white_princesse.png");
-                changeCouleurFond(piece,ecran); 
+                changeCouleurFond(piece,ecran);
                 SDL_BlitSurface(princesseB, NULL, ecran, &positionPrincesseB);
                 }
             }break;
+            default:
+              changeCouleurFond(piece,ecran);
             }
         }
     }
@@ -200,22 +202,21 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
     void deselectMouvements(Piece piece,Grille plateau){
         int i;
         for(i=0; i<piece -> deplacement -> nombre_element;i++){
-            Coord coordMouv = piece -> deplacement -> mouvement[i];
-            Piece mouv = getPieceByCoord(coordMouv,plateau);
-            mouv -> select = 0;
+          printf("HERE BOUCLE\n" );
+            Coord coordMouv = piece -> deplacement -> mouvements[i];
+            plateau -> pions[getIndice(coordMouv->x,coordMouv->y)]-> select = 0 ;
         }
     }
 
     void selectMouvements(Piece piece,Grille plateau){
         int i;
         for(i=0; i<piece -> deplacement -> nombre_element;i++){
-            Coord coordMouv = piece -> deplacement -> mouvement[i];
-            Piece mouv = getPieceByCoord(coordMouv,plateau);
-            mouv -> select = 1;
+            Coord coordMouv = piece -> deplacement -> mouvements[i];
+            plateau -> pions[getIndice(coordMouv->x,coordMouv->y)]-> select = 1;
         }
     }
 
-    void selectPiece(Grille plateau,Piece precedent){
+    Piece selectPiece(Grille plateau,Piece precedent){
         SDL_Event event;
         Coord coordClick;
         int continuer = 1;
@@ -230,22 +231,25 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
                 if (event.button.button == SDL_BUTTON_LEFT){ /* Si on fait un clique gauche, on lance l'instruction*/
                     coordClick = createCoord(event.button.y/CASE_LARG,event.button.x/CASE_LONG);
                     Piece pieceSelect = plateau -> pions[getIndice(coordClick -> x,coordClick -> y)];
-                    if(pieceSelect == 3){
+                    if(pieceSelect -> select == 3){
                         pieceSelect -> select = 0;
-                        deselectMouvements(pieceSelect);
+                        deselectMouvements(pieceSelect,plateau);
                     }
-                    if(pieceSelect == 0){
+                    if(pieceSelect -> select == 0){
                         pieceSelect -> select = 3;
-                        selectMouvements(precedent);
+                        selectMouvements(pieceSelect,plateau);
+                        return pieceSelect;
+
                     }
                     else{
                         //TODO deplacement
-                        deselectMouvements(precedent);
+                        deselectMouvements(precedent,plateau);
                     }
                     precedent = pieceSelect;
-    				continuer = 0;
+    				            continuer = 0;
                     }
+              break;
       		    }
     	    }
+          return NULL;
         }
-    }
