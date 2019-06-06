@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stddef.h>
 #include <stdlib.h>
-#include "struct.h"
+#include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
+#include "../struct.h"
 #include "graphique.h"
 
 
@@ -13,11 +15,11 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
         case 'k' :
             {
                 if(plateau -> pions[getIndice(m,l)] -> color == 2){
-                SDL_Rect positionRoiN; positionRoiN.x = CASE_LARG * l; 
-                positionRoiN.y = CASE_LONG * m; 
-                SDL_Surface *roiN = NULL; 
-                roiN = IMG_Load("Image/black_king.png"); 
-                
+                SDL_Rect positionRoiN; positionRoiN.x = CASE_LARG * l;
+                positionRoiN.y = CASE_LONG * m;
+                SDL_Surface *roiN = NULL;
+                roiN = IMG_Load("Image/black_king.png");
+
                 SDL_BlitSurface(roiN, NULL, ecran, &positionRoiN);
                 }
                 else if(plateau -> pions[getIndice(m,l)] -> color == 1){
@@ -90,4 +92,23 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
             }
         }
     }
+}
+		void selectPiece(Grille plateau){
+			SDL_Event event;
+			Coord coordClick;
+			int continuer = 1;
+			while(continuer){
+			    SDL_WaitEvent(&event);
+			    switch(event.type)
+			{
+			    case SDL_QUIT:
+			        continuer = 0;
+			        break;
+			    case SDL_MOUSEBUTTONUP:
+			        if (event.button.button == SDL_BUTTON_LEFT){ /* Si on fait un clique gauche, on lance l'instruction*/
+			            coordClick = createCoord(event.button.x/CASE_LARG,event.button.y/CASE_LONG);
+			        }
+			        break;
+		}
+	}
 }

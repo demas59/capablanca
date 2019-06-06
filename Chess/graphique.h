@@ -1,4 +1,6 @@
-#define CASE_LARG CASE_LARG
-#define CASE_LONG CASE_LONG
+#define CASE_LARG 68
+#define CASE_LONG 70
 
 void affichageGraphique(Grille plateau, SDL_Surface * ecran);
+
+void 	selectPiece(Grille plateau);
