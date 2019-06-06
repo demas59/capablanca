@@ -40,15 +40,10 @@ int main(int argc, char *argv[])
     // Initialisation des positions de d�part de pieces Noires
     Grille plateau = initialisation();
     affichageGraphique(plateau, ecran);
-
-    SDL_Flip(ecran);
-//    pause();
-
-//
     selectPiece(plateau);
-
-//
-
+    affichageGraphique(plateau, ecran);
+    selectPiece(plateau);
+    
     SDL_FreeSurface(imageDeFond); /* On lib�re la surface */
     SDL_Quit();
 

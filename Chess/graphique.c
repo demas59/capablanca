@@ -8,12 +8,23 @@
 
 void changeCouleurFond(Piece piece,SDL_Surface * ecran ){
     SDL_Surface * rectangle = NULL;
-    rectangle = SDL_CreateRGBSurface(SDL_HWSURFACE, CASE_LONG, CASE_LARG, 32, 0, 0, 0, 0);
+    rectangle = SDL_CreateRGBSurface(SDL_HWSURFACE, CASE_LARG, CASE_LONG, 32, 0, 0, 0, 0);
     SDL_Rect position;
-    position.x = piece -> coord -> x * CASE_LONG;
-    position.y = piece -> coord -> y * CASE_LARG;
-    SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format,  17, 206, 112));
-    SDL_BlitSurface(rectangle, NULL, ecran, &position);
+    position.x = piece -> coord -> y * CASE_LARG;
+    position.y = piece -> coord -> x * CASE_LONG;
+
+		printf("TYPE: %c\n",piece->type );
+		printf("SELECT: %d\n",piece->select );
+
+		if(piece -> select == 1){
+			SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format,  50, 200, 50));
+			SDL_BlitSurface(rectangle, NULL, ecran, &position);
+			printf("GREEN\n" );
+		}
+		if(piece -> select == 2){
+			SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format,  255,0,0));
+			SDL_BlitSurface(rectangle, NULL, ecran, &position);
+		}
 }
 
 void affichageGraphique(Grille plateau, SDL_Surface * ecran){
@@ -108,6 +119,7 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
             }
         }
     }
+		SDL_Flip(ecran);
 }
         void selectPiece(Grille plateau){
             SDL_Event event;
@@ -122,9 +134,13 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
                     break;
                 case SDL_MOUSEBUTTONUP:
                     if (event.button.button == SDL_BUTTON_LEFT){ /* Si on fait un clique gauche, on lance l'instruction*/
-                        coordClick = createCoord(event.button.x/CASE_LARG,event.button.y/CASE_LONG);
+                        coordClick = createCoord(event.button.y/CASE_LARG,event.button.x/CASE_LONG);
+												plateau -> pions[getIndice(coordClick -> x,coordClick -> y)] -> select = 1;
+												printf("COORD: %d,%d\n", coordClick -> x,coordClick -> y);
+												printf("piece: %c\n",plateau -> pions[getIndice(coordClick -> x,coordClick -> y)] -> type );
                     }
-            break;
-        }
-    }
+										continuer = 0;
+            		break;
+        		}
+    		}
 }
