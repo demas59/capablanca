@@ -1,5 +1,5 @@
-#define CASE_LARG 68
-#define CASE_LONG 70
+#define CASE_LARG 105
+#define CASE_LONG 105
 #define X_MARGIN 0
 #define Y_MARGIN 0
 

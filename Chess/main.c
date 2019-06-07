@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
 
     SDL_Init(SDL_INIT_VIDEO);
     /* Cr�ation de la fenetre de base */
-    ecran = SDL_SetVideoMode(680, 560, 32, SDL_HWSURFACE | SDL_RESIZABLE | SDL_DOUBLEBUF);
+    ecran = SDL_SetVideoMode(1020, 840, 32, SDL_HWSURFACE | SDL_RESIZABLE | SDL_DOUBLEBUF);
     SDL_WM_SetCaption("Chess Projet", NULL);
 
     SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
