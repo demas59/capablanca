@@ -15,6 +15,7 @@ typedef struct piece_ {
 	Coord coord;
 	char type;
 	Deplacement deplacement;
+	int select;
 } * Piece;
 
 typedef struct grille_ {

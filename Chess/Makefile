@@ -5,8 +5,8 @@ EXEC=main
 
 all: $(EXEC)
 
-main: main.o ../coord.o ../deplacement.o ../game.o ../grille.o ../piece.o
-	$(CC) -o main main.o ../coord.o ../deplacement.o ../game.o ../grille.o ../piece.o $(CFLAGS)  $(LDFLAGS)
+main: main.o ../coord.o ../deplacement.o ../game.o ../grille.o ../piece.o graphique.o
+	$(CC) -o main main.o ../coord.o ../deplacement.o ../game.o ../grille.o ../piece.o graphique.o $(CFLAGS)  $(LDFLAGS)
 
 coord : ../coord.c
 	$(CC) -o ../coord.o -c ../coord.c $(CFLAGS) $(LDFLAGS)
@@ -22,6 +22,9 @@ grille : ../grille.c
 
 piece : ../piece.c
 	$(CC) -o ../piece.o -c ../piece.c $(CFLAGS) $(LDFLAGS)
+
+graphique : graphique.c
+	$(CC) -o graphique.o -c graphique.c $(CFLAGS) $(LDFLAGS)
 
 chess : main.c
 	$(CC) -o main.o -c main.c $(CFLAGS) $(LDFLAGS)

@@ -10,6 +10,7 @@ Piece createPiece(int color, int x, int y, char type)
 	p->color=color;
 	p->type=type;
 	p->deplacement = createDeplacement();
+	p->select = 0;
 	return p;
 }
 
