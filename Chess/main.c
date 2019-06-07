@@ -39,10 +39,16 @@ int main(int argc, char *argv[])
     SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
     // Initialisation des positions de d�part de pieces Noires
     Grille plateau = initialisation();
-    affichageGraphique(plateau, ecran);
-    selectPiece(plateau);
-    affichageGraphique(plateau, ecran);
-    selectPiece(plateau);
+
+
+    Piece * pieceSelect = malloc(sizeof(struct _piece));
+    while(1){
+        affichageGraphique(plateau, ecran);
+        selectPiece(plateau,pieceSelect);
+    }
+    free(pieceSelect);
+
+
     
     SDL_FreeSurface(imageDeFond); /* On lib�re la surface */
     SDL_Quit();

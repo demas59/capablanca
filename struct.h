@@ -92,3 +92,5 @@ int roiPeutEtrePris(Piece piece,Coord coordArrive,Grille grille,int equipe);
 void mypause(void);
 
 void myflush(FILE *in);
+
+Piece getPieceByCoord(Coord coord,Grille plateau);
