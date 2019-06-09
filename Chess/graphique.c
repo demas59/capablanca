@@ -8,10 +8,10 @@
 
 void changeCouleurFond(Piece piece,SDL_Surface * ecran ){
     SDL_Surface * rectangle = NULL;
-    rectangle = SDL_CreateRGBSurface(SDL_HWSURFACE, CASE_LARG, CASE_LONG, 32, 0, 0, 0, 0);
+    rectangle = SDL_CreateRGBSurface(SDL_HWSURFACE, CASE_LARG - 2, CASE_LONG - 2, 32, 0, 0, 0, 0);
     SDL_Rect position;
-    position.x = piece -> coord -> y * CASE_LARG;
-    position.y = piece -> coord -> x * CASE_LONG;
+    position.x = piece -> coord -> y * CASE_LARG + 1;
+    position.y = piece -> coord -> x * CASE_LONG + 1;
 
     if(piece -> coord -> y == 0 && piece -> coord -> x == 3){
     }
