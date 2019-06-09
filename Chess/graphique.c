@@ -246,19 +246,24 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
                     if(pieceSelect -> select == 3){
                         pieceSelect -> select = 0;
                         deselectMouvements(pieceSelect,plateau);
-                        printf("PIECE EST SELECT/ %d\n",pieceSelect -> select );
                         //return selectPiece(plateau,NULL);
                     }else{
                       if(pieceSelect -> select == 0){
                           pieceSelect -> select = 3;
                           selectMouvements(pieceSelect,plateau);
-                          printf("PIECE EST SELECT/ %d\n",pieceSelect -> select );
                           return pieceSelect;
 
                       }
                       else{
-                          deplacerPiece(plateau,precedent -> coord, pieceSelect -> coord);
-                          deselectMouvements(precedent,plateau);
+                            do{
+                                 seraEnEchec = roiPeutEtrePris(precedent,pieceSelect -> coord,plateau,plateau % 2 + 1);
+                                if(seraEnEchec == 1){
+                                    printf("IMPOSSIBLE CELA VOUS METTEREZ EN ECHEC CHOISISSEZ UNE AUTRE POSITION\n");   
+                                }
+                            }while(seraEnEchec == 1);
+
+                        deplacerPiece(plateau,precedent -> coord, pieceSelect -> coord);
+                        deselectMouvements(precedent,plateau);
                       }
                     }
                     precedent = pieceSelect;

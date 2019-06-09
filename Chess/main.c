@@ -40,15 +40,53 @@ int main(int argc, char *argv[])
     initDeplacement(plateau);
   	clearDeplacement(plateau);
   	setDeplacement(plateau);
+    Grille grille = initialisation();
+    int echec_et_mat = 0;
+    int estEnEchec = 0;
+    int joueur;
+    affichageGraphique(plateau, ecran);
 
-    int i = 0;
+    /*int i = 0;
     Piece selectionne = NULL;
     while(3>i++){
         affichageGraphique(plateau, ecran);
         selectionne = selectPiece(plateau,selectionne);
         printf("case selection: %d\n",plateau -> pions[getIndice(1,0)] -> select );
+    }*/
+
+    while(echec_et_mat == 0){
+        plateau -> tour ++;
+        joueur = plateau -> tour % 2 + 1;
+        int adversaire = joueur % 2 + 1;
+        int seraEnEchec = -1;
+        Piece selectionne = NULL;
+
+        if(1){//joueur == 1){
+            int seraEnEchec = -1;
+            if(estEnEchec == 1){
+                printf("ATTENTION JOUEUR %d VOTRE ROI EST EN ECHEC\n",joueur);
+            }
+
+            do{
+                selectionne = selectPiece(plateau,selectionne);
+                selectionne = selectPiece(plateau,selectionne);
+            }while(selectionne == NULL);
+            
+        }else{
+            echec_et_mat=IA_jouer(plateau);
+            myflush ( stdin );
+            mypause();
+        }
+        affichage(plateau);
+        clearDeplacement(plateau);
+        setDeplacement(plateau);
+
+        Piece roi = trouverRoi(plateau,adversaire);
+        estEnEchec = echec(roi -> coord, plateau, joueur);
+        echec_et_mat = echecMat(plateau,joueur);
     }
 
+    printf("LE JOUEUR %d A PERDU\n", joueur % 2 + 1);
 
 
     SDL_FreeSurface(imageDeFond); /* On lib�re la surface */
