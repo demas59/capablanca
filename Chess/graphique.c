@@ -243,27 +243,34 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
                     coordClick = createCoord(event.button.y/CASE_LARG,event.button.x/CASE_LONG);
                     Piece pieceSelect = plateau -> pions[getIndice(coordClick -> x,coordClick -> y)];
 
+                    if((pieceSelect -> type == ' ' && pieceSelect -> select == 0) ||(pieceSelect -> color != plateau -> tour % 2 + 1 && precedent == NULL)){
+                      break;
+                    }
+
                     if(pieceSelect -> select == 3){
                         pieceSelect -> select = 0;
                         deselectMouvements(pieceSelect,plateau);
-                        //return selectPiece(plateau,NULL);
                     }else{
+
+                      if(pieceSelect -> select == 0 && precedent != NULL){
+                        break;
+                      }
+
                       if(pieceSelect -> select == 0){
                           pieceSelect -> select = 3;
                           selectMouvements(pieceSelect,plateau);
                           return pieceSelect;
-
                       }
                       else{
-                            do{
-                                 seraEnEchec = roiPeutEtrePris(precedent,pieceSelect -> coord,plateau,plateau % 2 + 1);
-                                if(seraEnEchec == 1){
-                                    printf("IMPOSSIBLE CELA VOUS METTEREZ EN ECHEC CHOISISSEZ UNE AUTRE POSITION\n");   
-                                }
-                            }while(seraEnEchec == 1);
+                            int seraEnEchec = roiPeutEtrePris(precedent,pieceSelect -> coord,plateau,plateau -> tour % 2 + 1);
+                            if(seraEnEchec == 1){
+                                printf("IMPOSSIBLE CELA VOUS METTEREZ EN ECHEC CHOISISSEZ UNE AUTRE POSITION\n");
+                                break;
+                            }
 
                         deplacerPiece(plateau,precedent -> coord, pieceSelect -> coord);
                         deselectMouvements(precedent,plateau);
+                        return precedent;
                       }
                     }
                     precedent = pieceSelect;
