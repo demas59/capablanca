@@ -14,7 +14,6 @@ void changeCouleurFond(Piece piece,SDL_Surface * ecran ){
     position.y = piece -> coord -> x * CASE_LONG;
 
     if(piece -> coord -> y == 0 && piece -> coord -> x == 3){
-      printf("peice select: %d\n",piece -> select );
     }
 
 		if(piece -> select == 1){
@@ -32,6 +31,14 @@ void changeCouleurFond(Piece piece,SDL_Surface * ecran ){
 }
 
 void affichageGraphique(Grille plateau, SDL_Surface * ecran){
+
+    SDL_Surface * fond = NULL;
+    fond = IMG_Load("echiquier.png");
+    SDL_Rect posinit;
+    posinit.x = 0;
+    posinit.y = 0;
+    SDL_BlitSurface(fond,NULL,ecran,&posinit);
+
     int m ; int l;
     for (m = 0; m < 8 ; m++){
         for(l=0; l < 10; l++){
@@ -201,8 +208,8 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
 
     void deselectMouvements(Piece piece,Grille plateau){
         int i;
+        piece -> select = 0;
         for(i=0; i<piece -> deplacement -> nombre_element;i++){
-          printf("HERE BOUCLE\n" );
             Coord coordMouv = piece -> deplacement -> mouvements[i];
             plateau -> pions[getIndice(coordMouv->x,coordMouv->y)]-> select = 0 ;
         }
@@ -212,7 +219,11 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
         int i;
         for(i=0; i<piece -> deplacement -> nombre_element;i++){
             Coord coordMouv = piece -> deplacement -> mouvements[i];
-            plateau -> pions[getIndice(coordMouv->x,coordMouv->y)]-> select = 1;
+            if(plateau -> pions[getIndice(coordMouv -> x, coordMouv -> y)] -> color != piece -> color && plateau -> pions[getIndice(coordMouv -> x, coordMouv -> y)] -> color != 0){
+              plateau -> pions[getIndice(coordMouv->x,coordMouv->y)]-> select = 2;
+            }else{
+              plateau -> pions[getIndice(coordMouv->x,coordMouv->y)]-> select = 1;
+            }
         }
     }
 
@@ -231,19 +242,24 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
                 if (event.button.button == SDL_BUTTON_LEFT){ /* Si on fait un clique gauche, on lance l'instruction*/
                     coordClick = createCoord(event.button.y/CASE_LARG,event.button.x/CASE_LONG);
                     Piece pieceSelect = plateau -> pions[getIndice(coordClick -> x,coordClick -> y)];
+
                     if(pieceSelect -> select == 3){
                         pieceSelect -> select = 0;
                         deselectMouvements(pieceSelect,plateau);
-                    }
-                    if(pieceSelect -> select == 0){
-                        pieceSelect -> select = 3;
-                        selectMouvements(pieceSelect,plateau);
-                        return pieceSelect;
+                        printf("PIECE EST SELECT/ %d\n",pieceSelect -> select );
+                        //return selectPiece(plateau,NULL);
+                    }else{
+                      if(pieceSelect -> select == 0){
+                          pieceSelect -> select = 3;
+                          selectMouvements(pieceSelect,plateau);
+                          printf("PIECE EST SELECT/ %d\n",pieceSelect -> select );
+                          return pieceSelect;
 
-                    }
-                    else{
-                        //TODO deplacement
-                        deselectMouvements(precedent,plateau);
+                      }
+                      else{
+                          deplacerPiece(plateau,precedent -> coord, pieceSelect -> coord);
+                          deselectMouvements(precedent,plateau);
+                      }
                     }
                     precedent = pieceSelect;
     				            continuer = 0;

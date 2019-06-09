@@ -25,10 +25,8 @@ int main(int argc, char *argv[])
 	{
     SDL_Surface * ecran = NULL, *imageDeFond = NULL;
     SDL_Rect positionFond;
-
     positionFond.x = 0;
     positionFond.y = 0;
-
     imageDeFond = IMG_Load("echiquier.png");
 
     SDL_Init(SDL_INIT_VIDEO);
@@ -48,6 +46,7 @@ int main(int argc, char *argv[])
     while(3>i++){
         affichageGraphique(plateau, ecran);
         selectionne = selectPiece(plateau,selectionne);
+        printf("case selection: %d\n",plateau -> pions[getIndice(1,0)] -> select );
     }
 
 
