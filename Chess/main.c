@@ -53,29 +53,44 @@ int main(int argc, char *argv[])
         selectionne = selectPiece(plateau,selectionne);
         printf("case selection: %d\n",plateau -> pions[getIndice(1,0)] -> select );
     }*/
+    int quitter = 1;
 
-    while(echec_et_mat == 0){
+    while(echec_et_mat == 0 && quitter == 1){
         plateau -> tour ++;
         joueur = plateau -> tour % 2 + 1;
         int adversaire = joueur % 2 + 1;
         int seraEnEchec = -1;
         Piece selectionne = NULL;
 
-        if(1){//joueur == 1){
+        if(0){//joueur == 1){
             if(estEnEchec == 1){
                 printf("ATTENTION JOUEUR %d VOTRE ROI EST EN ECHEC\n",joueur);
             }
 
             do{
-                selectionne = selectPiece(plateau,selectionne);
+                selectionne = selectPiece(plateau,selectionne,&quitter);
                 affichageGraphique(plateau, ecran);
-                selectionne = selectPiece(plateau,selectionne);
-                affichageGraphique(plateau, ecran);
+                if(quitter == 1){
+                  selectionne = selectPiece(plateau,selectionne,&quitter);
+                  affichageGraphique(plateau, ecran);
+                }
+
+                if(selectionne && selectionne -> type == 'p'){
+              		if(selectionne -> color == 1 && selectionne -> coord -> x == 7){
+                    printf("appel promotion\n" );
+              			choixPromotion(ecran,selectionne);
+              		}
+              		if(selectionne -> color == 2 && selectionne -> coord -> x == 0){
+              			choixPromotion(ecran,selectionne);
+              		}
+              	}
             }while(selectionne == NULL);
+
+            printf("SORTIE: %d\n",quitter );
 
         }else{
             echec_et_mat=IA_jouer(plateau);
-            myflush ( stdin );
+            myflush(stdin);
             mypause();
         }
         affichageGraphique(plateau, ecran);

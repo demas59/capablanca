@@ -31,7 +31,7 @@ si new position dans mouv adversaire: pts -= piece -> value
 si mouv fait rien: +1
 
 */
-typedef struct Move_ 
+typedef struct Move_
 {
 	int indiceA;
 	int indiceB;
@@ -68,16 +68,18 @@ int IA_jouer(Grille grille)
 			calc_moves(grille, i, joueur_actu, moves, &nbMoves, &taille_max);
 		}
 	}
-	
+
 	Grille grille_tmp=copyGrille(grille);
 	Piece p;
 	for(i=0; i<nbMoves; i++)
 	{
 		//printf("%d -> %d = %d (%d), max victime:%d, prec: %d\n", moves[i]->indiceA, moves[i]->indiceB, moves[i]->points, moves[i]->value_piece, tmp_max_victim, max_victime);
-		//printf("c%d", i);
+		//printf("c%d", i
 		p=grille_tmp->pions[moves[i]->indiceB];
-		deplacerPiece(grille_tmp, coord_from_indice(moves[i]->indiceA), coord_from_indice(moves[i]->indiceB));
-		
+
+		// printf("coord depart: %d,%d coord arrivee %d,%d\n",coord_from_indice(moves[i]->indiceA)->x,coord_from_indice(moves[i]->indiceA)->y,coord_from_indice(moves[i]->indiceB)->x,coord_from_indice(moves[i]->indiceB)->y );
+		//deplacerPiece(grille_tmp, coord_from_indice(moves[i]->indiceA), coord_from_indice(moves[i]->indiceB));
+
 		clearDeplacement(grille_tmp);
 		setDeplacement(grille_tmp);
 		tmp_max_victim=calc_max_victim(grille_tmp, joueur_actu);
@@ -97,7 +99,6 @@ int IA_jouer(Grille grille)
 	free(grille_tmp);
 
 
-
  	Move move_elu=NULL;
 
 	int noteActu=-50;
@@ -107,9 +108,10 @@ int IA_jouer(Grille grille)
 		{
 			noteActu=moves[i]->points;
 			move_elu=moves[i];
-		}else if(moves[i]->points==noteActu)
+		}
+		else if(moves[i]->points==noteActu)
 		{
-			int	d= (int)rand()/(RAND_MAX+1.0)*2; 
+			int	d= (int)rand()/(RAND_MAX+1.0)*2;
 			if(d)
 			{
 				move_elu=moves[i];
@@ -121,7 +123,7 @@ int IA_jouer(Grille grille)
 	{
 		return 1;
 	}
-	
+
 	deplacerPiece(grille, coord_from_indice(move_elu->indiceA), coord_from_indice(move_elu->indiceB));
 
 	free(moves);
@@ -218,12 +220,12 @@ void ajout_move(Move * moves, int * nbr_elements, int * taille_max, Move m)
 		*taille_max=(*taille_max)+200;
 
 		size_t size = (*taille_max) * sizeof(struct Move_);
-		
+
 		tmp=(Move *)realloc(moves, size);
 
 		if (tmp == NULL){
 			printf("Error memory ia.c\n");
-		}	
+		}
 		else {
 			moves =tmp;
 		}
@@ -237,15 +239,15 @@ void myflush ( FILE *in )
   int ch;
 
   do
-    ch = fgetc ( in ); 
-  while ( ch != EOF && ch != '\n' ); 
+    ch = fgetc ( in );
+  while ( ch != EOF && ch != '\n' );
 
   clearerr ( in );
 }
 
 void mypause ( void )
-{ 
+{
   printf ( "Press [Enter] to continue . . ." );
   fflush ( stdout );
   getchar();
-} 
+}
