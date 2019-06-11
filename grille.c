@@ -22,18 +22,15 @@ void setColor(int i,int j,Piece * pieces){
 	{
 		pieces[getIndice(i,j)]->color=0;
 	}*/
-	if(i == 0 || i == 1){
-
-		pieces[getIndice(i,j)]->color=1;
-
-	}else if( i == 7 || i == 6){
-
-		pieces[getIndice(i,j)]->color=2;
-
-	}else{
-
-		pieces[getIndice(i,j)]->color=0;
-
+	if(pieces[getIndice(i,j)]->type!=' ')
+	{
+		if(i == 0 || i == 1){
+			pieces[getIndice(i,j)]->color=1;
+		}else if( i == 7 || i == 6){
+			pieces[getIndice(i,j)]->color=2;
+		}else{
+			pieces[getIndice(i,j)]->color=0;
+		}
 	}
 }
 
@@ -73,8 +70,8 @@ Grille initialisation(){
 	for(i=0;i<8;i++){
 		for(j=0;j<10;j++){
 			pieces[getIndice(i,j)] = createPiece(0,i,j,' ');
-			setColor(i,j,pieces);
 			setType(i,j,pieces);
+			setColor(i,j,pieces);
 		}
 	}
 	Grille grille = (Grille) malloc(sizeof(struct grille_));

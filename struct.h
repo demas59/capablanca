@@ -25,6 +25,14 @@ typedef struct grille_ {
 	int tour;
 } * Grille;
 
+typedef struct Move_ 
+{
+	int indiceA;
+	int indiceB;
+	int value_piece;
+	int points;
+} * Move;
+
 void affichage(Grille grille);
 
 Grille initialisation();
@@ -73,7 +81,7 @@ void clearDeplacement(Grille grille);
 
 void setDeplacement(Grille grille);
 
-int echecMat(Grille grille, int equipe);
+int echecMat(Grille grille);
 
 int echec(Coord coord,Grille grille,int equipe);
 
@@ -92,3 +100,9 @@ int roiPeutEtrePris(Piece piece,Coord coordArrive,Grille grille,int equipe);
 void mypause(void);
 
 void myflush(FILE *in);
+
+void calc_moves(Grille g, int indice, int joueur, Move * moves, int * nbMoves, int * taille_max);
+
+Coord coord_from_indice(int indice);
+
+int calc_max_victim(Grille grille, int joueur_actu);

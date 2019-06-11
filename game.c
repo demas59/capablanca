@@ -89,23 +89,73 @@ int roiPeutEtrePris(Piece piece,Coord coordArrive,Grille grille,int equipe){
 }
 
 
-int echecMat(Grille grille, int equipe){
-	Piece roi = trouverRoi(grille,equipe % 2 + 1);
-	int k;
-	int value = echec(roi -> coord,grille,equipe);
+int echecMat(Grille grille){
+	printf("test");
+	int taille_max=200;
+	Move * moves=(Move *)malloc(sizeof(struct Move_)*taille_max);
+	int nbMoves=0;
 
-	if( value == 0){
-		return 0;
+	int joueur_actu=(grille->tour+1) % 2 + 1;
+	
+	int i;
+	for(i=0; i<80; i++)
+	{
+		if(grille->pions[i]->color==joueur_actu)
+		{
+			calc_moves(grille, i, joueur_actu, moves, &nbMoves, &taille_max);
+		}
 	}
+	
+	Grille grille_tmp=copyGrille(grille);
+	Piece p;
+	int tmp_max_victim=0;
+	for(i=0; i<nbMoves; i++)
+	{
+		p=grille_tmp->pions[moves[i]->indiceB];
+		deplacerPiece(grille_tmp, coord_from_indice(moves[i]->indiceA), coord_from_indice(moves[i]->indiceB));
+		
+		clearDeplacement(grille_tmp);
+		setDeplacement(grille_tmp);
 
-	for(k=0 ; k < roi -> deplacement -> nombre_element ; k++){
-		value = echec(roi -> deplacement -> mouvements[k],grille,equipe);
-		if(value == 0){
-			return 0;
+		tmp_max_victim=calc_max_victim(grille_tmp, joueur_actu);
+
+
+		deplacerPiece(grille_tmp, coord_from_indice(moves[i]->indiceB), coord_from_indice(moves[i]->indiceA));
+		grille_tmp->pions[moves[i]->indiceB]=p;
+
+		if(tmp_max_victim==10)
+		{
+			moves[i]->points = -100;
+		}
+	}
+	free(grille_tmp);
+
+
+
+ 	Move move_elu=NULL;
+
+	int noteActu=-50;
+	for(i=0; i<nbMoves; i++)
+	{
+		if(moves[i]->points>-50)
+			printf("move Possible: %d, %d\n", moves[i]->indiceA, moves[i]->indiceB);
+	
+		if(moves[i]->points > noteActu && moves[i]->points>-50)
+		{
+			noteActu=moves[i]->points;
+			move_elu=moves[i];
 		}
 	}
 
-	return 1;
+	if(move_elu==NULL)
+	{
+		printf("ECHEC ET MAT");
+		return 1;
+	}
+	
+	free(moves);
+
+	return 0;
 }
 
 int echec(Coord coord,Grille grille,int equipe){
