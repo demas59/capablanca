@@ -12,6 +12,16 @@ Grille createGrille()
 }
 
 void setColor(int i,int j,Piece * pieces){
+	/*if(i==0 && (j==0 || j==9 || j==4 || j==5))
+	{
+		pieces[getIndice(i,j)]->color=1;
+	}else if(i==7 && (j==0 || j==9 || j==4 || j==5))
+	{
+		pieces[getIndice(i,j)]->color=2;
+	}else
+	{
+		pieces[getIndice(i,j)]->color=0;
+	}*/
 	if(i == 0 || i == 1){
 
 		pieces[getIndice(i,j)]->color=1;
@@ -83,7 +93,7 @@ void affichage(Grille grille){
 	printf("|---------------------------------------|\n\t");
 	int i,j;
 	Piece * plateau = grille -> pions;
-
+	
 	for(i=0;i<8;i++){
 		for(j=0;j<10;j++){
 			printf("|");
@@ -123,13 +133,17 @@ Coord choixCoord(Coord * coords, int nombre_element){
 	return NULL;
 }
 
+void promotion(Piece piece){
+	char promo;
+	printf("Choisissez en quoi promouvoir votre pion reine(q),fou(f),tour(t),cavalier(c):\n");
+	scanf("%c",&promo);
+	piece -> type = promo;
+}
 
 void deplacerPiece(Grille grille,Coord coordDepart, Coord coordFin ){
 	Piece fin = grille -> pions[getIndice(coordFin  -> x,coordFin  -> y)];
 	if(fin -> color != 0){
 		grille -> mort[grille -> nbMort++] = fin;
-	}else{
-		free(fin);
 	}
 	Piece depart = grille -> pions[getIndice(coordDepart -> x,coordDepart -> y)];
 	depart -> deplacement -> deplace ++;
@@ -137,6 +151,24 @@ void deplacerPiece(Grille grille,Coord coordDepart, Coord coordFin ){
 
 	grille -> pions[getIndice(coordDepart -> x,coordDepart -> y)] = createPiece(0,coordDepart -> x,coordDepart -> y,' ');
 	grille -> pions[getIndice(coordFin  -> x,coordFin -> y)] = depart;
+
+	if(depart -> type == 'p'){
+		if(depart -> color == 1 && depart -> coord -> x == 7){
+			promotion(depart);
+		}
+		if(depart -> color == 2 && depart -> coord -> x == 0){
+			promotion(depart);
+		}
+	}
+	if(depart -> type == 'k' && depart -> deplacement -> deplace==1){
+		if(coordDepart -> y == coordFin -> y+2)
+		{
+			deplacerPiece(grille, createCoord(coordDepart -> x, 0), createCoord(coordDepart -> x, coordFin -> y+1));
+		}else if(coordDepart -> y == coordFin -> y-2)
+		{
+			deplacerPiece(grille, createCoord(coordDepart -> x, 9), createCoord(coordDepart -> x, coordFin -> y-1));
+		}
+	}
 }
 
 Grille copyGrille(Grille origine){
