@@ -7,10 +7,9 @@
 
 /*
 à chaque tour:
-aller chercher toutes les pieces adverses et recupérer les mouvements possibles. (pour que ce soit stocké d'une manière qui mette moins longtemps à récup)
-pareil pour mes pieces
+aller chercher toutes mes pieces et recupérer les mouvements possibles. (pour que ce soit stocké d'une manière qui mette moins longtemps à récup)
 
-pour chacun des mouvements de mes pions, attribuer une note, stocker dans un tableau les notes associées aux mvt
+pour chacun des mouvements de mes pions, attribuer une note, stocker dans un tableau les notes associées aux mouvements
 
 points:
 pion: 1
@@ -22,13 +21,14 @@ princesse: 7
 dame: 9
 roi: 10
 
-si possible de tuer piece: pts += piece -> value
-si new position dans mouv adversaire: pts -= piece -> value
+si possible de tuer piece: pts += piece adversaire -> value
+si la nouvelle position de la pièce la rend vulnérable au prochain tour: pts -= piece jouée -> value
+si roi vulnérable en faisant le coup: pts -= 100
 
-si de base dans mouv adv: pts += piece -> value
-si new position dans mouv adversaire: pts -= piece -> value
+Pour chaque mouv: avant mouv calcul de la plus grosse piece alliée vulnérable, même chose une fois mouvement effectué
+pts += piece avant - piece apres
 
-si mouv fait rien: +1
+si mouv fait rien en particulier: 0
 
 */
 typedef struct Move_ 
@@ -129,6 +129,9 @@ int IA_jouer(Grille grille)
 	return 0;
 }
 
+/*
+renvoie un objet coordonnee avec x et y a partir de l'indice de la case dans grille
+*/
 Coord coord_from_indice(int indice)
 {
 	int x=(int)indice/10;
@@ -136,6 +139,10 @@ Coord coord_from_indice(int indice)
 	return createCoord(x, y);
 }
 
+
+/*
+Calcule la valeur de a plus grosse piece que le joueur actuel peut se faire tuer avec cette grille
+*/
 int calc_max_victim(Grille grille, int joueur_actu)
 {
 	int adversaire= joueur_actu % 2 + 1;
@@ -162,6 +169,9 @@ int calc_max_victim(Grille grille, int joueur_actu)
 	return max;
 }
 
+/*
+calcul et stocke dans un tableau de Move tous les mouvements possible en les initialisant
+*/
 void calc_moves(Grille g, int indice, int joueur, Move * moves, int * nbMoves, int * taille_max)
 {
 	int cpt, ib;
@@ -178,11 +188,19 @@ void calc_moves(Grille g, int indice, int joueur, Move * moves, int * nbMoves, i
 		{
 			pts=0;
 		}
+		if(value_piece==10 && (ia==ib-2 || ia==ib+2))
+		{
 
-		ajout_move(moves, nbMoves, taille_max, create_move(ia, ib, value_piece, pts));
+		}else
+		{
+			ajout_move(moves, nbMoves, taille_max, create_move(ia, ib, value_piece, pts));
+		}
 	}
 }
 
+/*
+constructeur de Move
+*/
 Move create_move(int ia, int ib, int value_piece, int points)
 {
 	Move m = (Move)malloc(sizeof(struct Move_));
@@ -193,6 +211,10 @@ Move create_move(int ia, int ib, int value_piece, int points)
 	return m;
 }
 
+
+/*
+renvoie la valeur d'une piece suivant le modèle décrit en haut de la page
+*/
 int get_importance_piece(Piece p)
 {
 	char c=p -> type;
@@ -232,6 +254,9 @@ void ajout_move(Move * moves, int * nbr_elements, int * taille_max, Move m)
 	(*nbr_elements)++;
 }
 
+/*
+permet avec mypause de faire une fonction que attend une action de l'user pour continuer le programme
+*/
 void myflush ( FILE *in )
 {
   int ch;

@@ -364,6 +364,7 @@ void mouvRoi(Grille grille,Piece piece){
 	int equipe = piece -> color;
 	Piece * plateau = grille -> pions;
 
+
 	if(x != 0 && plateau[getIndice(x-1,y)]->color != equipe){
 		Coord coord = malloc(sizeof(Coord));
 		coord -> x = x - 1;
@@ -433,6 +434,43 @@ void mouvRoi(Grille grille,Piece piece){
 		coord -> y = y + 1;
 		ajoutCoord(coord,piece);
 	}
+
+	x = piece -> coord -> x;
+	y = piece -> coord -> y;
+	if(piece -> deplacement -> deplace==0){
+		int i=1;
+		while((y+i) < 10 && grille->pions[y+i]->color==0)
+		{
+			i++;
+		}
+
+		if(y+i<10 && grille->pions[y+i]->type=='t' && grille->pions[y+i]->deplacement->deplace==0)
+		{
+			Coord coord = malloc(sizeof(Coord));
+			coord -> x = x;
+			coord -> y = y + 2;
+			ajoutCoord(coord,piece);
+		}
+	}
+
+	x = piece -> coord -> x;
+	y = piece -> coord -> y;
+	if(piece -> deplacement -> deplace==0){
+		int i=-1;
+		while((y+i) >0 && grille->pions[y+i]->color==0)
+		{
+			i--;
+		}
+
+		if(y+i>=0 && grille->pions[y+i]->type=='t' && grille->pions[y+i]->deplacement->deplace==0)
+		{
+			Coord coord = malloc(sizeof(Coord));
+			coord -> x = x;
+			coord -> y = y - 2;
+			ajoutCoord(coord,piece);
+		}
+	}
+
 }
 
 void placerPiece(Grille grille,Piece piece){

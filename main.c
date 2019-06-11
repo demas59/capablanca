@@ -31,7 +31,7 @@ int main(void){
 		int adversaire = joueur % 2 + 1;
 		int seraEnEchec = -1;
 
-		if(1){//joueur == 1){
+		if(0){//joueur == 1){
 			int seraEnEchec = -1;
 			if(estEnEchec == 1){
 				printf("ATTENTION JOUEUR %d VOTRE ROI EST EN ECHEC\n",joueur);
