@@ -13,9 +13,6 @@ void changeCouleurFond(Piece piece,SDL_Surface * ecran ){
     position.x = piece -> coord -> y * CASE_LARG + 1;
     position.y = piece -> coord -> x * CASE_LONG + 1;
 
-    if(piece -> coord -> y == 0 && piece -> coord -> x == 3){
-    }
-
 		if(piece -> select == 1){
 			SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format,  50, 200, 50));
 			SDL_BlitSurface(rectangle, NULL, ecran, &position);
@@ -243,7 +240,7 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
                 break;
             case SDL_MOUSEBUTTONUP:
                 if (event.button.button == SDL_BUTTON_LEFT){ /* Si on fait un clique gauche, on lance l'instruction*/
-                    coordClick = createCoord(event.button.y/CASE_LARG,event.button.x/CASE_LONG);
+                    coordClick = createCoord(event.button.y/CASE_LONG,event.button.x/CASE_LARG);
                     Piece pieceSelect = plateau -> pions[getIndice(coordClick -> x,coordClick -> y)];
 
                     if((pieceSelect -> type == ' ' && pieceSelect -> select == 0) ||(pieceSelect -> color != plateau -> tour % 2 + 1 && precedent == NULL)){
@@ -283,32 +280,4 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
     	    }
           return NULL;
         }
-
-        void choixPromotion(SDL_Surface * ecran, Piece piece){
-          printf("1\n");
-          if(piece -> color == 2){
-          SDL_Rect positionReineN ;
-          positionReineN.x = LARGEUR/2 + X_MARGIN;
-          positionReineN.y = LONGUEUR / 2 + Y_MARGIN;
-          SDL_Surface *reineN = NULL;
-          reineN = IMG_Load("Image/black_queen.png");
-          changeCouleurFond(piece,ecran);
-          SDL_BlitSurface(reineN, NULL, ecran, &positionReineN);
-          }
-          else if(piece -> color == 1){
-            printf("2\n");
-          SDL_Rect positionReineB;
-          positionReineB.x = LARGEUR/2 + X_MARGIN;
-          positionReineB.y = LONGUEUR / 2 + Y_MARGIN;
-          printf("3\n");
-          SDL_Surface *reineB = NULL;
-          printf("4\n");
-          reineB = IMG_Load("Image/white_queen.png");
-          changeCouleurFond(piece,ecran);
-          printf("5\n");
-          SDL_BlitSurface(reineB, NULL, ecran, &positionReineB);
-          printf("6\n");
-          }
-          SDL_Flip(ecran);
-          printf("7\n");
-        }
+      

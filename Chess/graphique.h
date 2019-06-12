@@ -8,5 +8,3 @@
 void affichageGraphique(Grille plateau, SDL_Surface * ecran);
 
 Piece selectPiece(Grille plateau,Piece precedent,int * quitter);
-
-void choixPromotion(SDL_Surface * ecran, Piece piece);
