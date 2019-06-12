@@ -24,3 +24,7 @@ void ajoutCoord(Coord coord,Piece piece){
 	piece -> deplacement -> mouvements [piece -> deplacement -> nombre_element] = coord;
 	piece -> deplacement -> nombre_element++;
 }
+
+Piece getPieceByCoord(Coord coord,Grille plateau){
+	return plateau -> pions[getIndice(coord -> x, coord -> y)];
+}

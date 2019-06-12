@@ -31,7 +31,7 @@ int main(void){
 		int adversaire = joueur % 2 + 1;
 		int seraEnEchec = -1;
 
-		if(1){//joueur == 1){
+		if(0){//joueur == 1){
 			int seraEnEchec = -1;
 			if(estEnEchec == 1){
 				printf("ATTENTION JOUEUR %d VOTRE ROI EST EN ECHEC\n",joueur);
@@ -42,12 +42,12 @@ int main(void){
 
 				do{
 					position_arrivee = choixCoord(piece->deplacement->mouvements,piece->deplacement->nombre_element);
-					//seraEnEchec = roiPeutEtrePris(piece,position_arrivee,grille,joueur);
+					seraEnEchec = roiPeutEtrePris(piece,position_arrivee,grille,joueur);
 					if(seraEnEchec == 1){
-						printf("IMPOSSIBLE CELA VOUS METTEREZ EN ECHEC CHOISISSEZ UNE AUTRE POSITION\n");	
+						printf("IMPOSSIBLE CELA VOUS METTEREZ EN ECHEC CHOISISSEZ UNE AUTRE POSITION\n");
 					}
 				}while(seraEnEchec == 1);
-				
+
 
 			deplacerPiece(grille,piece -> coord,position_arrivee);
 			//free(position_arrivee);
@@ -68,4 +68,4 @@ int main(void){
 
 	printf("LE JOUEUR %d A PERDU\n", joueur % 2 + 1);
 	return 1;
-}	
+}
