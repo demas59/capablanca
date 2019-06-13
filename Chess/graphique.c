@@ -224,6 +224,15 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
         }
     }
 
+    void promotion(Piece piece){
+        if(piece -> color == 1 && piece -> coord -> x == 7){
+          piece -> type = 'q';
+        }
+        if(piece -> color == 2 && piece -> coord -> x == 0){
+          piece -> type = 'q';
+        }
+    }
+
     Piece selectPiece(Grille plateau,Piece precedent,int * quitter){
         SDL_Event event;
         Coord coordClick;
@@ -280,4 +289,3 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
     	    }
           return NULL;
         }
-      

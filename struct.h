@@ -25,7 +25,7 @@ typedef struct grille_ {
 	int tour;
 } * Grille;
 
-typedef struct Move_ 
+typedef struct Move_
 {
 	int indiceA;
 	int indiceB;
@@ -106,3 +106,5 @@ void calc_moves(Grille g, int indice, int joueur, Move * moves, int * nbMoves, i
 Coord coord_from_indice(int indice);
 
 int calc_max_victim(Grille grille, int joueur_actu);
+
+void promotion(Piece piece);

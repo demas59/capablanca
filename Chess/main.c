@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 
         }else{
             echec_et_mat=IA_jouer(plateau);
-            sleep(1);
+            sleep(0.5);
         }
         affichageGraphique(plateau, ecran);
         clearDeplacement(plateau);
@@ -72,11 +72,11 @@ int main(int argc, char *argv[])
 
         Piece roi = trouverRoi(plateau,adversaire);
         estEnEchec = echec(roi -> coord, plateau, joueur);
+        //echec_et_mat = echecMat(grille);
 
     }
 
     printf("LE JOUEUR %d A PERDU\n", joueur);
-
     SDL_FreeSurface(imageDeFond); /* On lib�re la surface */
     SDL_Quit();
 

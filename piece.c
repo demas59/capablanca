@@ -112,7 +112,7 @@ void mouvPion(Grille grille,Piece piece){
 
 		if(piece -> deplacement -> deplace == 0){
 			porte = 2;
-		}else if(x<9){
+		}else if(x<7){
 			porte = 1;
 		}
 
@@ -484,4 +484,3 @@ Piece copyPiece(Piece origine){
 	copy -> deplacement = copyDeplacement(origine -> deplacement);
 	return copy;
 }
-

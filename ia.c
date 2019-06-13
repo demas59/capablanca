@@ -41,7 +41,7 @@ int calc_max_victim(Grille grille, int joueur_actu);
 
 int IA_jouer(Grille grille)
 {
-	//printf("AI thinking...\n");
+	// printf("AI thinking...\n");
 
 	int taille_max=200;
 	Move * moves=(Move *)malloc(sizeof(struct Move_)*taille_max);
@@ -49,7 +49,7 @@ int IA_jouer(Grille grille)
 
 	int joueur_actu=grille->tour % 2 + 1;
 	int max_victime=calc_max_victim(grille, joueur_actu);
-	//printf("max en danger: %d\n", max_victime);
+	// printf("max en danger: %d\n", max_victime);
 
 	int i;
 	int tmp_max_victim=0;
@@ -60,7 +60,9 @@ int IA_jouer(Grille grille)
 			calc_moves(grille, i, joueur_actu, moves, &nbMoves, &taille_max);
 		}
 	}
-	
+
+
+
 	Grille grille_tmp=copyGrille(grille);
 	Piece p;
 	for(i=0; i<nbMoves; i++)
@@ -69,10 +71,11 @@ int IA_jouer(Grille grille)
 		//printf("c%d", i);
 		p=grille_tmp->pions[moves[i]->indiceB];
 		deplacerPiece(grille_tmp, coord_from_indice(moves[i]->indiceA), coord_from_indice(moves[i]->indiceB));
-		
-		clearDeplacement(grille_tmp);
+		clearDeplacement(grille_tmp); 
 		setDeplacement(grille_tmp);
 		tmp_max_victim=calc_max_victim(grille_tmp, joueur_actu);
+
+
 
 
 		deplacerPiece(grille_tmp, coord_from_indice(moves[i]->indiceB), coord_from_indice(moves[i]->indiceA));
@@ -101,7 +104,7 @@ int IA_jouer(Grille grille)
 			move_elu=moves[i];
 		}else if(moves[i]->points==noteActu)
 		{
-			int	d= (int)rand()/(RAND_MAX+1.0)*2; 
+			int	d= (int)rand()/(RAND_MAX+1.0)*2;
 			if(d)
 			{
 				move_elu=moves[i];
@@ -113,11 +116,8 @@ int IA_jouer(Grille grille)
 	{
 		return 1;
 	}
-	
 	deplacerPiece(grille, coord_from_indice(move_elu->indiceA), coord_from_indice(move_elu->indiceB));
-
 	free(moves);
-
 	return 0;
 }
 
@@ -232,12 +232,12 @@ void ajout_move(Move * moves, int * nbr_elements, int * taille_max, Move m)
 		*taille_max=(*taille_max)+200;
 
 		size_t size = (*taille_max) * sizeof(struct Move_);
-		
+
 		tmp=(Move *)realloc(moves, size);
 
 		if (tmp == NULL){
 			printf("Error memory ia.c\n");
-		}	
+		}
 		else {
 			moves =tmp;
 		}
@@ -254,15 +254,15 @@ void myflush ( FILE *in )
   int ch;
 
   do
-    ch = fgetc ( in ); 
-  while ( ch != EOF && ch != '\n' ); 
+    ch = fgetc ( in );
+  while ( ch != EOF && ch != '\n' );
 
   clearerr ( in );
 }
 
 void mypause ( void )
-{ 
+{
   printf ( "Press [Enter] to continue . . ." );
   fflush ( stdout );
   getchar();
-} 
+}

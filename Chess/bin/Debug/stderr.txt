@@ -1,4 +1,0 @@
-libpng warning: iCCP: CRC error
-libpng warning: iCCP: CRC error
-libpng warning: iCCP: CRC error
-libpng warning: iCCP: CRC error

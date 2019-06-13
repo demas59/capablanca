@@ -8,6 +8,7 @@ Grille createGrille()
 	Grille g=(Grille)malloc(sizeof(struct grille_));
 	g->pions=malloc(sizeof(struct piece_)*80);
 	g->mort=malloc(sizeof(struct piece_)*10*4);
+	g->nbMort = 0;
 	return g;
 }
 
@@ -38,7 +39,7 @@ void setType(int i,int j, Piece * pieces){
 	if((j == 0 || j == 9) && (i == 0 || i == 7)){
 		pieces[getIndice(i,j)] -> type = 't';
 	}
-	/*if((j == 1 || j == 8) && (i == 0 || i == 7)){
+	if((j == 1 || j == 8) && (i == 0 || i == 7)){
 		pieces[getIndice(i,j)] -> type = 'c';
 	}
 	if((j == 2) && (i == 0 || i == 7)){
@@ -49,16 +50,16 @@ void setType(int i,int j, Piece * pieces){
 	}
 	if((j == 4) && (i == 0 || i == 7)){
 		pieces[getIndice(i,j)] -> type = 'q';
-	}*/
+	}
 	if((j == 5) && (i == 0 || i == 7)){
 		pieces[getIndice(i,j)] -> type = 'k';
 	}
-/*	if((j == 7) && (i == 0 || i == 7)){
+	if((j == 7) && (i == 0 || i == 7)){
 		pieces[getIndice(i,j)] -> type = 'i';
 	}
 	if(i == 1 || i == 6){
 		pieces[getIndice(i,j)] -> type = 'p';
-	}*/
+	}
 }
 
 
@@ -90,7 +91,7 @@ void affichage(Grille grille){
 	printf("|---------------------------------------|\n\t");
 	int i,j;
 	Piece * plateau = grille -> pions;
-	
+
 	for(i=0;i<8;i++){
 		for(j=0;j<10;j++){
 			printf("|");
@@ -130,13 +131,6 @@ Coord choixCoord(Coord * coords, int nombre_element){
 	return NULL;
 }
 
-void promotion(Piece piece){
-	char promo;
-	printf("Choisissez en quoi promouvoir votre pion reine(q),fou(f),tour(t),cavalier(c):\n");
-	scanf("%c",&promo);
-	piece -> type = promo;
-}
-
 void deplacerPiece(Grille grille,Coord coordDepart, Coord coordFin ){
 	Piece fin = grille -> pions[getIndice(coordFin  -> x,coordFin  -> y)];
 	if(fin -> color != 0){
@@ -145,18 +139,10 @@ void deplacerPiece(Grille grille,Coord coordDepart, Coord coordFin ){
 	Piece depart = grille -> pions[getIndice(coordDepart -> x,coordDepart -> y)];
 	depart -> deplacement -> deplace ++;
 	depart -> coord = coordFin;
-
 	grille -> pions[getIndice(coordDepart -> x,coordDepart -> y)] = createPiece(0,coordDepart -> x,coordDepart -> y,' ');
 	grille -> pions[getIndice(coordFin  -> x,coordFin -> y)] = depart;
 
-	if(depart -> type == 'p'){
-		if(depart -> color == 1 && depart -> coord -> x == 7){
-			promotion(depart);
-		}
-		if(depart -> color == 2 && depart -> coord -> x == 0){
-			promotion(depart);
-		}
-	}
+
 	if(depart -> type == 'k' && depart -> deplacement -> deplace==1){
 		if(coordDepart -> y == coordFin -> y+2)
 		{
