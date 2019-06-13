@@ -151,10 +151,12 @@ void deplacerPiece(Grille grille,Coord coordDepart, Coord coordFin ){
 
 	if(depart -> type == 'p'){
 		if(depart -> color == 1 && depart -> coord -> x == 7){
-			promotion(depart);
+			depart -> type='q';
+			//promotion(depart);
 		}
 		if(depart -> color == 2 && depart -> coord -> x == 0){
-			promotion(depart);
+			depart -> type='q';
+			//promotion(depart);
 		}
 	}
 	if(depart -> type == 'k' && depart -> deplacement -> deplace==1){
