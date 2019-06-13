@@ -142,7 +142,16 @@ void deplacerPiece(Grille grille,Coord coordDepart, Coord coordFin ){
 	grille -> pions[getIndice(coordDepart -> x,coordDepart -> y)] = createPiece(0,coordDepart -> x,coordDepart -> y,' ');
 	grille -> pions[getIndice(coordFin  -> x,coordFin -> y)] = depart;
 
-
+	if(depart -> type == 'p'){
+		if(depart -> color == 1 && depart -> coord -> x == 7){
+			depart -> type='q';
+			//promotion(depart);
+		}
+		if(depart -> color == 2 && depart -> coord -> x == 0){
+			depart -> type='q';
+			//promotion(depart);
+		}
+	}
 	if(depart -> type == 'k' && depart -> deplacement -> deplace==1){
 		if(coordDepart -> y == coordFin -> y+2)
 		{

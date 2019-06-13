@@ -138,12 +138,11 @@ int echecMat(Grille grille){
 
  	Move move_elu=NULL;
 
-	int noteActu=-50;
 	for(i=0; i<nbMoves; i++)
 	{
-		if(moves[i]->points > noteActu && moves[i]->points>-50)
+		if(moves[i]->points>-50)
 		{
-			noteActu=moves[i]->points;
+			printf("possible: %d a %d\n", moves[i]->indiceA, moves[i]->indiceB);
 			move_elu=moves[i];
 		}
 	}
