@@ -38,7 +38,7 @@ void setType(int i,int j, Piece * pieces){
 	if((j == 0 || j == 9) && (i == 0 || i == 7)){
 		pieces[getIndice(i,j)] -> type = 't';
 	}
-	if((j == 1 || j == 8) && (i == 0 || i == 7)){
+	/*if((j == 1 || j == 8) && (i == 0 || i == 7)){
 		pieces[getIndice(i,j)] -> type = 'c';
 	}
 	if((j == 2) && (i == 0 || i == 7)){
@@ -49,16 +49,16 @@ void setType(int i,int j, Piece * pieces){
 	}
 	if((j == 4) && (i == 0 || i == 7)){
 		pieces[getIndice(i,j)] -> type = 'q';
-	}
+	}*/
 	if((j == 5) && (i == 0 || i == 7)){
 		pieces[getIndice(i,j)] -> type = 'k';
 	}
-	if((j == 7) && (i == 0 || i == 7)){
+/*	if((j == 7) && (i == 0 || i == 7)){
 		pieces[getIndice(i,j)] -> type = 'i';
 	}
 	if(i == 1 || i == 6){
 		pieces[getIndice(i,j)] -> type = 'p';
-	}
+	}*/
 }
 
 

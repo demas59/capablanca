@@ -10,12 +10,12 @@ int main(void){
 	int joueur;
 
 	Piece piece;
-	// Piece pion = createPiece(2,2,0,'p');
+	Piece pion = createPiece(2,2,0,'p');
 	// Piece pion2 = createPiece(1,5,0,'p');
 	// Piece cavalier = createPiece(1,4,4,'c');
 	// Piece fou = createPiece(1,4,5,'f');
 
-	// placerPiece(grille,pion);
+	placerPiece(grille,pion);
 	// placerPiece(grille,pion2);
 	// placerPiece(grille,cavalier);
 	// placerPiece(grille,fou);
@@ -63,7 +63,7 @@ int main(void){
 
 		Piece roi = trouverRoi(grille,adversaire);
 		estEnEchec = echec(roi -> coord, grille, joueur);
-		echec_et_mat = echecMat(grille);
+		//echec_et_mat = echecMat(grille);
 	}
 
 	printf("LE JOUEUR %d A PERDU\n", joueur % 2 + 1);
