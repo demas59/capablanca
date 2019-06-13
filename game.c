@@ -111,21 +111,27 @@ int echecMat(Grille grille){
 	int tmp_max_victim=0;
 	for(i=0; i<nbMoves; i++)
 	{
-		p=grille_tmp->pions[moves[i]->indiceB];
-		deplacerPiece(grille_tmp, coord_from_indice(moves[i]->indiceA), coord_from_indice(moves[i]->indiceB));
-		
-		clearDeplacement(grille_tmp);
-		setDeplacement(grille_tmp);
-
-		tmp_max_victim=calc_max_victim(grille_tmp, joueur_actu);
-
-
-		deplacerPiece(grille_tmp, coord_from_indice(moves[i]->indiceB), coord_from_indice(moves[i]->indiceA));
-		grille_tmp->pions[moves[i]->indiceB]=p;
-
-		if(tmp_max_victim==10)
+		if(moves[i]->value_piece==10 && (moves[i]->indiceA==moves[i]->indiceB+2 || moves[i]->indiceA==moves[i]->indiceB-2))
 		{
 			moves[i]->points = -100;
+		}else
+		{
+			p=grille_tmp->pions[moves[i]->indiceB];
+			deplacerPiece(grille_tmp, coord_from_indice(moves[i]->indiceA), coord_from_indice(moves[i]->indiceB));
+			
+			clearDeplacement(grille_tmp);
+			setDeplacement(grille_tmp);
+
+			tmp_max_victim=calc_max_victim(grille_tmp, joueur_actu);
+
+
+			deplacerPiece(grille_tmp, coord_from_indice(moves[i]->indiceB), coord_from_indice(moves[i]->indiceA));
+			grille_tmp->pions[moves[i]->indiceB]=p;
+
+			if(tmp_max_victim==10)
+			{
+				moves[i]->points = -100;
+			}
 		}
 	}
 	free(grille_tmp);
@@ -137,9 +143,6 @@ int echecMat(Grille grille){
 	int noteActu=-50;
 	for(i=0; i<nbMoves; i++)
 	{
-		if(moves[i]->points>-50)
-			printf("move Possible: %d, %d\n", moves[i]->indiceA, moves[i]->indiceB);
-	
 		if(moves[i]->points > noteActu && moves[i]->points>-50)
 		{
 			noteActu=moves[i]->points;

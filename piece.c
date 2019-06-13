@@ -111,15 +111,16 @@ void mouvPion(Grille grille,Piece piece){
 	if(equipe == 1){
 
 		if(piece -> deplacement -> deplace == 0){
-			porte = x+3;
-		}else{
-			porte = x+2;
+			porte = 2;
+		}else if(x<9){
+			porte = 1;
 		}
 
-		for(++x;x<porte;x++){
-			if(plateau[getIndice(x,y)] -> color == 0){
+		int i;
+		for(i=1; i <= porte; i++){
+			if(plateau[getIndice(x+i,y)] -> color == 0){
 				Coord coord = malloc(sizeof(Coord));
-				coord -> x = x;
+				coord -> x = x+i;
 				coord -> y = y;
 				ajoutCoord(coord,piece);
 			}else{
@@ -147,15 +148,16 @@ void mouvPion(Grille grille,Piece piece){
 	}else{
 
 		if(piece -> deplacement -> deplace == 0){
-			porte = x-3;
-		}else{
-			porte = x-2;
+			porte = 2;
+		}else if(x>0){
+			porte = 1;
 		}
 
-		for(--x;x>porte;x--){
-			if(plateau[getIndice(x,y)] -> color == 0){
+		int i;
+		for(i=1; i <= porte; i++){
+			if(plateau[getIndice(x-i,y)] -> color == 0){
 				Coord coord = malloc(sizeof(Coord));
-				coord -> x = x;
+				coord -> x = x-i;
 				coord -> y = y;
 				ajoutCoord(coord,piece);
 			}else{
@@ -439,12 +441,12 @@ void mouvRoi(Grille grille,Piece piece){
 	y = piece -> coord -> y;
 	if(piece -> deplacement -> deplace==0){
 		int i=1;
-		while((y+i) < 10 && grille->pions[y+i]->color==0)
+		while((y+i) < 10 && grille->pions[getIndice(x,y+i)]->color==0)
 		{
 			i++;
 		}
 
-		if(y+i<10 && grille->pions[y+i]->type=='t' && grille->pions[y+i]->deplacement->deplace==0)
+		if(y+i<10 && grille->pions[getIndice(x,y+i)]->type=='t' && grille->pions[getIndice(x,y+i)]->deplacement->deplace==0)
 		{
 			Coord coord = malloc(sizeof(Coord));
 			coord -> x = x;
@@ -457,12 +459,12 @@ void mouvRoi(Grille grille,Piece piece){
 	y = piece -> coord -> y;
 	if(piece -> deplacement -> deplace==0){
 		int i=-1;
-		while((y+i) >0 && grille->pions[y+i]->color==0)
+		while((y+i) >= 0 && grille->pions[getIndice(x,y+i)]->color==0)
 		{
 			i--;
 		}
 
-		if(y+i>=0 && grille->pions[y+i]->type=='t' && grille->pions[y+i]->deplacement->deplace==0)
+		if(y+i>=0 && grille->pions[getIndice(x,y+i)]->type=='t' && grille->pions[getIndice(x,y+i)]->deplacement->deplace==0)
 		{
 			Coord coord = malloc(sizeof(Coord));
 			coord -> x = x;
