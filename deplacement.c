@@ -38,7 +38,7 @@ void setDeplacement(Grille grille){
 	for(i = 0;i<8;i++){
 		for(j = 0; j < 10; j++){
 			if(grille -> pions[getIndice(i,j)] -> type == 'p'){
-				promotion(grille -> pions[getIndice(i,j)]);
+				//promotion(grille -> pions[getIndice(i,j)]);
 			}
 			proposerDeplacer(grille,grille -> pions[getIndice(i,j)]);
 		}

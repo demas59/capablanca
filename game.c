@@ -142,7 +142,7 @@ int echecMat(Grille grille){
 	{
 		if(moves[i]->points>-50)
 		{
-			printf("possible: %d a %d\n", moves[i]->indiceA, moves[i]->indiceB);
+			//printf("possible: %d a %d\n", moves[i]->indiceA, moves[i]->indiceB);
 			move_elu=moves[i];
 		}
 	}

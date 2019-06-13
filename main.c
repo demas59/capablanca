@@ -10,12 +10,12 @@ int main(void){
 	int joueur;
 
 	Piece piece;
-	//Piece pion = createPiece(2,2,0,'p');
+	Piece pion = createPiece(2,2,0,'p');
 	// Piece pion2 = createPiece(1,5,0,'p');
 	// Piece cavalier = createPiece(1,4,4,'c');
 	// Piece fou = createPiece(1,4,5,'f');
 
-	//placerPiece(grille,pion);
+	placerPiece(grille,pion);
 	// placerPiece(grille,pion2);
 	// placerPiece(grille,cavalier);
 	// placerPiece(grille,fou);
@@ -31,7 +31,7 @@ int main(void){
 		int adversaire = joueur % 2 + 1;
 		int seraEnEchec = -1;
 
-		if(0){//joueur == 1){
+		if(01){//joueur == 1){
 			int seraEnEchec = -1;
 			if(estEnEchec == 1){
 				printf("ATTENTION JOUEUR %d VOTRE ROI EST EN ECHEC\n",joueur);
