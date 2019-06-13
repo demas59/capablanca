@@ -5,7 +5,7 @@
 
 int main(void){
 	Grille grille = initialisation();
-	int echec_et_mat = 0;
+	int echec_et_mat = echecMat(grille);
 	int estEnEchec = 0;
 	int joueur;
 
@@ -29,7 +29,7 @@ int main(void){
 		grille -> tour ++;
 		joueur = grille -> tour % 2 + 1;
 		int adversaire = joueur % 2 + 1;
-		int seraEnEchec = -1;
+
 
 		if(0){//joueur == 1){
 			int seraEnEchec = -1;

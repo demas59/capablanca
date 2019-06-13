@@ -10,8 +10,8 @@ void changeCouleurFond(Piece piece,SDL_Surface * ecran ){
     SDL_Surface * rectangle = NULL;
     rectangle = SDL_CreateRGBSurface(SDL_HWSURFACE, CASE_LARG - 2, CASE_LONG - 2, 32, 0, 0, 0, 0);
     SDL_Rect position;
-    position.x = piece -> coord -> y * CASE_LARG + 1;
-    position.y = piece -> coord -> x * CASE_LONG + 1;
+    position.x = piece -> coord -> y * CASE_LARG + 1 + X_MARGIN;
+    position.y = piece -> coord -> x * CASE_LONG + 1 + Y_MARGIN;
 
 		if(piece -> select == 1){
 			SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format,  50, 200, 50));
@@ -32,8 +32,8 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
     SDL_Surface * fond = NULL;
     fond = IMG_Load("echiquier.png");
     SDL_Rect posinit;
-    posinit.x = 0;
-    posinit.y = 0;
+    posinit.x = X_MARGIN;
+    posinit.y = Y_MARGIN;
     SDL_BlitSurface(fond,NULL,ecran,&posinit);
 
     int m ; int l;
@@ -249,7 +249,7 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
                 break;
             case SDL_MOUSEBUTTONUP:
                 if (event.button.button == SDL_BUTTON_LEFT){ /* Si on fait un clique gauche, on lance l'instruction*/
-                    coordClick = createCoord(event.button.y/CASE_LONG,event.button.x/CASE_LARG);
+                    coordClick = createCoord((event.button.y-Y_MARGIN)/CASE_LONG,(event.button.x-X_MARGIN)/CASE_LARG);
                     Piece pieceSelect = plateau -> pions[getIndice(coordClick -> x,coordClick -> y)];
 
                     if((pieceSelect -> type == ' ' && pieceSelect -> select == 0) ||(pieceSelect -> color != plateau -> tour % 2 + 1 && precedent == NULL)){

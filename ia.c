@@ -67,12 +67,15 @@ int IA_jouer(Grille grille)
 	Piece p;
 	for(i=0; i<nbMoves; i++)
 	{
+
+			printf("B\n" );
 		//printf("%d -> %d = %d (%d), max victime:%d, prec: %d\n", moves[i]->indiceA, moves[i]->indiceB, moves[i]->points, moves[i]->value_piece, tmp_max_victim, max_victime);
 		//printf("c%d", i);
 		p=grille_tmp->pions[moves[i]->indiceB];
 		deplacerPiece(grille_tmp, coord_from_indice(moves[i]->indiceA), coord_from_indice(moves[i]->indiceB));
-		clearDeplacement(grille_tmp); 
+		clearDeplacement(grille_tmp);
 		setDeplacement(grille_tmp);
+				printf("F\n");	
 		tmp_max_victim=calc_max_victim(grille_tmp, joueur_actu);
 
 
@@ -88,6 +91,7 @@ int IA_jouer(Grille grille)
 		{
 			moves[i]->points += max_victime - tmp_max_victim;
 		}
+
 	}
 	free(grille_tmp);
 
