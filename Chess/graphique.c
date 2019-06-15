@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
+#include "../struct.h"
 #include "../piece.h"
 #include "../grille.h"
 #include "../deplacement.h"
@@ -22,24 +23,20 @@ void changeCouleurFond(Piece piece,SDL_Surface * ecran ){
         //détermine la couleur du rectangle en fonction de l'état de séléction de la piece
 		if(piece -> select == 1){
 			SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format,  50, 200, 50));
-            SDL_SetAlpha(rectangle, SDL_SRCALPHA, 128);
 			SDL_BlitSurface(rectangle, NULL, ecran, &position);
 		}
 		if(piece -> select == 2){
 			SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format,  255,0,0));
-            SDL_SetAlpha(rectangle, SDL_SRCALPHA, 128);
 			SDL_BlitSurface(rectangle, NULL, ecran, &position);
 		}
-        if(piece -> select == 3){
-            SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format,  70,130,180));
-            SDL_SetAlpha(rectangle, SDL_SRCALPHA, 128);
-            SDL_BlitSurface(rectangle, NULL, ecran, &position);
-        }
+    if(piece -> select == 3){
+        SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format,  70,130,180));
+        SDL_BlitSurface(rectangle, NULL, ecran, &position);
+    }
 }
 
 //Fonction d'affichage graphique du plateau
 void affichageGraphique(Grille plateau, SDL_Surface * ecran){
-
     SDL_Surface * fond = NULL;
     fond = IMG_Load("echiquier.png");
     SDL_Rect posinit;
@@ -66,7 +63,7 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
                     }
                     else if(piece -> color == 1){
                         imagePiece = IMG_Load("Image/white_king.png");
-                    }   
+                    }
                     break;
             case 'q' :
                     if(piece -> color == 2){
@@ -124,11 +121,11 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
                     imagePiece = IMG_Load("Image/white_princesse.png");
                     }
                     break;
-            default:
-                    changeCouleurFond(piece,ecran);
             }
+
+
             changeCouleurFond(piece,ecran);
-            SDL_BlitSurface(imagePiece, NULL, ecran, &positionRoiN);
+            SDL_BlitSurface(imagePiece, NULL, ecran, &posPiece);
         }
     }
 		SDL_Flip(ecran);
@@ -154,16 +151,6 @@ void selectMouvements(Piece piece,Grille plateau){
         }else{
             plateau -> pions[getIndice(coordMouv->x,coordMouv->y)]-> select = 1;
         }
-    }
-}
-
-/*Fonction permettant de promouvoir un pion une fois qu'il atteint le bout du plateau*/
-void promotion(Piece piece){
-    if(piece -> color == 1 && piece -> coord -> x == 7){
-        piece -> type = 'q';
-    }
-    if(piece -> color == 2 && piece -> coord -> x == 0){
-        piece -> type = 'q';
     }
 }
 
@@ -193,8 +180,8 @@ Piece selectPiece(Grille plateau,Piece precedent,int * quitter){
 
                     /*Si la case cliquée est différentes du joueur et qu'il n'y a pas eut de piece selectionnée avant, quitte la fonction*/
 
-                    //if((pieceSelect -> type == ' ' && pieceSelect -> select == 0) ||(pieceSelect -> color != plateau -> tour % 2 + 1 && precedent == NULL)){
-                    if(pieceSelect -> color != plateau -> tour % 2 + 1 && precedent == NULL){
+                    if((pieceSelect -> type == ' ' && pieceSelect -> select == 0) ||(pieceSelect -> color != plateau -> tour % 2 + 1 && precedent == NULL)){
+                    // if(pieceSelect -> color != plateau -> tour % 2 + 1 && precedent == NULL){
                       break;
                     }
 
@@ -219,12 +206,14 @@ Piece selectPiece(Grille plateau,Piece precedent,int * quitter){
 
                             // Si la case selectionnée est un deplacement possible du joueur, vérifie que le deplacement ne mettrais pas le roi du joueur en echec, puis la déplace
                             int seraEnEchec = roiPeutEtrePris(precedent,pieceSelect -> coord,plateau,plateau -> tour % 2 + 1);
+
                             if(seraEnEchec == 1){
                                 plateau -> pions[pieceSelect->coord->x,pieceSelect->coord->y] -> select = 0;
                                 printf("IMPOSSIBLE CELA VOUS METTEREZ EN ECHEC CHOISISSEZ UNE AUTRE POSITION\n");
                                 break;
                             }
                             deplacerPiece(plateau,precedent -> coord, pieceSelect -> coord);
+                            printf("F\n" );
                             deselectMouvements(precedent,plateau);
                             return precedent;
                         }

@@ -3,6 +3,7 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 #include <unistd.h>
+#include "../struct.h"
 #include "../piece.h"
 #include "../grille.h"
 #include "../deplacement.h"
@@ -41,7 +42,7 @@ int main(int argc, char *argv[])
         int seraEnEchec = -1;
         Piece selectionne = NULL;
 
-        if(1){//joueur == 1){
+        if(0){//joueur == 1){
             if(estEnEchec == 1){
                 printf("ATTENTION JOUEUR %d VOTRE ROI EST EN ECHEC\n",joueur);
             }
