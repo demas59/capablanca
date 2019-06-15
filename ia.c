@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stddef.h>
 #include <stdlib.h>
-
+#include "ia.h"
 #include "struct.h"
+#include "grille.h"
 
 
 /*
@@ -32,13 +33,6 @@ si mouv fait rien en particulier: 0
 
 */
 
-
-void ajout_move(Move * moves, int * nbr_elements, int * taille_max, Move m);
-int get_importance_piece(Piece p);
-Move create_move(int ia, int ib, int value_piece, int points);
-int calc_max_victim(Grille grille, int joueur_actu);
-
-
 int IA_jouer(Grille grille)
 {
 	// printf("AI thinking...\n");
@@ -67,19 +61,11 @@ int IA_jouer(Grille grille)
 	Piece p;
 	for(i=0; i<nbMoves; i++)
 	{
-
-			printf("B\n" );
-		//printf("%d -> %d = %d (%d), max victime:%d, prec: %d\n", moves[i]->indiceA, moves[i]->indiceB, moves[i]->points, moves[i]->value_piece, tmp_max_victim, max_victime);
-		//printf("c%d", i);
 		p=grille_tmp->pions[moves[i]->indiceB];
 		deplacerPiece(grille_tmp, coord_from_indice(moves[i]->indiceA), coord_from_indice(moves[i]->indiceB));
 		clearDeplacement(grille_tmp);
 		setDeplacement(grille_tmp);
-				printf("F\n");	
 		tmp_max_victim=calc_max_victim(grille_tmp, joueur_actu);
-
-
-
 
 		deplacerPiece(grille_tmp, coord_from_indice(moves[i]->indiceB), coord_from_indice(moves[i]->indiceA));
 		grille_tmp->pions[moves[i]->indiceB]=p;
@@ -93,9 +79,7 @@ int IA_jouer(Grille grille)
 		}
 
 	}
-	free(grille_tmp);
-
-
+	freeGrille(grille_tmp);
 
  	Move move_elu=NULL;
 
@@ -248,25 +232,4 @@ void ajout_move(Move * moves, int * nbr_elements, int * taille_max, Move m)
 	}
 	moves[*nbr_elements]=m;
 	(*nbr_elements)++;
-}
-
-/*
-permet avec mypause de faire une fonction que attend une action de l'user pour continuer le programme
-*/
-void myflush ( FILE *in )
-{
-  int ch;
-
-  do
-    ch = fgetc ( in );
-  while ( ch != EOF && ch != '\n' );
-
-  clearerr ( in );
-}
-
-void mypause ( void )
-{
-  printf ( "Press [Enter] to continue . . ." );
-  fflush ( stdout );
-  getchar();
 }

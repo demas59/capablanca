@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stddef.h>
 #include <stdlib.h>
-#include "struct.h"
+#include "piece.h"
+#include "grille.h"
 
 Grille createGrille()
 {
@@ -83,54 +84,6 @@ Grille initialisation(){
 	return grille;
 }
 
-
-/*Affiche la grille de jeu*/
-void affichage(Grille grille){
-	// system("clear");
-	printf("\n\t|-a---b---c---d---e---f---g---h---i---j-|\n\t");
-	printf("|---------------------------------------|\n\t");
-	int i,j;
-	Piece * plateau = grille -> pions;
-
-	for(i=0;i<8;i++){
-		for(j=0;j<10;j++){
-			printf("|");
-			if(plateau[getIndice(i,j)]->color == 1){
-				//printf("\x1B[31m");
-			}
-			if(plateau[getIndice(i,j)]->color == 2){
-				//printf("\x1B[34m");
-			}
-			printf(" %c ",plateau[getIndice(i,j)]->type);
-			//printf("\x1B[0m");
-			if(j == 9){
-				printf("|%d\n\t|---------------------------------------|\n\t", i+1);
-			}
-		}
-	}
-	printf("|-a---b---c---d---e---f---g---h---i---j-|\n");
-}
-
-Coord choixCoord(Coord * coords, int nombre_element){
-	parcoursCoord(coords,nombre_element);
-	char * choix = malloc(sizeof(char) * 2);
-
-	printf("Choisissez les coordonnées:\n");
-	scanf("%s",choix);
-
-	int colone=((int)choix[0]-(int)'a');
-	int ligne=(int)choix[1]-(int)'1';
-
-	int i;
-	for(i=0;i<nombre_element;i++){
-		if(coords[i]->x == ligne && coords[i]->y == colone){
-			return coords[i];
-		}
-	}
-
-	return NULL;
-}
-
 void deplacerPiece(Grille grille,Coord coordDepart, Coord coordFin ){
 	Piece fin = grille -> pions[getIndice(coordFin  -> x,coordFin  -> y)];
 	if(fin -> color != 0){
@@ -161,4 +114,13 @@ Grille copyGrille(Grille origine){
 		copy -> pions[i] = copyPiece(origine -> pions[i]);
 	}
 	return copy;
+}
+
+void freeGrille(Grille grille){
+	int i;
+	for(i=0;i<80;i++){
+		freePiece(grille->pions[i]);
+	}
+	free(grille -> mort);
+	free(grille);
 }

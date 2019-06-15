@@ -3,7 +3,11 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 #include <unistd.h>
-#include "../struct.h"
+#include "../piece.h"
+#include "../grille.h"
+#include "../deplacement.h"
+#include "../game.h"
+#include "../ia.h"
 #include "graphique.h"
 
 int main(int argc, char *argv[])
@@ -23,7 +27,6 @@ int main(int argc, char *argv[])
     initDeplacement(plateau);
   	clearDeplacement(plateau);
   	setDeplacement(plateau);
-    Grille grille = initialisation();
     int echec_et_mat = 0;
     int estEnEchec = 0;
     int joueur;

@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include <stddef.h>
 #include <stdlib.h>
-#include "struct.h"
+#include "grille.h"
+#include "piece.h"
 
+
+/*Permet d'initialiser une piece*/
 Piece createPiece(int color, int x, int y, char type)
 {
 	Piece p=(Piece)malloc(sizeof(struct piece_));
@@ -14,6 +17,7 @@ Piece createPiece(int color, int x, int y, char type)
 	return p;
 }
 
+/*Permet de déterminer les mouvements de la tour*/
 void mouvTour(Grille grille,Piece piece){
 	int x;
 	int y;
@@ -97,6 +101,7 @@ void mouvTour(Grille grille,Piece piece){
 	}
 }
 
+/*Permet de déterminer les mouvements du pion*/
 void mouvPion(Grille grille,Piece piece){
 	int x;
 	int y;
@@ -185,6 +190,7 @@ void mouvPion(Grille grille,Piece piece){
 	}
 }
 
+/*Permet de déterminer les mouvements du cavalier*/
 void mouvCavalier(Grille grille,Piece piece){
 	int x = piece -> coord -> x;
 	int y = piece -> coord -> y;
@@ -292,6 +298,7 @@ void mouvCavalier(Grille grille,Piece piece){
 }
 
 
+/*Permet de déterminer les mouvements du fou*/
 void mouvFou(Grille grille,Piece piece){
 	int x = piece -> coord -> x;
 	int y = piece -> coord -> y;
@@ -360,6 +367,7 @@ void mouvFou(Grille grille,Piece piece){
 	}
 }
 
+/*Permet de déterminer les mouvements du roi*/
 void mouvRoi(Grille grille,Piece piece){
 	int x = piece -> coord -> x;
 	int y = piece -> coord -> y;
@@ -475,12 +483,20 @@ void mouvRoi(Grille grille,Piece piece){
 
 }
 
+/*Permet de placer une piece sur le plateau dans des cas de test*/
 void placerPiece(Grille grille,Piece piece){
 	grille -> pions[getIndice(piece -> coord -> x,piece-> coord -> y)] = piece;
 }
 
+/*Permet de crée une copie d'une piece*/
 Piece copyPiece(Piece origine){
 	Piece copy = createPiece(origine -> color,origine -> coord -> x,origine -> coord -> y, origine -> type);
 	copy -> deplacement = copyDeplacement(origine -> deplacement);
 	return copy;
+}
+
+void freePiece(Piece piece){
+	free(piece -> coord);
+	free(piece -> deplacement);
+	free(piece);
 }
