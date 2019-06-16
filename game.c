@@ -1,14 +1,66 @@
 #include <stdio.h>
 #include <stddef.h>
 #include <stdlib.h>
-#include "grille.h"
-#include "deplacement.h"
-#include "piece.h"
-#include "game.h"
+#include "struct.h"
 
+void parcoursCoord(Coord * coords,int nombre_element){
+	int i;
+	printf("Deplacement possibles:\n");
+	for(i = 0; i<nombre_element; i++){
+		Coord coord = *(coords + i);
+		printf("coord: %c%d\n",'a'+coord->y,coord->x + 1 );
+	}
+}
+
+
+void proposerDeplacer(Grille grille,Piece piece){
+	switch(piece -> type){
+		case 't': mouvTour(grille,piece);
+		break;
+		case 'p': mouvPion(grille,piece);
+		break;
+		case 'c': mouvCavalier(grille,piece);
+		break;
+		case 'f': mouvFou(grille,piece);
+		break;
+		case 'q': mouvTour(grille,piece);
+					mouvFou(grille,piece);
+		break;
+		case 'x': mouvFou(grille,piece);
+					mouvCavalier(grille,piece);
+		break;
+		case 'i': mouvTour(grille,piece);
+					mouvCavalier(grille,piece);
+		break;
+		case 'k': mouvRoi(grille,piece);
+		break;
+	}
+}
+
+Piece choosePawn(Grille grille)
+{
+	char * choix = malloc(sizeof(char)*2);
+	printf("Joueur %d, veuillez choisir une piece a deplacer (ex: a2, b3, d6).\n", ((grille->tour)%2)+1);
+	scanf("%s", choix);
+
+	int colone=((int)choix[0]-(int)'a');
+	int ligne=(int)choix[1]-(int)'1';
+
+	int indice=getIndice(ligne, colone);
+	int joueur=(grille->tour)%2+1;
+
+	if(joueur==grille->pions[indice]->color)
+	{
+		return grille->pions[indice];
+	}else
+	{
+		return NULL;
+	}
+}
 
 /*Trouve le roi de l'équipe selectionnée*/
 Piece trouverRoi(Grille grille,int equipe){
+
 	int i,j;
 	for(i = 0 ; i < 8 ; i++){
 		for(j = 0 ; j < 10 ; j++){
@@ -21,7 +73,6 @@ Piece trouverRoi(Grille grille,int equipe){
 	return NULL;
 }
 
-/*Détermine si le roi d'une des équipe peut être pris par un adversaire*/
 int roiPeutEtrePris(Piece piece,Coord coordArrive,Grille grille,int equipe){
 	Grille copy = copyGrille(grille);
 	Piece roi = trouverRoi(copy,equipe);
@@ -29,14 +80,14 @@ int roiPeutEtrePris(Piece piece,Coord coordArrive,Grille grille,int equipe){
 	deplacerPiece(copy,piece -> coord,coordArrive);
 	setDeplacement(copy);
 	if(echec(roi->coord,copy,equipe%2+1)){
-		freeGrille(copy);
+		free(copy);
 		return 1;
 	}
-	freeGrille(copy);
+	free(copy);
 	return 0;
 }
 
-/*Fonction permettant de déterminer si un joueur est mit échec et mat*/
+
 int echecMat(Grille grille){
 	int taille_max=200;
 	Move * moves=(Move *)malloc(sizeof(struct Move_)*taille_max);
@@ -81,7 +132,7 @@ int echecMat(Grille grille){
 			}
 		}
 	}
-	freeGrille(grille_tmp);
+	free(grille_tmp);
 
 
 
@@ -108,8 +159,8 @@ int echecMat(Grille grille){
 	return 0;
 }
 
-/*Détermine si la piece d'un joueur peut être pris*/
 int echec(Coord coord,Grille grille,int equipe){
+
 	int i,j;
 	for(i = 0 ; i < 8 ; i++){
 		for(j = 0 ; j < 10 ; j++){

@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stddef.h>
 #include <stdlib.h>
-#include "piece.h"
-
+#include "struct.h"
 
 Coord createCoord(int x, int y)
 {
@@ -24,4 +23,8 @@ void ajoutCoord(Coord coord,Piece piece){
 	}
 	piece -> deplacement -> mouvements [piece -> deplacement -> nombre_element] = coord;
 	piece -> deplacement -> nombre_element++;
+}
+
+Piece getPieceByCoord(Coord coord,Grille plateau){
+	return plateau -> pions[getIndice(coord -> x, coord -> y)];
 }

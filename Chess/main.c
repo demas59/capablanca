@@ -4,11 +4,6 @@
 #include <SDL/SDL_image.h>
 #include <unistd.h>
 #include "../struct.h"
-#include "../piece.h"
-#include "../grille.h"
-#include "../deplacement.h"
-#include "../game.h"
-#include "../ia.h"
 #include "graphique.h"
 
 int main(int argc, char *argv[])
@@ -22,6 +17,14 @@ int main(int argc, char *argv[])
     /* Cr�ation de la fenetre de base */
     ecran = SDL_SetVideoMode(LARGEUR, LONGUEUR, 32, SDL_HWSURFACE | SDL_RESIZABLE | SDL_DOUBLEBUF);
     SDL_WM_SetCaption("Chess Projet", NULL);
+
+		SDL_Surface * fond = NULL;
+    fond = IMG_Load("Image/fond.jpg");
+    SDL_Rect zero;
+
+    zero.x = 0;
+    zero.y = 0;
+    SDL_BlitSurface(fond,NULL,ecran,&zero);
 
     // Initialisation des positions de d�part de pieces Noires
     Grille plateau = initialisation();
@@ -42,7 +45,7 @@ int main(int argc, char *argv[])
         int seraEnEchec = -1;
         Piece selectionne = NULL;
 
-        if(0){//joueur == 1){
+        if(1){//joueur == 1){
             if(estEnEchec == 1){
                 printf("ATTENTION JOUEUR %d VOTRE ROI EST EN ECHEC\n",joueur);
             }
@@ -55,24 +58,23 @@ int main(int argc, char *argv[])
                   affichageGraphique(plateau, ecran);
                 }
             }while(selectionne == NULL);
-
+						Piece roi = trouverRoi(plateau,adversaire);
+		        estEnEchec = echec(roi -> coord, plateau, joueur);
+		        echec_et_mat = echecMat(plateau);
 
         }else{
             echec_et_mat=IA_jouer(plateau);
             sleep(0.5);
         }
+
         affichageGraphique(plateau, ecran);
         clearDeplacement(plateau);
         setDeplacement(plateau);
-
-        Piece roi = trouverRoi(plateau,adversaire);
-        estEnEchec = echec(roi -> coord, plateau, joueur);
-        //echec_et_mat = echecMat(grille);
-
     }
 
     printf("LE JOUEUR %d A PERDU\n", joueur);
     sleep(60);
+		SDL_FreeSurface(fond); /* On lib�re la surface */
     SDL_FreeSurface(ecran); /* On lib�re la surface */
     SDL_Quit();
 

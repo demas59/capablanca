@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include <stddef.h>
 #include <stdlib.h>
-#include "grille.h"
-#include "piece.h"
-#include "deplacement.h"
+#include "struct.h"
 
 Deplacement createDeplacement(){
 	Deplacement d = (Deplacement)malloc(sizeof(struct deplacement_));
@@ -24,11 +22,21 @@ void initDeplacement(Grille grille)
 	}
 }
 
+void viderDeplacement(Deplacement d){
+	int i;
+	for(i=0;i< d->nombre_element;i++){
+		free(d->mouvements[i]);
+	}
+}
+
 void clearDeplacement(Grille grille){
 	int i,j;
 	for(i = 0;i<8;i++){
 		for(j = 0; j < 10; j++){
+			viderDeplacement(grille -> pions[getIndice(i,j)] -> deplacement);
 			grille -> pions[getIndice(i,j)] -> deplacement -> nombre_element=0;
+			/*free(grille -> pions[getIndice(i,j)] -> deplacement);
+			grille -> pions[getIndice(i,j)] -> deplacement = createDeplacement();*/
 		}
 	}
 }
@@ -58,31 +66,10 @@ Deplacement copyDeplacement(Deplacement origine){
 	return copy;
 }
 
-void freeDeplacement(Deplacement deplacement){
-	free(deplacement -> mouvements);
-	free(deplacement);
-}
-
-void proposerDeplacer(Grille grille,Piece piece){
-	switch(piece -> type){
-		case 't': mouvTour(grille,piece);
-		break;
-		case 'p': mouvPion(grille,piece);
-		break;
-		case 'c': mouvCavalier(grille,piece);
-		break;
-		case 'f': mouvFou(grille,piece);
-		break;
-		case 'q': mouvTour(grille,piece);
-					mouvFou(grille,piece);
-		break;
-		case 'x': mouvFou(grille,piece);
-					mouvCavalier(grille,piece);
-		break;
-		case 'i': mouvTour(grille,piece);
-					mouvCavalier(grille,piece);
-		break;
-		case 'k': mouvRoi(grille,piece);
-		break;
+void freeDeplacement(Deplacement d){
+	int i;
+	for(i=0;i<d->nombre_element;i++){
+		free(d->mouvements[i]);
 	}
+	free(d);
 }
