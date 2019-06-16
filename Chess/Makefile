@@ -1,12 +1,13 @@
 CC=gcc
 CFLAGS=-W --ansi --std=c99 --pedantic
-LDFLAGS=`sdl-config --cflags --libs` -lSDL_image
+LDFLAGS=`sdl-config --cflags --libs` -lSDL_image -lSDL_ttf
+
 EXEC=main
 
 all: $(EXEC)
 
-main: main.o ../coord.o ../deplacement.o ../game.o ../grille.o ../piece.o ../ia.o graphique.o
-	$(CC) -o main main.o ../coord.o ../deplacement.o ../game.o ../grille.o ../piece.o ../ia.o graphique.o $(CFLAGS)  $(LDFLAGS)
+main: main.o ../coord.o ../deplacement.o ../game.o ../grille.o ../piece.o ../ia.o graphique.o menu.o
+	$(CC) -o main main.o ../coord.o ../deplacement.o ../game.o ../grille.o ../piece.o ../ia.o graphique.o menu.o $(CFLAGS)  $(LDFLAGS)
 
 coord : ../coord.c
 	$(CC) -o ../coord.o -c ../coord.c $(CFLAGS) $(LDFLAGS)
@@ -28,6 +29,9 @@ graphique : graphique.c
 
 ia : ../ia.c
 	$(CC) -o ia.o -c ia.c $(CFLAGS) $(LDFLAGS)
+
+menu: menu.c
+	$(CC) -o menu.o -c menu.c $(CFLAGS) $(LDFLAGS)
 
 chess : main.c
 	$(CC) -o main.o -c main.c $(CFLAGS) $(LDFLAGS)

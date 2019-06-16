@@ -26,7 +26,7 @@ void changeCouleurFond(Piece piece,SDL_Surface * ecran ){
         SDL_BlitSurface(rectangle, NULL, ecran, &position);
     }
 }
-
+ 
 //Fonction d'affichage graphique du plateau
 void affichageGraphique(Grille plateau, SDL_Surface * ecran){
 

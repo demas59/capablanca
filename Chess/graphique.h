@@ -1,6 +1,6 @@
 #define CASE_LARG 102
 #define CASE_LONG 105
-#define Y_MARGIN 60
+#define Y_MARGIN 110
 #define X_MARGIN 315
 #define LARGEUR 1680
 #define LONGUEUR 1050
@@ -14,3 +14,5 @@ void joueurVsIA(SDL_Surface * ecran);
 void joueurVsJoueur(SDL_Surface * ecran);
 
 void iaVsIa(SDL_Surface * ecran);
+
+void promotion(Piece piece);
