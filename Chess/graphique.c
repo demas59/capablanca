@@ -6,6 +6,7 @@
 #include "../struct.h"
 #include "graphique.h"
 
+// Change la couleur du fond, d'une pièce sélectionné et de sa porté de déplacement
 void changeCouleurFond(Piece piece,SDL_Surface * ecran ){
     SDL_Surface * rectangle = NULL;
     rectangle = SDL_CreateRGBSurface(SDL_HWSURFACE, CASE_LARG - 2, CASE_LONG - 2, 32, 0, 0, 0, 0);
@@ -26,7 +27,7 @@ void changeCouleurFond(Piece piece,SDL_Surface * ecran ){
         SDL_BlitSurface(rectangle, NULL, ecran, &position);
     }
 }
- 
+
 //Fonction d'affichage graphique du plateau
 void affichageGraphique(Grille plateau, SDL_Surface * ecran){
 
@@ -124,7 +125,7 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
 		SDL_Flip(ecran);
 }
 
-    // deselection des pieces lorsqu'un clic a eu lieu sur la precedente, ou que le déplacement a été fait
+    // Deselection des pieces lorsqu'un clic a eu lieu sur la precedente, ou que le déplacement a été fait
     void deselectMouvements(Piece piece,Grille plateau){
         int i;
         piece -> select = 0;
@@ -134,7 +135,7 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
         }
     }
 
-    //selectionne une piece et les coordonnees disponible une fois le clic réalisé
+    //Selectionne une piece et les coordonnees disponible une fois le clic réalisé
     void selectMouvements(Piece piece,Grille plateau){
         int i;
         for(i=0; i<piece -> deplacement -> nombre_element;i++){
@@ -148,7 +149,7 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
         }
     }
 
-    //transforme un pion en reine une fois arrivé au bout du plateau
+    //Transforme un pion en reine une fois arrivé au bout du plateau
     void promotion(Piece piece){
         if(piece -> color == 1 && piece -> coord -> x == 7){
           piece -> type = 'q';
@@ -158,6 +159,7 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
         }
     }
 
+    // Permet de selectionner la piece sur laquelle un clic est effectué
     Piece selectPiece(Grille plateau,Piece precedent,int * quitter){
         SDL_Event event;
         Coord coordClick;

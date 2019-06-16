@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "struct.h"
 
+// Fonction qui créer une piece
 Piece createPiece(int color, int x, int y, char type)
 {
 	Piece p=(Piece)malloc(sizeof(struct piece_));
@@ -11,9 +12,14 @@ Piece createPiece(int color, int x, int y, char type)
 	p->type=type;
 	p->deplacement = createDeplacement();
 	p->select = 0;
-	return p;
+	return p;	// Renvoi la pièce créer
 }
 
+// Fonction qui gère le déplacement de la tour
+/*
+	Tant que les mouvements disponibles de la tour ne sont pas occultés par une piece,
+	La tour peut se déplacer librement à l'horizontal et à la vertical
+*/
 void mouvTour(Grille grille,Piece piece){
 	int x;
 	int y;
@@ -97,6 +103,12 @@ void mouvTour(Grille grille,Piece piece){
 	}
 }
 
+
+// Fonction qui gère le déplacement du pion
+/*
+	Tant que les mouvements disponibles de la tour ne sont pas occultés par une piece,
+	Le pion peut se déplacer librement d'une case en avant, ou de 2 si il s'agit de son premier
+*/
 void mouvPion(Grille grille,Piece piece){
 	int x;
 	int y;
@@ -185,6 +197,12 @@ void mouvPion(Grille grille,Piece piece){
 	}
 }
 
+
+// Fonction qui gère le déplacement de la tour
+/*
+	Tant que les mouvements disponibles de la tour ne sont pas occultés par une piece,
+	Le cavalier peut se déplacer en "L"
+*/
 void mouvCavalier(Grille grille,Piece piece){
 	int x = piece -> coord -> x;
 	int y = piece -> coord -> y;
@@ -291,7 +309,11 @@ void mouvCavalier(Grille grille,Piece piece){
 	}
 }
 
-
+// Fonction qui gère le déplacement de la tour
+/*
+	Tant que les mouvements disponibles de la tour ne sont pas occultés par une piece,
+	Le fou peut se déplacement librement en diagonal
+*/
 void mouvFou(Grille grille,Piece piece){
 	int x = piece -> coord -> x;
 	int y = piece -> coord -> y;
@@ -360,6 +382,11 @@ void mouvFou(Grille grille,Piece piece){
 	}
 }
 
+// Fonction qui gère le déplacement de la tour
+/*
+	Tant que les mouvements disponibles de la tour ne sont pas occultés par une piece,
+	Le roi peut se déplacer d'une case unique, partout
+*/
 void mouvRoi(Grille grille,Piece piece){
 	int x = piece -> coord -> x;
 	int y = piece -> coord -> y;
@@ -475,16 +502,20 @@ void mouvRoi(Grille grille,Piece piece){
 
 }
 
+// Permet de placer une pièce sur une grille
 void placerPiece(Grille grille,Piece piece){
 	grille -> pions[getIndice(piece -> coord -> x,piece-> coord -> y)] = piece;
 }
 
+
+// Copie une pièce
 Piece copyPiece(Piece origine){
 	Piece copy = createPiece(origine -> color,origine -> coord -> x,origine -> coord -> y, origine -> type);
 	copy -> deplacement = copyDeplacement(origine -> deplacement);
 	return copy;
 }
 
+// Permet de libérer une piece, en mémoire
 void freePiece(Piece piece){
 	freeDeplacement(piece->deplacement);
 	free(piece -> coord);

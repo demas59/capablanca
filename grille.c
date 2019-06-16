@@ -3,15 +3,17 @@
 #include <stdlib.h>
 #include "struct.h"
 
+// Créer une grille
 Grille createGrille()
 {
 	Grille g=(Grille)malloc(sizeof(struct grille_));
 	g->pions=malloc(sizeof(struct piece_)*80);
 	g->mort=malloc(sizeof(struct piece_)*10*4);
 	g->nbMort = 0;
-	return g;
+	return g; // Renvoi la grille crére dans la fonction
 }
 
+// Affecte une piece a une couleur / equipe
 void setColor(int i,int j,Piece * pieces){
 	/*if(i==0 && (j==0 || j==9 || j==4 || j==5))
 	{
@@ -35,6 +37,7 @@ void setColor(int i,int j,Piece * pieces){
 	}
 }
 
+// Affecte un type a une piece (Ex: Cavalier, Fou, Tour etc...)
 void setType(int i,int j, Piece * pieces){
 	if((j == 0 || j == 9) && (i == 0 || i == 7)){
 		pieces[getIndice(i,j)] -> type = 't';
@@ -63,7 +66,7 @@ void setType(int i,int j, Piece * pieces){
 }
 
 
-/*Créé la grille et place toutes les pièces*/
+//Créé la grille et place toutes les pièces
 Grille initialisation(){
 	Piece * pieces = malloc(sizeof(struct piece_)*10*8);
 	int i,j;
@@ -80,11 +83,11 @@ Grille initialisation(){
 	grille -> mort = malloc(sizeof(struct piece_)*10*4);
 	grille -> nbMort = 0;
 	grille -> tour = 1;
-	return grille;
+	return grille; // Renvoi la grille initialiser
 }
 
 
-/*Affiche la grille de jeu*/
+//Affiche la grille de jeu
 void affichage(Grille grille){
 	// system("clear");
 	printf("\n\t|-a---b---c---d---e---f---g---h---i---j-|\n\t");
@@ -111,6 +114,7 @@ void affichage(Grille grille){
 	printf("|-a---b---c---d---e---f---g---h---i---j-|\n");
 }
 
+// Fonction qui récupère un choix de coordonnées
 Coord choixCoord(Coord * coords, int nombre_element){
 	parcoursCoord(coords,nombre_element);
 	char * choix = malloc(sizeof(char) * 2);
@@ -131,6 +135,8 @@ Coord choixCoord(Coord * coords, int nombre_element){
 	return NULL;
 }
 
+
+// Fonction qui permet de déplacer une ppiece, en fonction de son type, ses coordonnées de départ et d'arrivées
 void deplacerPiece(Grille grille,Coord coordDepart, Coord coordFin ){
 	Piece fin = grille -> pions[getIndice(coordFin  -> x,coordFin  -> y)];
 	if(fin -> color != 0){
@@ -154,15 +160,18 @@ void deplacerPiece(Grille grille,Coord coordDepart, Coord coordFin ){
 	}
 }
 
+// Copie une grille dans une autre
 Grille copyGrille(Grille origine){
 	Grille copy = createGrille();
 	int i;
 	for(i = 0; i< 80;i++){
 		copy -> pions[i] = copyPiece(origine -> pions[i]);
 	}
-	return copy;
+	return copy; // Renvoi une copie de la grille en argument
 }
 
+
+// Libère la grille, en mémoire
 void freeGrille(Grille grille){
 	free(grille->mort);
 	int i;

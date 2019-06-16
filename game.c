@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "struct.h"
 
+// Fonction qui donne tout les coordonnées des mouvements possible par une piece
 void parcoursCoord(Coord * coords,int nombre_element){
 	int i;
 	printf("Deplacement possibles:\n");
@@ -12,7 +13,7 @@ void parcoursCoord(Coord * coords,int nombre_element){
 	}
 }
 
-
+// Fonction qui propose un mouvement en fonction du type de la pièce séléctionné
 void proposerDeplacer(Grille grille,Piece piece){
 	switch(piece -> type){
 		case 't': mouvTour(grille,piece);
@@ -37,6 +38,7 @@ void proposerDeplacer(Grille grille,Piece piece){
 	}
 }
 
+// Fonction qui permet de choisir une pièce
 Piece choosePawn(Grille grille)
 {
 	char * choix = malloc(sizeof(char)*2);
@@ -58,7 +60,7 @@ Piece choosePawn(Grille grille)
 	}
 }
 
-/*Trouve le roi de l'équipe selectionnée*/
+//Fonction qui permet de trouver le roi de l'équipe selectionnée
 Piece trouverRoi(Grille grille,int equipe){
 
 	int i,j;
@@ -73,6 +75,7 @@ Piece trouverRoi(Grille grille,int equipe){
 	return NULL;
 }
 
+// Fonction qui vérifie si le Roi d'une équipe peut être pris
 int roiPeutEtrePris(Piece piece,Coord coordArrive,Grille grille,int equipe){
 	Grille copy = copyGrille(grille);
 	Piece roi = trouverRoi(copy,equipe);
@@ -88,6 +91,7 @@ int roiPeutEtrePris(Piece piece,Coord coordArrive,Grille grille,int equipe){
 }
 
 
+// Fonction qui vérifie si un joueur est en situation d'echec & mat
 int echecMat(Grille grille){
 	int taille_max=200;
 	Move * moves=(Move *)malloc(sizeof(struct Move_)*taille_max);
@@ -159,6 +163,7 @@ int echecMat(Grille grille){
 	return 0;
 }
 
+// Fonction qui vérifie si un Roi est en échec
 int echec(Coord coord,Grille grille,int equipe){
 
 	int i,j;

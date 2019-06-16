@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "struct.h"
 
+// Créer une variable déplacement
 Deplacement createDeplacement(){
 	Deplacement d = (Deplacement)malloc(sizeof(struct deplacement_));
 	d -> deplace = 0;
@@ -12,6 +13,7 @@ Deplacement createDeplacement(){
 	return d;
 }
 
+// Créer un déplacement pour chaque pièce d'une grille
 void initDeplacement(Grille grille)
 {
 	int i,j;
@@ -22,6 +24,7 @@ void initDeplacement(Grille grille)
 	}
 }
 
+// Libère les déplacement d'une pièce
 void viderDeplacement(Deplacement d){
 	int i;
 	for(i=0;i< d->nombre_element;i++){
@@ -29,6 +32,7 @@ void viderDeplacement(Deplacement d){
 	}
 }
 
+// Reset tout les déplacements d'une pièces
 void clearDeplacement(Grille grille){
 	int i,j;
 	for(i = 0;i<8;i++){
@@ -41,6 +45,7 @@ void clearDeplacement(Grille grille){
 	}
 }
 
+// Met à jour tout les déplacements possible d'une pièce
 void setDeplacement(Grille grille){
 	int i,j;
 	for(i = 0;i<8;i++){
@@ -53,6 +58,7 @@ void setDeplacement(Grille grille){
 	}
 }
 
+// Copie un déplacement dans une autre variable déplacement
 Deplacement copyDeplacement(Deplacement origine){
 	Deplacement copy = (Deplacement)malloc(sizeof(struct deplacement_));
 	copy -> deplace = origine -> deplace;
@@ -66,6 +72,7 @@ Deplacement copyDeplacement(Deplacement origine){
 	return copy;
 }
 
+// Libére un déplacement, dans la mémoire
 void freeDeplacement(Deplacement d){
 	int i;
 	for(i=0;i<d->nombre_element;i++){
