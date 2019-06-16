@@ -3,8 +3,6 @@
 #include <stdlib.h>
 #include "struct.h"
 
-
-// Fonction qui crée une pice, avec une couleur, des coordonnées, et un type
 Piece createPiece(int color, int x, int y, char type)
 {
 	Piece p=(Piece)malloc(sizeof(struct piece_));
@@ -16,11 +14,6 @@ Piece createPiece(int color, int x, int y, char type)
 	return p;
 }
 
-// Fonction de déplacement de la pièce : TOUR
-/*
-	Pour chaque mouvement, la fonction précise les mouvements autorisés : Déplacement vertical et horizontal a autant de case disponible
-	Tant qu'une case est vide et corresponde au déplacement de la pièce, la pièce peut avancer sur cette case
-*/
 void mouvTour(Grille grille,Piece piece){
 	int x;
 	int y;
@@ -104,11 +97,6 @@ void mouvTour(Grille grille,Piece piece){
 	}
 }
 
-// Fonction de déplacement de la pièce : PION
-/*
-	Pour chaque mouvement, la fonction précise les mouvements autorisés : 1 case en avant, sauf au premier tour, ou il peut avancer de 2 cases
-	Tant qu'une case est vide et corresponde au déplacement de la pièce, la pièce peut avancer sur cette case
-*/
 void mouvPion(Grille grille,Piece piece){
 	int x;
 	int y;
@@ -197,11 +185,6 @@ void mouvPion(Grille grille,Piece piece){
 	}
 }
 
-// Fonction de déplacement de la pièce : CAVALIER
-/*
-	Pour chaque mouvement, la fonction précise les mouvements autorisés : déplacement dit en "L" pour le cavalier
-	Tant qu'une case est vide et corresponde au déplacement de la pièce, la pièce peut avancer sur cette case
-*/
 void mouvCavalier(Grille grille,Piece piece){
 	int x = piece -> coord -> x;
 	int y = piece -> coord -> y;
@@ -308,11 +291,7 @@ void mouvCavalier(Grille grille,Piece piece){
 	}
 }
 
-// Fonction de déplacement de la pièce : FOU
-/*
-	Pour chaque mouvement, la fonction précise les mouvements autorisés : Déplacement en diagonale a autant de case disponible
-	Tant qu'une case est vide et corresponde au déplacement de la pièce, la pièce peut avancer sur cette case
-*/
+
 void mouvFou(Grille grille,Piece piece){
 	int x = piece -> coord -> x;
 	int y = piece -> coord -> y;
@@ -381,11 +360,6 @@ void mouvFou(Grille grille,Piece piece){
 	}
 }
 
-// Fonction de déplacement de la pièce : ROI
-/*
-	Pour chaque mouvement, la fonction précise les mouvements autorisés : 1 case tout autour du roi
-	Tant qu'une case est vide et corresponde au déplacement de la pièce, la pièce peut avancer sur cette case
-*/
 void mouvRoi(Grille grille,Piece piece){
 	int x = piece -> coord -> x;
 	int y = piece -> coord -> y;
@@ -501,19 +475,16 @@ void mouvRoi(Grille grille,Piece piece){
 
 }
 
-// Place une piece sur une grille
 void placerPiece(Grille grille,Piece piece){
 	grille -> pions[getIndice(piece -> coord -> x,piece-> coord -> y)] = piece;
 }
 
-// Fonction qui copie une pièce
 Piece copyPiece(Piece origine){
 	Piece copy = createPiece(origine -> color,origine -> coord -> x,origine -> coord -> y, origine -> type);
 	copy -> deplacement = copyDeplacement(origine -> deplacement);
 	return copy;
 }
 
-// Fonction qui libère une pièce, en mémoire
 void freePiece(Piece piece){
 	freeDeplacement(piece->deplacement);
 	free(piece -> coord);

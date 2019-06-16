@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include "struct.h"
 
-// Créer une grille, un plateau théorique de jeu
 Grille createGrille()
 {
 	Grille g=(Grille)malloc(sizeof(struct grille_));
@@ -13,7 +12,6 @@ Grille createGrille()
 	return g;
 }
 
-// Créer les 2 équipes, une équipe blanche et une équipe noire
 void setColor(int i,int j,Piece * pieces){
 	/*if(i==0 && (j==0 || j==9 || j==4 || j==5))
 	{
@@ -37,7 +35,6 @@ void setColor(int i,int j,Piece * pieces){
 	}
 }
 
-// Affecte des types a chaque pion, un type correspondant a une piece (Ex : Cavalier, Fou, Tour etc...)
 void setType(int i,int j, Piece * pieces){
 	if((j == 0 || j == 9) && (i == 0 || i == 7)){
 		pieces[getIndice(i,j)] -> type = 't';
@@ -66,7 +63,7 @@ void setType(int i,int j, Piece * pieces){
 }
 
 
-//Créé la grille et place toutes les pièces
+/*Créé la grille et place toutes les pièces*/
 Grille initialisation(){
 	Piece * pieces = malloc(sizeof(struct piece_)*10*8);
 	int i,j;
@@ -87,7 +84,7 @@ Grille initialisation(){
 }
 
 
-//Affiche la grille de jeu
+/*Affiche la grille de jeu*/
 void affichage(Grille grille){
 	// system("clear");
 	printf("\n\t|-a---b---c---d---e---f---g---h---i---j-|\n\t");
@@ -114,7 +111,6 @@ void affichage(Grille grille){
 	printf("|-a---b---c---d---e---f---g---h---i---j-|\n");
 }
 
-//
 Coord choixCoord(Coord * coords, int nombre_element){
 	parcoursCoord(coords,nombre_element);
 	char * choix = malloc(sizeof(char) * 2);
@@ -135,7 +131,6 @@ Coord choixCoord(Coord * coords, int nombre_element){
 	return NULL;
 }
 
-// Fonction qui déplaceme une piece en fonction de son type, ses coordonnées de départ et celle de fin
 void deplacerPiece(Grille grille,Coord coordDepart, Coord coordFin ){
 	Piece fin = grille -> pions[getIndice(coordFin  -> x,coordFin  -> y)];
 	if(fin -> color != 0){
@@ -159,7 +154,6 @@ void deplacerPiece(Grille grille,Coord coordDepart, Coord coordFin ){
 	}
 }
 
-// Fonction qui copie la grille
 Grille copyGrille(Grille origine){
 	Grille copy = createGrille();
 	int i;
@@ -169,7 +163,6 @@ Grille copyGrille(Grille origine){
 	return copy;
 }
 
-// Fonction qui libère la grille en mémoire
 void freeGrille(Grille grille){
 	free(grille->mort);
 	int i;

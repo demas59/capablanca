@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include "struct.h"
 
-//
 void parcoursCoord(Coord * coords,int nombre_element){
 	int i;
 	printf("Deplacement possibles:\n");
@@ -13,7 +12,7 @@ void parcoursCoord(Coord * coords,int nombre_element){
 	}
 }
 
-// Propose le mouvement pour la pièce correspondante
+
 void proposerDeplacer(Grille grille,Piece piece){
 	switch(piece -> type){
 		case 't': mouvTour(grille,piece);
@@ -38,7 +37,6 @@ void proposerDeplacer(Grille grille,Piece piece){
 	}
 }
 
-// Fonction qui permet de choisir une piece sur la grille
 Piece choosePawn(Grille grille)
 {
 	char * choix = malloc(sizeof(char)*2);
@@ -75,7 +73,6 @@ Piece trouverRoi(Grille grille,int equipe){
 	return NULL;
 }
 
-// Fonction qui vérifier si le Roi peut etre pris par une piece adverse
 int roiPeutEtrePris(Piece piece,Coord coordArrive,Grille grille,int equipe){
 	Grille copy = copyGrille(grille);
 	Piece roi = trouverRoi(copy,equipe);
@@ -91,7 +88,6 @@ int roiPeutEtrePris(Piece piece,Coord coordArrive,Grille grille,int equipe){
 }
 
 
-// Fonction qui vérifie si un joueur est en Echec & Mat
 int echecMat(Grille grille){
 	int taille_max=200;
 	Move * moves=(Move *)malloc(sizeof(struct Move_)*taille_max);
@@ -163,8 +159,6 @@ int echecMat(Grille grille){
 	return 0;
 }
 
-
-// Fonction qui vérifie si un Roi est en échec
 int echec(Coord coord,Grille grille,int equipe){
 
 	int i,j;
