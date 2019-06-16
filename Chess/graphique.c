@@ -124,6 +124,7 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
 		SDL_Flip(ecran);
 }
 
+    // deselection des pieces lorsqu'un clic a eu lieu sur la precedente, ou que le déplacement a été fait
     void deselectMouvements(Piece piece,Grille plateau){
         int i;
         piece -> select = 0;
@@ -133,20 +134,21 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
         }
     }
 
+    //selectionne une piece et les coordonnees disponible une fois le clic réalisé
     void selectMouvements(Piece piece,Grille plateau){
         int i;
         for(i=0; i<piece -> deplacement -> nombre_element;i++){
             Coord coordMouv = piece -> deplacement -> mouvements[i];
-            printf("coord: %d,%d\n",coordMouv->x,coordMouv->y );
+            //Si la case cliquée est vide affichera la case en vert, sinon en rouge
             if(plateau -> pions[getIndice(coordMouv -> x, coordMouv -> y)] -> color != piece -> color && plateau -> pions[getIndice(coordMouv -> x, coordMouv -> y)] -> color != 0){
               plateau -> pions[getIndice(coordMouv->x,coordMouv->y)]-> select = 2;
             }else{
               plateau -> pions[getIndice(coordMouv->x,coordMouv->y)]-> select = 1;
             }
-            printf("select: %d\n", plateau -> pions[getIndice(coordMouv->x,coordMouv->y)]-> select);
         }
     }
 
+    //transforme un pion en reine une fois arrivé au bout du plateau
     void promotion(Piece piece){
         if(piece -> color == 1 && piece -> coord -> x == 7){
           piece -> type = 'q';
@@ -179,15 +181,17 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
                       break;
                     }
 
+                    //si la case cliquée est déjà cliquée, la désélectionne
                     if(pieceSelect -> select == 3){
                         pieceSelect -> select = 0;
                         deselectMouvements(pieceSelect,plateau);
                     }else{
 
+                        //Si la piece selectionné est une case non selectionnée et qu'il n'y a une piece selectionnée précedemment arrete la fonction
                       if(pieceSelect -> select == 0 && precedent != NULL){
                         break;
                       }
-
+                      //Si la case n'était pas séléctionnée avant la séléctionne
                       if(pieceSelect -> select == 0){
                           pieceSelect -> select = 3;
                           selectMouvements(pieceSelect,plateau);
