@@ -6,6 +6,8 @@
 #include "../struct.h"
 #include "graphique.h"
 
+
+// Fonction qui change la couleur sous la pièce sélectionné et les cases à sa portée
 void changeCouleurFond(Piece piece,SDL_Surface * ecran ){
     SDL_Surface * rectangle = NULL;
     rectangle = SDL_CreateRGBSurface(SDL_HWSURFACE, CASE_LARG - 2, CASE_LONG - 2, 32, 0, 0, 0, 0);
@@ -35,19 +37,19 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
   echiquier = IMG_Load("echiquier.png");
   posinit.x = X_MARGIN;
   posinit.y = Y_MARGIN;
-  SDL_BlitSurface(echiquier,NULL,ecran,&posinit);
+  SDL_BlitSurface(echiquier,NULL,ecran,&posinit); // Affiche l'image par dessus l'écran
+
     int m ; int l;
     for (m = 0; m < 8 ; m++){
         for(l=0; l < 10; l++){
 
 
             Piece piece = plateau -> pions[getIndice(m,l)] ;
-
             SDL_Rect posPiece;
             posPiece.x = CASE_LARG * l + X_MARGIN;
             posPiece.y = CASE_LONG * m + Y_MARGIN;
             SDL_Surface * imagePiece = NULL;
-              switch (piece -> type){
+              switch (piece -> type){ // Image chaque image à sa pièce associé
               case 'k' :
                       if(piece -> color == 2){
                           imagePiece = IMG_Load("Image/black_king.png");
@@ -121,10 +123,10 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
 
         }
     }
-		SDL_Flip(ecran);
+		SDL_Flip(ecran); // Met à jour l'écran
 }
 
-    // deselection des pieces lorsqu'un clic a eu lieu sur la precedente, ou que le déplacement a été fait
+    // Deselection des pieces lorsqu'un clic a eu lieu sur la precedente, ou que le déplacement a été fait
     void deselectMouvements(Piece piece,Grille plateau){
         int i;
         piece -> select = 0;
@@ -134,7 +136,7 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
         }
     }
 
-    //selectionne une piece et les coordonnees disponible une fois le clic réalisé
+    //  Selectionne une piece et les coordonnees disponible une fois le clic réalisé
     void selectMouvements(Piece piece,Grille plateau){
         int i;
         for(i=0; i<piece -> deplacement -> nombre_element;i++){
@@ -148,7 +150,7 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
         }
     }
 
-    //transforme un pion en reine une fois arrivé au bout du plateau
+    // Transforme un pion en reine une fois arrivé au bout du plateau
     void promotion(Piece piece){
         if(piece -> color == 1 && piece -> coord -> x == 7){
           piece -> type = 'q';
@@ -158,6 +160,7 @@ void affichageGraphique(Grille plateau, SDL_Surface * ecran){
         }
     }
 
+    // Selectionne la piece su laquelle on clic
     Piece selectPiece(Grille plateau,Piece precedent,int * quitter){
         SDL_Event event;
         Coord coordClick;
